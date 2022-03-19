@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { Button } from '../Button';
+import { Button } from '../index';
 
 export function HomeScreen() {
   return (
     <View style={styles.container}>
-      <Text>Home Screen!!!!</Text>
+      <Text>Home Screen sample!</Text>
       <Button label="Custom Label works?" />
     </View>
   );
