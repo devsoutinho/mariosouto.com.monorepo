@@ -7,9 +7,9 @@ export default function Alternate() {
         Alternate Page
       </Text>
 
-      <Text style={styles.link} accessibilityRole="link" href={`/`}>
+      {/* <Text style={styles.link} accessibilityRole="link" href={`/`}>
         Go Back
-      </Text>
+      </Text> */}
     </View>
   )
 }
