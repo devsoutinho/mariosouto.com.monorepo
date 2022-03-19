@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "devsoutinho-spaces",
-    "slug": "devsoutinho-spaces",
+    "name": "devsoutinho-app",
+    "slug": "devsoutinho-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

@@ -4,7 +4,7 @@ import { Button } from '../Button';
 export function HomeScreen() {
   return (
     <View style={styles.container}>
-      <Text>Home Screen!</Text>
+      <Text>Home Screen!!!!</Text>
       <Button label="Custom Label works?" />
     </View>
   );

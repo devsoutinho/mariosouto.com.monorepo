@@ -13,7 +13,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "web": "yarn workspace web",
     "dev:web": "yarn web dev",
-    "app": "yarn workspace devsoutinho-spaces",
+    "app": "yarn workspace devsoutinho-app",
     "dev:app": "yarn app ios"
   },
   "dependencies": {
