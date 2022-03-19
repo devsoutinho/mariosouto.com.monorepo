@@ -12,7 +12,8 @@
     "next": "latest",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-native-web": "^0.13.14"
+    "react-native-web": "^0.13.14",
+    "styled-components": "5.3.3"
   },
   "devDependencies": {
     "babel-plugin-react-native-web": "^0.13.14",

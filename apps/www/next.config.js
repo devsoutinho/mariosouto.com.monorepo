@@ -1,5 +1,5 @@
 const withPlugins = require('next-compose-plugins');
-const withTM = require('next-transpile-modules')(['skynexui'], {
+const withTM = require('next-transpile-modules')(['styled-components','skynexui'], {
   resolveSymlinks: true,
 });
 
