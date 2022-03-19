@@ -16,6 +16,9 @@
     "app": "yarn workspace devsoutinho-spaces",
     "dev:app": "yarn app ios"
   },
+  "dependencies": {
+    "react-native": "0.64.3"
+  },
   "devDependencies": {
     "prettier": "^2.5.1",
     "turbo": "latest"
