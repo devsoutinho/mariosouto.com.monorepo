@@ -1,4 +1,10 @@
-module.exports = {
+const withPlugins = require('next-compose-plugins');
+const withTM = require('next-transpile-modules')(['skynexui'], {
+  resolveSymlinks: true,
+});
+
+module.exports = withPlugins([withTM], {
+  trailingSlash: true,
   webpack: (config) => {
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
@@ -14,4 +20,9 @@ module.exports = {
     ]
     return config
   },
-}
+});
+
+
+// module.exports = {
+
+// }
