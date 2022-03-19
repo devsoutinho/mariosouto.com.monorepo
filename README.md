@@ -10,6 +10,10 @@ yarn run:app
 yarn run:web
 ```
 
+```sh
+yarn run:components
+```
+
 # Stack
 
 ## Infra

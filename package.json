@@ -11,6 +11,8 @@
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "components": "yarn workspace skynexui",
+    "dev:components": "yarn components dev",
     "web": "yarn workspace devsoutinho-web",
     "dev:web": "yarn web dev",
     "app": "yarn workspace devsoutinho-app",

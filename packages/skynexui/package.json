@@ -28,7 +28,7 @@
     "@storybook/addon-react-native-web": "^0.0.18"
   },
   "scripts": {
-    "storybook": "start-storybook -p 6006",
+    "dev": "start-storybook -p 6006",
     "build:storybook": "build-storybook -o dist-storybook"
   }
 }
