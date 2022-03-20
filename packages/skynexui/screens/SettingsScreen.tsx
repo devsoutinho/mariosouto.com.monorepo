@@ -26,7 +26,7 @@ export function HomeScreen() {
           },
         }}
       >
-        DevSoutinho
+        Settings Screen
       </Text>
     </Box>
   );

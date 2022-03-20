@@ -14,6 +14,7 @@ export default function App() {
   } else {
     return (
       <SafeAreaProvider>
+        {/* Reference: https://github.com/chagasaway/tdc-2019 */}
         <Navigation colorScheme={colorScheme} />
         <StatusBar />
       </SafeAreaProvider>

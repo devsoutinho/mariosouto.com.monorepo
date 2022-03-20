@@ -24,6 +24,7 @@ interface TextProps {
   variant?: keyof typeof defaultTheme.typography.variants;
   children: React.ReactNode;
   styleSheet?: StyleSheet;
+  selectable?: boolean;
 }
 
 export function Text({children, variant, styleSheet, ...props}: TextProps) {
