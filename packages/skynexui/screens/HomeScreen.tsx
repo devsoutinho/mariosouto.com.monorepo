@@ -13,17 +13,17 @@ export function HomeScreen() {
     >
       <Text
         styleSheet={{
-          color: theme.colors?.positive.x900,
+          backgroundColor: theme.colors?.positive.x100,
           
           // =======
 
-          // color: {
-          //   xs: theme.colors?.neutral.x050,
-          //   sm: theme.colors?.positive.x050,
-          //   md: theme.colors?.negative.x050,
-          //   lg: theme.colors?.negative.x050,
-          //   xl: theme.colors?.warning.x050,
-          // },
+          color: {
+            xs: theme.colors?.neutral.x900,
+            sm: theme.colors?.positive.x900,
+            md: theme.colors?.negative.x900,
+            lg: theme.colors?.negative.x900,
+            xl: theme.colors?.warning.x900,
+          },
         }}
       >
         Home Screen sample!!!

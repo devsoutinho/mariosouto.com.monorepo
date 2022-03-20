@@ -1,4 +1,4 @@
-import { Breakpoints } from '../breakpoints/breakpoints';
+import { Breakpoints } from '../theme/breakpoints/breakpoints';
 
 export type ResponsiveProperty<Type> = Partial<Record<Breakpoints, Type>>;
 
@@ -18,3 +18,5 @@ export interface StyleSheet {
   alignItems?: ResponsiveProperty<AlignItems> | AlignItems;
   justifyContent?: ResponsiveProperty<JustifyContent> | JustifyContent;
 }
+
+export type StyleKey = keyof StyleSheet;

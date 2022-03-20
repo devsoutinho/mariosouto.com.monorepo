@@ -1,1 +1,1 @@
-export { default } from 'skynexui/screens/Home';
+export { default } from 'skynexui/screens/HomeScreen';

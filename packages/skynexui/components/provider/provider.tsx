@@ -1,4 +1,6 @@
 import React from 'react';
+import { useWindowDimensions } from 'react-native';
+import { getCurrentBreakpoint } from '../../core/theme/breakpoints/breakpoints';
 import { defaultTheme, Theme } from '../../core/theme/defaultTheme';
 
 // [Context Declaration]
@@ -10,6 +12,17 @@ const ThemeContext = React.createContext<ThemeContextValues>({
 });
 
 export const useTheme = () => React.useContext(ThemeContext).theme;
+
+export const usePlatform = () => {
+  return {
+    getCurrentBreakpoint() {
+      const theme = useTheme();
+      const { width } = useWindowDimensions();
+      const currentBreakpoint = getCurrentBreakpoint(width, theme);
+      return currentBreakpoint;
+    }
+  }
+};
 
 // [Provider Declaration]
 interface SkynexUIProvider {
