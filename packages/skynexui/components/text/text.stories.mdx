@@ -1,0 +1,20 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { Text } from '../../index';
+
+
+<Meta title="Components/Text" component={Text} />
+
+# Text
+
+Text is the component that you use, always when you want to print a word or a phrase anywhere in your code.
+
+<ArgsTable of={Text} />
+
+<Canvas>
+  <Story
+    name="Text Component"
+    args={{ children: 'Text Component' }}
+  >
+    {(args) => <Text {...args} />} 
+  </Story>
+</Canvas>
