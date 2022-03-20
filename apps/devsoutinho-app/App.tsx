@@ -1,20 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
-import { HomeScreen } from 'skynexui/screens/HomeScreen';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
+import useCachedResources from './setup-demo/hooks/useCachedResources';
+import useColorScheme from './setup-demo/hooks/useColorScheme';
+import Navigation from './setup-demo/navigation';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      <HomeScreen />
-    </View>
-  );
-}
+  const isLoadingComplete = useCachedResources();
+  const colorScheme = useColorScheme();
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'stretch',
-  },
-});
+  if (!isLoadingComplete) {
+    return null;
+  } else {
+    return (
+      <SafeAreaProvider>
+        <Navigation colorScheme={colorScheme} />
+        <StatusBar />
+      </SafeAreaProvider>
+    );
+  }
+}
