@@ -17,11 +17,11 @@ export function HomeScreen() {
           backgroundColor: theme.colors?.positive.x050,
 
           color: {
-            xs: theme.colors?.warning.x500,
-            sm: theme.colors?.positive.x500,
-            md: theme.colors?.negative.x500,
-            lg: theme.colors?.negative.x500,
-            xl: theme.colors?.neutral.x500,
+            xs: theme.colors?.warning.x600,
+            sm: theme.colors?.positive.x600,
+            md: theme.colors?.negative.x600,
+            lg: theme.colors?.negative.x600,
+            xl: theme.colors?.neutral.x600,
           },
         }}
       >

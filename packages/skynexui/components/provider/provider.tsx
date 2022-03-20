@@ -2,6 +2,7 @@ import React from 'react';
 import { Platform, useWindowDimensions } from 'react-native';
 import { getCurrentBreakpoint } from '../../core/theme/breakpoints/breakpoints';
 import { defaultTheme, Theme } from '../../core/theme/defaultTheme';
+import { EnvCSS } from './EnvCSS';
 
 export type EnvPlatform = 'ios' | 'android' | 'windows' | 'macos' | 'web';
 
@@ -39,6 +40,7 @@ export function SkynexUIProvider({ theme, children }: SkynexUIProvider) {
     <ThemeContext.Provider value={{
       theme,
     }}>
+      {Platform.OS === 'web' && <EnvCSS />}
       {children}
     </ThemeContext.Provider>
   );

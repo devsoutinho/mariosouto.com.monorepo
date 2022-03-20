@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { useEnv, useTheme } from '../../index';
+import { useEnv, useTheme } from '../provider/provider';
 import { StyleSheet } from '../../core/stylesheet/stylesheet';
 import { parseCSS } from './utils/parseCSS';
 
