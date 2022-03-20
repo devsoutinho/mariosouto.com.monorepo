@@ -13,9 +13,9 @@ export function HomeScreen() {
     >
       <Text
         tag='h3'
+        variant='heading2'
         styleSheet={{
           backgroundColor: theme.colors?.positive.x050,
-
           color: {
             xs: theme.colors?.warning.x600,
             sm: theme.colors?.positive.x600,
