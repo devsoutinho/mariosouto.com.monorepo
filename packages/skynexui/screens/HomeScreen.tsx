@@ -12,17 +12,16 @@ export function HomeScreen() {
       }}
     >
       <Text
+        tag='h3'
         styleSheet={{
-          backgroundColor: theme.colors?.positive.x100,
-          
-          // =======
+          backgroundColor: theme.colors?.positive.x050,
 
           color: {
-            xs: theme.colors?.neutral.x900,
-            sm: theme.colors?.positive.x900,
-            md: theme.colors?.negative.x900,
-            lg: theme.colors?.negative.x900,
-            xl: theme.colors?.warning.x900,
+            xs: theme.colors?.warning.x500,
+            sm: theme.colors?.positive.x500,
+            md: theme.colors?.negative.x500,
+            lg: theme.colors?.negative.x500,
+            xl: theme.colors?.neutral.x500,
           },
         }}
       >

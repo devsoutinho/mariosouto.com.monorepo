@@ -2,7 +2,7 @@ import { StyleSheet } from '../../core/stylesheet/stylesheet';
 import { BoxBase } from './box-base';
 
 interface BoxProps {
-  as?: any;
+  tag?: any;
   styleSheet?: StyleSheet;
   children: React.ReactNode;
 }
@@ -13,4 +13,8 @@ export function Box({children, ...props}: BoxProps) {
       {children}
     </BoxBase>
   )
+}
+
+Box.defaultProps = {
+  tag: 'div',
 }

@@ -13,9 +13,8 @@ const tags = {
 };
 const DEFAULT_TAG = 'p';
 
-const TextStyled = styled.Text`
-  color: red;
-`;
+const StyledText = styled.Text || (styled as any).span;
+const TextStyled = StyledText``;
 
 interface TextProps {
   // Reference: https://necolas.github.io/react-native-web/docs/accessibility/
@@ -30,6 +29,7 @@ export function Text({children, ...props}: TextProps) {
   return (
     <BoxBase
       as={TextStyled} 
+      tag={props.tag}
       {...currentTag}
       {...props}
     >

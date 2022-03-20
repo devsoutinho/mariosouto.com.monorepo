@@ -3,7 +3,11 @@ import { useEnv, useTheme } from '../../index';
 import { StyleSheet } from '../../core/stylesheet/stylesheet';
 import { parseCSS } from './utils/parseCSS';
 
-const BoxStyled = styled.View<BoxBaseProps>`
+const StyledView = styled.View || (styled as any).div;
+const BoxStyled = StyledView<BoxBaseProps>`
+  display: flex;
+  flex-direction: column;
+
   ${({
     appTheme,
     styleSheet,
@@ -37,6 +41,9 @@ export function BoxBase({children, styleSheet, ...props}: BoxBaseProps) {
       styleSheet={styleSheet}
       appTheme={theme}
       {...props}
+      {...currentPlatform === 'web' && {
+        as: props.tag || props.as,
+      }}
     >
       {children}
     </BoxStyled>

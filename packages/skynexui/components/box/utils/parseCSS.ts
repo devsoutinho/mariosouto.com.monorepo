@@ -10,30 +10,40 @@ function webParser(
   theme: Theme,
 ) {
   return styleKeys.reduce((acc, styleKey) => {
-    const styleValue = styleSheet[styleKey];
+    const styleKeyFormated = styleKey.split(/(?=[A-Z])/).join('-').toLowerCase();
+    const styleValue = styleSheet[styleKey] as ResponsiveProperty<typeof styleKey>;
 
     if(typeof styleValue === 'object') {
-      console.log('Object', styleKey, styleValue);
       const styleValueBreakpoints = Object.keys(styleValue);
       return `
+        ${acc}
         ${styleValueBreakpoints.map((breakpointName) => {
           const themeBreakpoints = theme?.breakpoints as any;
           const breakpointValue = themeBreakpoints[breakpointName];
-          console.log('breakpointName', );
+
+          const cssRule = `${styleKeyFormated}: ${styleValue[breakpointName as Breakpoints]};`;
+
+          if(breakpointValue === 0) return cssRule;
+
           return `
             @media (min-width: ${breakpointValue}px) {
-              color: black;
+              ${cssRule}
             }
           `;
         }).join('')}
       `;
     }
 
-    return {
-      ...acc,
-      [styleKey]: styleValue,
-    }
-  }, {});
+    // console.log(styleKey);
+    return `
+      ${acc}
+      ${styleKeyFormated}: ${styleValue};
+    `;
+    // return {
+    //   ...acc,
+    //   [styleKey]: styleValue,
+    // }
+  }, '');
 
 }
 
@@ -63,6 +73,5 @@ export function parseCSS({ styleSheet, currentBreakpoint, currentPlatform, theme
   const result = currentPlatform === 'web'
     ? webParser(styleSheet, styleKeys, currentBreakpoint, theme)
     : mobileParser(styleSheet, styleKeys, currentBreakpoint, theme);
-
   return result;
 }

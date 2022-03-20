@@ -16,6 +16,7 @@
     "styled-components": "5.3.3"
   },
   "devDependencies": {
+    "babel-plugin-skynexui-styled": "*",
     "babel-plugin-react-native-web": "^0.13.14",
     "next-compose-plugins": "^2.2.1",
     "next-transpile-modules": "^8.0.0"
