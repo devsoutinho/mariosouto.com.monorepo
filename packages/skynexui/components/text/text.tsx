@@ -12,6 +12,7 @@ const tags = {
   h5: { accessibilityRole: 'heading', accessibilityLevel: 5 },
   h6: { accessibilityRole: 'heading', accessibilityLevel: 6 },
   p: { accessibilityRole: 'paragraph' },
+  span: { accessibilityRole: 'paragraph' },
 };
 const DEFAULT_TAG = 'p';
 

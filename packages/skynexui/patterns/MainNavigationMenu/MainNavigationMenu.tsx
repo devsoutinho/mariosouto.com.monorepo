@@ -44,7 +44,7 @@ export function MainNavigationMenu() {
         <Button
           key={key}
           styleSheet={{ color: theme.colors?.neutral.x000 }}
-          onTap={() => {
+          onPress={() => {
             router.push(key);
           }}
           label={value.name['pt-BR']}

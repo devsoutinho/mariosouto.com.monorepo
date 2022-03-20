@@ -11,10 +11,10 @@ const ButtonStyled = StyledButton`
 `;
 interface ButtonProps {
   label: string;
-  onTap?: () => void;
+  onPress?: () => void;
   styleSheet?: StyleSheet;
 }
-export function Button({ label, styleSheet, onTap, ...props }: ButtonProps) {
+export function Button({ label, styleSheet, onPress, ...props }: ButtonProps) {
   const { isWeb } = useEnv();
   const isWebEnv = isWeb();
   const isMobileEnv = !isWebEnv;
@@ -22,13 +22,14 @@ export function Button({ label, styleSheet, onTap, ...props }: ButtonProps) {
   return (
     <ButtonStyled
       {...isMobileEnv && {
-        onPress: onTap,
+        onPress: onPress,
       }}
       {...isWebEnv && {
-        onClick: onTap,
+        onClick: onPress,
       }}
+      {...props}
     >
-      <Text styleSheet={styleSheet}>
+      <Text tag={"span"} styleSheet={styleSheet}>
         {label}
       </Text>
     </ButtonStyled>

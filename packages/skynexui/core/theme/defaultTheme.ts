@@ -18,6 +18,17 @@ export const defaultTheme = {
     textfield: {
       defaultVariant: 'basicBordered',
     },
+    button: {
+      defaultVariant: 'primary',
+      variants: {
+        primary: 'filled',
+        secondary: 'outlined',
+        tertiary: 'ghost',
+      },
+      colorVariant: 'primary',
+      rounded: 'sm' as keyof typeof defaultBorderRadius,
+      size: 'md',
+    }
   }
 };
 
