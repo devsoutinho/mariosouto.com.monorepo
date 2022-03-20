@@ -1,7 +1,9 @@
 import React from 'react';
-import { useWindowDimensions } from 'react-native';
+import { Platform, useWindowDimensions } from 'react-native';
 import { getCurrentBreakpoint } from '../../core/theme/breakpoints/breakpoints';
 import { defaultTheme, Theme } from '../../core/theme/defaultTheme';
+
+export type EnvPlatform = 'ios' | 'android' | 'windows' | 'macos' | 'web';
 
 // [Context Declaration]
 interface ThemeContextValues {
@@ -13,8 +15,11 @@ const ThemeContext = React.createContext<ThemeContextValues>({
 
 export const useTheme = () => React.useContext(ThemeContext).theme;
 
-export const usePlatform = () => {
+export const useEnv = () => {
   return {
+    getCurrentPlatform(): EnvPlatform {
+      return Platform.OS;
+    },
     getCurrentBreakpoint() {
       const theme = useTheme();
       const { width } = useWindowDimensions();

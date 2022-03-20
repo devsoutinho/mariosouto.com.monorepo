@@ -1,10 +1,20 @@
 import styled from 'styled-components/native';
-import { usePlatform } from '../../index';
+import { useEnv, useTheme } from '../../index';
 import { StyleSheet } from '../../core/stylesheet/stylesheet';
 import { parseCSS } from './utils/parseCSS';
 
 const BoxStyled = styled.View<BoxBaseProps>`
-  ${({ styleSheet, currentBreakpoint }) => parseCSS({ styleSheet: styleSheet || {}, currentBreakpoint,  })}
+  ${({
+    appTheme,
+    styleSheet,
+    currentBreakpoint,
+    currentPlatform,
+  }) => parseCSS({
+    theme: appTheme,
+    styleSheet: styleSheet || {},
+    currentBreakpoint,
+    currentPlatform,
+  })}
 `;
 
 interface BoxBaseProps {
@@ -15,12 +25,17 @@ interface BoxBaseProps {
 }
 
 export function BoxBase({children, styleSheet, ...props}: BoxBaseProps) {
-  const currentBreakpoint = usePlatform().getCurrentBreakpoint();
+  const theme = useTheme();
+  const { getCurrentBreakpoint, getCurrentPlatform } = useEnv();
+  const currentBreakpoint = getCurrentBreakpoint();
+  const currentPlatform = getCurrentPlatform();
 
   return (
     <BoxStyled
       currentBreakpoint={currentBreakpoint}
+      currentPlatform={currentPlatform}
       styleSheet={styleSheet}
+      appTheme={theme}
       {...props}
     >
       {children}
