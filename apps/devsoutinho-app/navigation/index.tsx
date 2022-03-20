@@ -2,12 +2,11 @@
 import { NavigationContainer, NavigatorScreenParams } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-// Icons
-import { FontAwesome } from '@expo/vector-icons';
 // Screens
 import HomeScreen from 'skynexui/screens/HomeScreen';
 import SettingsScreen from 'skynexui/screens/SettingsScreen';
 import NotFoundScreen from 'skynexui/screens/NotFoundScreen';
+import { MainNavigationMenu } from 'skynexui/patterns/MainNavigationMenu/MainNavigationMenu';
 
 export default function Navigation() {
   return (
@@ -22,8 +21,8 @@ export default function Navigation() {
  * https://reactnavigation.org/docs/modal
  */
 type RootTabParamList = {
-  SettingsScreen: undefined;
-  HomeScreen: undefined;
+  '/': undefined;
+  '/settings': undefined;
 };
 type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
@@ -51,35 +50,25 @@ const BottomTab = createBottomTabNavigator<RootTabParamList>();
 function BottomTabNavigator() {
   return (
     <BottomTab.Navigator
-      initialRouteName="HomeScreen"
+      initialRouteName="/"
+      tabBar={(props) => <MainNavigationMenu {...props as any} />}
     >
       <BottomTab.Screen
-        name="HomeScreen"
+        name="/"
         component={HomeScreen}
         options={{
           title: 'HomeScreen',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: () => null,
         }}
       />
       <BottomTab.Screen
-        name="SettingsScreen"
+        name="/settings"
         component={SettingsScreen}
         options={{
           title: 'Settings Screen',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: () => null,
         }}
       />
     </BottomTab.Navigator>
   );
-}
-
-// TODO: Move it to the Design System
-/**
- * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
- */
- function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
-  color: string;
-}) {
-  return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
 }

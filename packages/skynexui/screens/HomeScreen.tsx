@@ -9,6 +9,7 @@ export function HomeScreen() {
         flex: 1,
         backgroundColor: theme.colors?.neutral.x050,
         alignItems: 'stretch',
+        justifyContent: 'center',
       }}
     >
       <Text
@@ -26,7 +27,7 @@ export function HomeScreen() {
           },
         }}
       >
-        DevSoutinho
+        DevSoutinho!
       </Text>
     </Box>
   );

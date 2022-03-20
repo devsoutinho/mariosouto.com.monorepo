@@ -1,14 +1,26 @@
 {
   "/": {
     "ssr": false,
-    "screen": "HomeScreen"
+    "screen": "HomeScreen",
+    "name": {
+      "pt-BR": "Home",
+      "en-US": "Home"
+    }
   },
   "/settings": {
     "ssr": false,
-    "screen": "SettingsScreen"
+    "screen": "SettingsScreen",
+    "name": {
+      "pt-BR": "Configurações",
+      "en-US": "Settings"
+    }
   },
   "/404": {
     "ssr": false,
-    "screen": "NotFoundScreen"
+    "screen": "NotFoundScreen",
+    "name": {
+      "pt-BR": "Página Não Encontrada",
+      "en-US": "Not Found Page"
+    }
   }
 }
