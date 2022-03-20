@@ -3,6 +3,31 @@ import { Breakpoints } from '../../../core/theme/breakpoints/breakpoints';
 import { Theme } from '../../../core/theme/defaultTheme';
 import { EnvPlatform } from '../../provider/provider';
 
+function resolveValueForBreakpoint(value: any, activeBreakpoint: Breakpoints) {
+  const breakpointsOrderByBreakpoint: Record<Breakpoints, number> = {
+    [Breakpoints.xs]: 0,
+    [Breakpoints.sm]: 1,
+    [Breakpoints.md]: 2,
+    [Breakpoints.lg]: 3,
+    [Breakpoints.xl]: 4,
+  };
+  const breakpointsOrderByOrder: Record<number, Breakpoints> = {
+    0: Breakpoints.xs,
+    1: Breakpoints.sm,
+    2: Breakpoints.md,
+    3: Breakpoints.lg,
+    4: Breakpoints.xl,
+  };
+
+  const currentBreakpointOrder = breakpointsOrderByBreakpoint[activeBreakpoint];
+
+  // TODO: I know that I can do it better, but not now this is what I can do
+  for (let i = currentBreakpointOrder; i! >= 0; i--) {
+    var breakpoint = breakpointsOrderByOrder[i];
+    if(value[breakpoint]) return value[breakpoint];
+  }
+}
+
 function webParser(
   styleSheet: StyleSheet,
   styleKeys: StyleKey[],
@@ -34,15 +59,10 @@ function webParser(
       `;
     }
 
-    // console.log(styleKey);
     return `
       ${acc}
       ${styleKeyFormated}: ${styleValue};
     `;
-    // return {
-    //   ...acc,
-    //   [styleKey]: styleValue,
-    // }
   }, '');
 
 }
@@ -52,13 +72,22 @@ function mobileParser(
   styleKeys: StyleKey[],
   currentBreakpoint: keyof typeof Breakpoints,
   theme: Theme) {
-  return styleKeys.reduce((acc, styleKey) => {    
+  const result = styleKeys.reduce((acc, styleKey) => {    
     const styleValue = styleSheet[styleKey] as ResponsiveProperty<typeof styleKey>;
+    
+    if(typeof styleValue === 'object') {
+      return {
+        ...acc,
+        [styleKey]: resolveValueForBreakpoint(styleValue, currentBreakpoint as Breakpoints),
+      }
+    }
+
     return {
       ...acc,
-      [styleKey]: styleValue[currentBreakpoint] || styleValue,
+      [styleKey]: styleValue,
     }
   }, {});
+  return result;
 }
 
 interface ParseCSSInput {
@@ -73,5 +102,7 @@ export function parseCSS({ styleSheet, currentBreakpoint, currentPlatform, theme
   const result = currentPlatform === 'web'
     ? webParser(styleSheet, styleKeys, currentBreakpoint, theme)
     : mobileParser(styleSheet, styleKeys, currentBreakpoint, theme);
+
+
   return result;
 }

@@ -16,7 +16,7 @@
     "web": "yarn workspace devsoutinho-web",
     "dev:web": "yarn web dev",
     "app": "yarn workspace devsoutinho-app",
-    "dev:app": "yarn app ios"
+    "dev:app": "yarn app start"
   },
   "dependencies": {
     "styled-components": "5.3.3",
