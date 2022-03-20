@@ -1,7 +1,7 @@
 import { Box, Text, useTheme } from '../index';
 import AppScreenHOC from './wrappers/AppScreenHOC';
 
-export function HomeScreen() {
+export function SettingsScreen() {
   const theme = useTheme();
   return (
     <Box
@@ -32,4 +32,4 @@ export function HomeScreen() {
   );
 }
 
-export default AppScreenHOC(HomeScreen);
+export default AppScreenHOC(SettingsScreen);

@@ -1,8 +1,14 @@
 {
   "/": {
+    "ssr": false,
     "screen": "HomeScreen"
   },
   "/settings": {
+    "ssr": false,
     "screen": "SettingsScreen"
+  },
+  "/404": {
+    "ssr": false,
+    "screen": "NotFoundScreen"
   }
 }
