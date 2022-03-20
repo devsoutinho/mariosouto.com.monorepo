@@ -1,4 +1,3 @@
-import { css } from 'styled-components/native';
 import { StyleSheet, StyleKey, ResponsiveProperty } from '../../../core/stylesheet/stylesheet';
 import { Breakpoints } from '../../../core/theme/breakpoints/breakpoints';
 import { Theme } from '../../../core/theme/defaultTheme';
@@ -21,7 +20,7 @@ function webParser(
           const themeBreakpoints = theme?.breakpoints as any;
           const breakpointValue = themeBreakpoints[breakpointName];
           console.log('breakpointName', );
-          return css`
+          return `
             @media (min-width: ${breakpointValue}px) {
               color: black;
             }
