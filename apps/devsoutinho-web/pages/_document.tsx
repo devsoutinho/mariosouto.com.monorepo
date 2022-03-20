@@ -1,4 +1,3 @@
-import { Children } from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { AppRegistry } from 'react-native';
 import config from '../app.json';
