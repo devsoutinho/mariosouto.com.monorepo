@@ -10,13 +10,29 @@ export function HomeScreen() {
         backgroundColor: theme.colors?.neutral.x050,
         alignItems: 'stretch',
         justifyContent: 'center',
+        flexDirection: {
+          xs: 'column',
+          md: 'row'
+        },
       }}
     >
+      <Box
+        tag="header"
+        styleSheet={{
+          minWidth: '300px',
+          backgroundColor: theme.colors?.neutral.x500,
+        }}
+      >
+        <Text>
+          Aside Menu
+        </Text>
+      </Box>
       <Text
         tag='h3'
         variant='heading2'
         selectable
         styleSheet={{
+          flex: 1,
           backgroundColor: theme.colors?.positive.x050,
           color: {
             xs: theme.colors?.warning.x600,
