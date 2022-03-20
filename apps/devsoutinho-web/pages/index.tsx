@@ -1,2 +1,1 @@
-import { HomeScreen } from 'skynexui/screens/Home';
-export default HomeScreen;
+export { default } from 'skynexui/screens/Home';

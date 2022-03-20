@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { StyleSheet } from '../../core/stylesheet/stylesheet';
 import { BoxBase } from '../box/box-base';
 
 const tags = {
@@ -20,6 +21,7 @@ interface TextProps {
   // Reference: https://necolas.github.io/react-native-web/docs/accessibility/
   tag?: keyof typeof tags;
   children: React.ReactNode;
+  styleSheet?: StyleSheet;
 }
 
 export function Text({children, ...props}: TextProps) {
