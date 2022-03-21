@@ -1,13 +1,14 @@
-import { Box, Text, useTheme } from '../index';
+import { Text, useTheme } from '../index';
+import { Scaffold } from '../patterns/Scaffold/Scaffold';
 import AppScreenHOC from './wrappers/AppScreenHOC';
 
 export function SettingsScreen() {
   const theme = useTheme();
   return (
-    <Box
+    <Scaffold
+      safeArea={{ top: true, bottom: true }}
       styleSheet={{
-        flex: 1,
-        backgroundColor: theme.colors?.neutral.x050,
+        backgroundColor: theme.colors?.negative?.x100,
         alignItems: 'stretch',
       }}
     >
@@ -28,7 +29,7 @@ export function SettingsScreen() {
       >
         Settings Screen
       </Text>
-    </Box>
+    </Scaffold>
   );
 }
 
