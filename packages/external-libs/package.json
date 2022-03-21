@@ -1,0 +1,20 @@
+{
+  "name": "external-libs",
+  "version": "0.0.0",
+  "main": "./index.tsx",
+  "types": "./index.tsx",
+  "license": "MIT",
+  "peerDependencies": {
+    "styled-components": "5.3.3"
+  },
+  "devDependencies": {
+    "babel-loader": "^8.2.3",
+    "config": "*",
+    "tsconfig": "*",
+    "typescript": "^4.5.3"
+  },
+  "scripts": {
+    "dev": "start-storybook -p 6006",
+    "build:storybook": "build-storybook -o dist-storybook"
+  }
+}

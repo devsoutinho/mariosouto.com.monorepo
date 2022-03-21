@@ -1,18 +1,31 @@
 const NATIVE_PACKAGE = 'styled-components/native';
 const WEB_PACKAGE = 'styled-components';
-// const CORE_DEV_PACKAGE = '@skynexui/core/src';
 
-function pathResolver(currentValue, opts) {
-  // if(opts.devWeb) return currentValue.replace(NATIVE_PACKAGE, CORE_DEV_PACKAGE) + '/web';
-  // if(opts.devNative) return currentValue.replace(NATIVE_PACKAGE, CORE_DEV_PACKAGE) + '/native';
-  return currentValue.replace(NATIVE_PACKAGE, WEB_PACKAGE);
+
+const externalLibs = {
+  isExternalImport({ source, specifiers }) {
+    return source && source.value.startsWith('external-libs/') && specifiers.length;
+  },
+  pathResolver(currentValue, opts) {
+    return currentValue;
+  }
 }
-
+// if(currentValue.startsWith('external-libs/')) {
+//   return currentValue.replace('/native', '/web');
+// }
+// if(source && source.value && source.value.startsWith('external-libs/') && specifiers.length) {
+//   console.log(source.value);
+//   // return true
+// }
 
 function isSkynexNativeModule({ source, specifiers }) {
-  return source
-    && source.value.startsWith(NATIVE_PACKAGE)
-    && specifiers.length;
+  return (
+    (source && source.value.startsWith(NATIVE_PACKAGE) && specifiers.length)
+  );
+}
+function pathResolver(currentValue, opts) {
+  console.log('pathResolver', currentValue);
+  return currentValue.replace(NATIVE_PACKAGE, WEB_PACKAGE);
 }
 
 function isSkynexNativeRequire(t, node) {
@@ -37,21 +50,30 @@ module.exports = function ({ types: t }) {
     visitor: {
       ImportDeclaration(path, state) {
         const { specifiers } = path.node;
-        if(isSkynexNativeModule(path.node)) {
+
+        if (externalLibs.isExternalImport(path.node)) {
+          // console.log('É external!');
+          path.node.source.extra.raw = "'external-libs/react-native-safe-area-context/native'".replace('/native', '/web');
+          path.node.source.extra.rawValue = 'external-libs/react-native-safe-area-context/native'.replace('/native', '/web');
+          path.node.source.value = 'external-libs/react-native-safe-area-context/native'.replace('/native', '/web');
+          // console.log(path.node.source);
+        }
+
+        if (isSkynexNativeModule(path.node)) {
           const imports = specifiers
-          .map((specifier) => {
-            return t.importDeclaration(
-              [specifier],
-              t.stringLiteral(pathResolver(path.node.source.value, state.opts))
-            );
-          })
-          .filter(Boolean);
+            .map((specifier) => {
+              return t.importDeclaration(
+                [specifier],
+                t.stringLiteral(pathResolver(path.node.source.value, state.opts))
+              );
+            })
+            .filter(Boolean);
           path.replaceWithMultiple(imports);
         }
       },
       ExportNamedDeclaration(path, state) {
         const { specifiers } = path.node;
-        if(isSkynexNativeModule(path.node)) {
+        if (isSkynexNativeModule(path.node)) {
           const exports = specifiers
             .map((specifier) => {
               return t.exportNamedDeclaration(
@@ -65,7 +87,7 @@ module.exports = function ({ types: t }) {
         }
       },
       VariableDeclaration(path, state) {
-        if(isSkynexNativeRequire(t, path.node)) {
+        if (isSkynexNativeRequire(t, path.node)) {
           const { id } = path.node.declarations[0];
 
           if (t.isObjectPattern(id)) {

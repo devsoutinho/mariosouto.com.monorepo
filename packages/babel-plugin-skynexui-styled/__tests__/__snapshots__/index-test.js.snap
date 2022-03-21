@@ -7,10 +7,8 @@ export { StyleSheet, Text, unstable_createElement } from '@skynexui/native';
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-export { View } from "@skynexui/web/components/Text";
-export { StyleSheet } from "@skynexui/web";
-export { Text } from "@skynexui/web";
-export { unstable_createElement } from "@skynexui/web";
+export { View } from "@skynexui/native/components/Text";
+export { StyleSheet, Text, unstable_createElement } from "@skynexui/native";
 
 
 `;
@@ -36,9 +34,9 @@ import Box from '@skynexui/native/components/Box';
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import UIThemeProvider from "@skynexui/core/src/theme/provider/UIThemeProvider/native";
-import Text from "@skynexui/core/src/components/Text/native";
-import Box from "@skynexui/core/src/components/Box/native";
+import UIThemeProvider from "@skynexui/native/theme/provider/UIThemeProvider";
+import Text from "@skynexui/native/components/Text";
+import Box from "@skynexui/native/components/Box";
 
 
 `;
@@ -51,9 +49,9 @@ import Box from '@skynexui/native/components/Box';
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import UIThemeProvider from "@skynexui/core/src/theme/provider/UIThemeProvider/web";
-import Text from "@skynexui/core/src/components/Text/web";
-import Box from "@skynexui/core/src/components/Box/web";
+import UIThemeProvider from "@skynexui/native/theme/provider/UIThemeProvider";
+import Text from "@skynexui/native/components/Text";
+import Box from "@skynexui/native/components/Box";
 
 
 `;
@@ -86,9 +84,9 @@ import Box from '@skynexui/native/components/Box';
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import ReactNative from "@skynexui/web";
-import Text from "@skynexui/web/components/Text";
-import Box from "@skynexui/web/components/Box";
+import ReactNative from "@skynexui/native";
+import Text from "@skynexui/native/components/Text";
+import Box from "@skynexui/native/components/Box";
 
 
 `;
@@ -102,11 +100,10 @@ import * as ReactNativeModules from '@skynexui/native';
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import ReactNative from "@skynexui/web";
-import { View } from "@skynexui/web";
-import { Invalid } from "@skynexui/web";
-import { View as MyView } from "@skynexui/web";
-import * as ReactNativeModules from "@skynexui/web";
+import ReactNative from "@skynexui/native";
+import { View } from "@skynexui/native";
+import { Invalid, View as MyView } from "@skynexui/native";
+import * as ReactNativeModules from "@skynexui/native";
 
 
 `;
@@ -120,17 +117,13 @@ const { StyleSheet, TouchableOpacity } = require('@skynexui/native');
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-const ReactNative = require("@skynexui/web/components/Box");
+const ReactNative = require("@skynexui/native/components/Box");
 
-const Text = require("@skynexui/web/component/Text");
+const Text = require("@skynexui/native/component/Text");
 
-const Bla = require("@skynexui/web").default;
+const { Bla, Sample } = require("@skynexui/native/component/Text");
 
-const Sample = require("@skynexui/web").default;
-
-const StyleSheet = require("@skynexui/web").default;
-
-const TouchableOpacity = require("@skynexui/web").default;
+const { StyleSheet, TouchableOpacity } = require("@skynexui/native");
 
 
 `;
@@ -143,13 +136,11 @@ const { StyleSheet, TouchableOpacity } = require('@skynexui/native');
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-const ReactNative = require("@skynexui/web");
+const ReactNative = require("@skynexui/native");
 
-const View = require("@skynexui/web").default;
+const { View } = require("@skynexui/native");
 
-const StyleSheet = require("@skynexui/web").default;
-
-const TouchableOpacity = require("@skynexui/web").default;
+const { StyleSheet, TouchableOpacity } = require("@skynexui/native");
 
 
 `;

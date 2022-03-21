@@ -1,8 +1,11 @@
 import React from 'react';
+import { useSafeAreaInsets } from 'external-libs/react-native-safe-area-context/native';
+
 import { Platform, useWindowDimensions } from 'react-native';
 import { getCurrentBreakpoint } from '../../core/theme/breakpoints/breakpoints';
 import { defaultTheme, Theme } from '../../core/theme/defaultTheme';
 import { EnvCSS } from './EnvCSS';
+
 
 export type EnvPlatform = 'ios' | 'android' | 'windows' | 'macos' | 'web';
 
@@ -19,7 +22,7 @@ const ThemeContext = React.createContext<ThemeContextValues>({
 export const useTheme = () => React.useContext(ThemeContext).theme;
 export const useRouter = () => {
   const env = useEnv();
-  const router =React.useContext(ThemeContext).useRouterHook();
+  const router = React.useContext(ThemeContext).useRouterHook();
 
   return {
     push: (routeKey: string) => {
@@ -32,6 +35,22 @@ export const useRouter = () => {
 
 export const useEnv = () => {
   return {
+    themeCalc(operator: '+' | '-' = '+', ...args: any[]) {
+      if(this.isWeb()) {
+        const values = args.map((arg) => typeof arg === 'number' ? `${arg}px` : arg);
+        if(operator === '+') return `calc(${values.join(' + ')})`;
+        if(operator === '-') return `calc(${values.join(' - ')})`;
+      }
+
+      const total = args.reduce((acc, curr) => {
+        const currNormalized = typeof curr === 'string' ? Number(curr.replace('px', '')) : curr;
+
+        if(operator === '+') return acc + currNormalized;
+        if(operator === '-') return acc - currNormalized;
+      }, 0);
+
+      return `${total}px`;
+    },
     isWeb() {
       return Platform.OS === 'web';
     },
@@ -46,6 +65,10 @@ export const useEnv = () => {
       const { width } = useWindowDimensions();
       const currentBreakpoint = getCurrentBreakpoint(width, theme);
       return currentBreakpoint;
+    },
+    useSafeAreaInsets() {
+      const insets = useSafeAreaInsets();
+      return insets;
     }
   }
 };

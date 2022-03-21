@@ -1,19 +1,14 @@
 import { Box, Text, useTheme } from '../index';
+import { Scaffold } from '../patterns/Scaffold/Scaffold';
 import AppScreenHOC from './wrappers/AppScreenHOC';
 
 export function HomeScreen() {
   const theme = useTheme();
   return (
-    <Box
+    <Scaffold
+      safeArea={{ top: true, bottom: true }}
       styleSheet={{
-        flex: 1,
-        backgroundColor: theme.colors?.neutral.x050,
-        alignItems: 'stretch',
-        justifyContent: 'center',
-        flexDirection: {
-          xs: 'column',
-          md: 'row'
-        },
+        backgroundColor: theme.colors?.positive?.x050,
       }}
     >
       <Box
@@ -33,7 +28,6 @@ export function HomeScreen() {
         selectable
         styleSheet={{
           flex: 1,
-          backgroundColor: theme.colors?.positive.x050,
           color: {
             xs: theme.colors?.warning.x600,
             sm: theme.colors?.positive.x600,
@@ -45,7 +39,7 @@ export function HomeScreen() {
       >
         DevSoutinho!
       </Text>
-    </Box>
+    </Scaffold>
   );
 }
 
