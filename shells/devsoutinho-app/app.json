@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "devsoutinho-app",
+    "owner": "devsoutinho_tech",
     "slug": "devsoutinho-app",
+    "name": "Devsoutinho App",
     "version": "1.0.0",
     "orientation": "portrait",
     "scheme": "myapp",
@@ -18,9 +19,13 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "com.mariosouto.devsoutinho",
+      "supportsTablet": true,
+      "buildNumber": "1.0.0"
     },
     "android": {
+      "package": "com.mariosouto.devsoutinho",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
