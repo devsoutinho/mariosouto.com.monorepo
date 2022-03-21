@@ -35,7 +35,7 @@ function webParser(
   theme: Theme,
 ) {
   return styleKeys.reduce((acc, styleKey) => {
-    const styleKeyFormated = styleKey.split(/(?=[A-Z])/).join('-').toLowerCase();
+    const styleKeyFormated = (styleKey as any).split(/(?=[A-Z])/).join('-').toLowerCase();
     const styleValue = styleSheet[styleKey] as ResponsiveProperty<typeof styleKey>;
 
     if(typeof styleValue === 'object') {

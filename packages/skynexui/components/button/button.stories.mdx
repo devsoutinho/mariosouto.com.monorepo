@@ -1,0 +1,20 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { Button } from '../../index';
+
+
+<Meta title="Components/Button" component={Button} />
+
+# Button
+
+Button is the component that you use, for get user taps and clicks in a shaped way.
+
+<ArgsTable of={Button} />
+
+<Canvas>
+  <Story
+    name="Button Component"
+    args={{ label: 'Button Component' }}
+  >
+    {(args) => <Button {...args} />} 
+  </Story>
+</Canvas>
