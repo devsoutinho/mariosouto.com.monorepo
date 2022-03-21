@@ -14,6 +14,10 @@ yarn run:web
 yarn run:components
 ```
 
+```sh
+yarn run:api
+```
+
 # Stack
 
 ## Infra
