@@ -34,3 +34,6 @@ yarn-error.log*
 
 # storybook
 dist-storybook
+
+# info
+credentials.json

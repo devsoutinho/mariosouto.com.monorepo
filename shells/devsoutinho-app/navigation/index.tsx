@@ -57,6 +57,7 @@ function BottomTabNavigator() {
         name="/"
         component={HomeScreen}
         options={{
+          headerShown: false,
           title: 'HomeScreen',
           tabBarIcon: () => null,
         }}
@@ -65,6 +66,7 @@ function BottomTabNavigator() {
         name="/settings"
         component={SettingsScreen}
         options={{
+          headerShown: false,
           title: 'Settings Screen',
           tabBarIcon: () => null,
         }}

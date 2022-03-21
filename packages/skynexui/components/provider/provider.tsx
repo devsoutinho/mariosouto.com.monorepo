@@ -35,6 +35,9 @@ export const useEnv = () => {
     isWeb() {
       return Platform.OS === 'web';
     },
+    isIOS() {
+      return Platform.OS === 'ios';
+    },
     getCurrentPlatform(): EnvPlatform {
       return Platform.OS;
     },

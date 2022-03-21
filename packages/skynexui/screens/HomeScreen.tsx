@@ -24,7 +24,7 @@ export function HomeScreen() {
         }}
       >
         <Text>
-          Aside Menu
+          Aside Men
         </Text>
       </Box>
       <Text
