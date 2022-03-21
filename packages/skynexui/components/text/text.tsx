@@ -40,8 +40,6 @@ export function Text({children, variant, styleSheet, ...props}: TextProps) {
     ...currentVariantStyles,
   }
 
-  console.log(currentTag)
-
   return (
     <BoxBase
       as={TextStyled} 
