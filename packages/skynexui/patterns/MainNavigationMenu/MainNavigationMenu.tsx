@@ -1,5 +1,5 @@
 export function MainNavigationMenu() {
-  return [];
+  return null;
 }
 
 // import { Box, TouchableArea, Text, useTheme, useEnv, useRouter } from '../../index';
