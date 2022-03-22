@@ -23,7 +23,11 @@ export interface StyleSheet {
   overflow?: ResponsiveProperty<Overflow> | Overflow;
   // Layout Size
   width?: ResponsiveProperty<DefaultValue> | DefaultValue;
+  maxWidth?: ResponsiveProperty<DefaultValue> | DefaultValue;
+  minWidth?: ResponsiveProperty<DefaultValue> | DefaultValue;
   height?: ResponsiveProperty<DefaultValue> | DefaultValue;
+  maxHeight?: ResponsiveProperty<DefaultValue> | DefaultValue;
+  minHeight?: ResponsiveProperty<DefaultValue> | DefaultValue;
   margin?: ResponsiveProperty<DefaultValue> | DefaultValue;
   marginBottom?: ResponsiveProperty<DefaultValue> | DefaultValue;
   marginTop?: ResponsiveProperty<DefaultValue> | DefaultValue;

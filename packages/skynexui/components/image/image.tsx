@@ -25,10 +25,8 @@ export function Image({ src, styleSheet: styleSheetInitial }: ImageProps) {
   const isWidthFitContent = Boolean(styleSheet.aspectRatio) && Boolean(styleSheet.maxHeight);
 
   const finalStyleSheet = {
-    flex: 1,
     width,
     ...(env.isWeb() && {
-      flex: 'auto',
       display: 'block',
       height: isHeightZeroOnWeb ? '0' : styleSheet.height,
       objectFit: resizeMode,

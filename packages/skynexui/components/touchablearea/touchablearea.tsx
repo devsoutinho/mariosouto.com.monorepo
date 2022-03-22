@@ -26,6 +26,7 @@ export function TouchableArea({ children, styleSheet, onPress, ...props }: Touch
       as={TouchableStyled}
       styleSheet={{
         cursor: 'pointer',
+        alignItems: 'flex-start',
         ...styleSheet,
       }}
       {...isMobileEnv && {
