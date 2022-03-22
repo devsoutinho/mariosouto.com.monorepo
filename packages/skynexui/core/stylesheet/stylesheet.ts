@@ -2,6 +2,7 @@ import { Breakpoints } from '../theme/breakpoints/breakpoints';
 
 export type ResponsiveProperty<Type> = Partial<Record<Breakpoints, Type>>;
 
+type DefaultValue = string | number | boolean;
 type JustifyContent = 'center'
   | 'flex-start'
   | 'flex-end'
@@ -12,12 +13,23 @@ type JustifyContent = 'center'
 type AlignItems = 'stretch' | 'flex-start' | 'flex-end' | 'center';
 type Position = 'relative' | 'absolute' | 'fixed';
 type FlexDirection = 'row' | 'column' | 'row-reverse' | 'column-reverse';
+type Cursor = 'default' | 'pointer' | 'text' | 'wait' | 'move' | 'not-allowed';
 export interface StyleSheet {
+  // Setup
+  cursor?: ResponsiveProperty<Cursor> | Cursor;
   // Layout Size
-  width?: ResponsiveProperty<string> | string;
-  height?: ResponsiveProperty<string> | string;
-  margin?: ResponsiveProperty<string> | string;
-  padding?: ResponsiveProperty<string> | string;
+  width?: ResponsiveProperty<string> | DefaultValue;
+  height?: ResponsiveProperty<string> | DefaultValue;
+  margin?: ResponsiveProperty<string> | DefaultValue;
+  marginBottom?: ResponsiveProperty<string> | DefaultValue;
+  marginTop?: ResponsiveProperty<string> | DefaultValue;
+  marginLeft?: ResponsiveProperty<string> | DefaultValue;
+  marginRight?: ResponsiveProperty<string> | DefaultValue;
+  padding?: ResponsiveProperty<string> | DefaultValue;
+  paddingBottom?: ResponsiveProperty<string> | DefaultValue;
+  paddingTop?: ResponsiveProperty<string> | DefaultValue;
+  paddingLeft?: ResponsiveProperty<string> | DefaultValue;
+  paddingRight?: ResponsiveProperty<string> | DefaultValue;
   // Layout Style
   color?: ResponsiveProperty<string> | string;
   backgroundColor?: ResponsiveProperty<string> | string;

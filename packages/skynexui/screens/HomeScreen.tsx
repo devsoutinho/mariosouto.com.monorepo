@@ -11,34 +11,9 @@ export function HomeScreen() {
         backgroundColor: theme.colors?.positive?.x050,
       }}
     >
-      <Box
-        tag="header"
-        styleSheet={{
-          minWidth: '300px',
-          backgroundColor: theme.colors?.neutral.x500,
-        }}
-      >
-        <Text>
-          Aside Men
-        </Text>
-      </Box>
-      <Text
-        tag='h3'
-        variant='heading2'
-        selectable
-        styleSheet={{
-          flex: 1,
-          color: {
-            xs: theme.colors?.warning.x600,
-            sm: theme.colors?.positive.x600,
-            md: theme.colors?.negative.x600,
-            lg: theme.colors?.negative.x600,
-            xl: theme.colors?.neutral.x600,
-          },
-        }}
-      >
-        DevSoutinho!
-      </Text>
+      {[1,2,3,4,5,6,7,1,1,,2123,,123,123,231,312,3,12,312,123,123,312,123,123,312,312,231,312,2,42,412,2,13,213,312,31,312,312,23,14,2,124,3,213,123,123,321,312,3,12,1,124,1].map((i, index) => (
+        <Text key={index + 'oi'} variant='body1'>DevSoutinho!</Text>
+      ))}
     </Scaffold>
   );
 }

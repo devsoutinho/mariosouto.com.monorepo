@@ -6,6 +6,7 @@ export const EnvCSS = createGlobalStyle && createGlobalStyle`
     padding: 0;
     font-weight: 400;
     box-sizing: border-box;
+    color: initial;
   }
   body {
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;

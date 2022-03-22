@@ -1,7 +1,10 @@
 import styled from 'styled-components/native';
 import { StyleSheet } from '../../core/stylesheet/stylesheet';
+import { BoxBase } from '../box/box-base';
 import { useEnv } from '../provider/provider';
-import { Text } from '../text/text';
+
+// TODO: Add cursor support;
+// cursor: pointer;
 
 const StyledTouchable = styled.TouchableOpacity || (styled as any).button;
 const TouchableStyled = StyledTouchable`
@@ -19,7 +22,12 @@ export function TouchableArea({ children, styleSheet, onPress, ...props }: Touch
   const isMobileEnv = !isWebEnv;
 
   return (
-    <TouchableStyled
+    <BoxBase
+      as={TouchableStyled}
+      styleSheet={{
+        cursor: 'pointer',
+        ...styleSheet,
+      }}
       {...isMobileEnv && {
         onPress: onPress,
       }}
@@ -29,6 +37,6 @@ export function TouchableArea({ children, styleSheet, onPress, ...props }: Touch
       {...props}
     >
       {children}
-    </TouchableStyled>
+    </BoxBase>
   )
 }

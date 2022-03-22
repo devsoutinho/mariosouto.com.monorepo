@@ -1,4 +1,4 @@
-import * as React from 'react'
+import 'raf/polyfill' // add this at the top
 import Head from 'next/head'
 import { MainNavigationMenu } from 'skynexui/patterns/MainNavigationMenu/MainNavigationMenu';
 import { SkynexUIProvider } from 'skynexui';

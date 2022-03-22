@@ -10,13 +10,6 @@ const externalLibs = {
     return currentValue;
   }
 }
-// if(currentValue.startsWith('external-libs/')) {
-//   return currentValue.replace('/native', '/web');
-// }
-// if(source && source.value && source.value.startsWith('external-libs/') && specifiers.length) {
-//   console.log(source.value);
-//   // return true
-// }
 
 function isSkynexNativeModule({ source, specifiers }) {
   return (
@@ -24,7 +17,6 @@ function isSkynexNativeModule({ source, specifiers }) {
   );
 }
 function pathResolver(currentValue, opts) {
-  console.log('pathResolver', currentValue);
   return currentValue.replace(NATIVE_PACKAGE, WEB_PACKAGE);
 }
 

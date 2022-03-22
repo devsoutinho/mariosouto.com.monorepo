@@ -1,10 +1,11 @@
 import { Box, Text, useTheme } from '../index';
+import { Scaffold } from '../patterns/Scaffold/Scaffold';
 import AppScreenHOC from './wrappers/AppScreenHOC';
 
 export function NotFoundScreen() {
   const theme = useTheme();
   return (
-    <Box
+    <Scaffold
       styleSheet={{
         flex: 1,
         backgroundColor: theme.colors?.neutral.x050,
@@ -28,7 +29,7 @@ export function NotFoundScreen() {
       >
         Not Found
       </Text>
-    </Box>
+    </Scaffold>
   );
 }
 

@@ -45,12 +45,15 @@ export function MainNavigationMenu() {
       {routeEntries.map(([key, value]) => (
         <TouchableArea
           key={key}
-          styleSheet={{ color: theme.colors?.neutral.x000 }}
           onPress={() => {
             router.push(key);
           }}
         >
-          <Text tag="span">{value.name['pt-BR']}</Text>
+          <Text tag="span"
+            styleSheet={{ color: theme.colors?.neutral.x000 }}
+          >
+            {value.name['pt-BR']}
+          </Text>
         </TouchableArea>
       ))}
     </Box>

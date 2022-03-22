@@ -3,6 +3,12 @@ import { Breakpoints } from '../../../core/theme/breakpoints/breakpoints';
 import { Theme } from '../../../core/theme/defaultTheme';
 import { EnvPlatform } from '../../provider/provider';
 
+function parseToNumber(value: string) {
+  const valueConverted = Number(value);
+  if(isNaN(valueConverted)) return value;
+  return valueConverted;
+}
+
 function resolveValueForBreakpoint(value: any, activeBreakpoint: Breakpoints) {
   const breakpointsOrderByBreakpoint: Record<Breakpoints, number> = {
     [Breakpoints.xs]: 0,
@@ -71,20 +77,27 @@ function mobileParser(
   styleSheet: StyleSheet,
   styleKeys: StyleKey[],
   currentBreakpoint: keyof typeof Breakpoints,
-  theme: Theme) {
+  theme: Theme,
+  removePX: boolean) {
   const result = styleKeys.reduce((acc, styleKey) => {    
     const styleValue = styleSheet[styleKey] as ResponsiveProperty<typeof styleKey>;
+    if(!styleValue) return acc;
     
     if(typeof styleValue === 'object') {
+      const baseValue = resolveValueForBreakpoint(styleValue, currentBreakpoint as Breakpoints);
+      const value = removePX ? parseToNumber(`${baseValue}`.replace(/px/g, '')) : baseValue;
+      if(!value) return acc;
       return {
         ...acc,
-        [styleKey]: resolveValueForBreakpoint(styleValue, currentBreakpoint as Breakpoints),
+        [styleKey]: value,
       }
     }
-
+    
+    const value = removePX ? parseToNumber(`${styleValue}`.replace(/px/g, '')) : styleValue;
+    if(!value) return acc;
     return {
       ...acc,
-      [styleKey]: styleValue,
+      [styleKey]: value,
     }
   }, {});
   return result;
@@ -95,13 +108,14 @@ interface ParseCSSInput {
   styleSheet: StyleSheet;
   currentBreakpoint: keyof typeof Breakpoints;
   currentPlatform: EnvPlatform;
+  removePX: boolean;
 }
-export function parseCSS({ styleSheet, currentBreakpoint, currentPlatform, theme }: ParseCSSInput): any {
+export function parseCSS({ styleSheet, currentBreakpoint, currentPlatform, theme, removePX }: ParseCSSInput): any {
   const styleKeys = Object.keys(styleSheet) as StyleKey[];
 
   const result = currentPlatform === 'web'
     ? webParser(styleSheet, styleKeys, currentBreakpoint, theme)
-    : mobileParser(styleSheet, styleKeys, currentBreakpoint, theme);
+    : mobileParser(styleSheet, styleKeys, currentBreakpoint, theme, removePX);
 
 
   return result;

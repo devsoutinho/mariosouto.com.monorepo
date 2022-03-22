@@ -8,18 +8,19 @@
     "start": "next start"
   },
   "dependencies": {
-    "skynexui": "*",
+    "@types/styled-components": "5.1.24",
     "external-libs": "*",
     "next": "latest",
+    "raf": "^3.4.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native-web": "^0.13.14",
-    "@types/styled-components": "5.1.24",
+    "skynexui": "*",
     "styled-components": "5.3.3"
   },
   "devDependencies": {
-    "babel-plugin-skynexui-styled": "*",
     "babel-plugin-react-native-web": "^0.13.14",
+    "babel-plugin-skynexui-styled": "*",
     "next-compose-plugins": "^2.2.1",
     "next-transpile-modules": "^8.0.0"
   }
