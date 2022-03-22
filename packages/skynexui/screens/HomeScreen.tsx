@@ -8,8 +8,8 @@ export function HomeScreen() {
   const [posts, setPosts] = React.useState([]);
 
   React.useEffect(() => {
-    const GRAPHQL_URL = 'http://localhost:4000/api/graphql';
-    // const GRAPHQL_URL = 'https://mariosouto-com-api.vercel.app/api/graphql';
+    // const GRAPHQL_URL = 'http://localhost:4000/api/graphql';
+    const GRAPHQL_URL = 'https://mariosouto-com-api.vercel.app/api/graphql';
     fetch(GRAPHQL_URL, {
       method: 'POST',
       headers: {

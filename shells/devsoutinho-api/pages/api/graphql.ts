@@ -1,5 +1,4 @@
 import { PageConfig } from "next";
-import Cors from "micro-cors";
 import { ApolloServer, gql } from "apollo-server-micro";
 import { youtubeModule } from '../../modules/posts';
 
@@ -35,25 +34,23 @@ const serverSchema = {
   },
 };
 
-const cors = Cors({
-  origin: "*",
-  allowCredentials: true,
-});
-
 const apolloServer = new ApolloServer(serverSchema);
 
 const startServer = apolloServer.start();
 
-export default cors(async (req, res) => {
+export default async function handler(req, res) {
   if (req.method === "OPTIONS") {
     res.end();
     return false;
   }
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Origin", "*");
+
   await startServer;
   await apolloServer.createHandler({
     path: "/api/graphql",
   })(req, res);
-});
+};
 // // Apollo Server Micro takes care of body parsing
 export const config: PageConfig = {
   api: {
