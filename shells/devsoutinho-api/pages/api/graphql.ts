@@ -36,7 +36,7 @@ const serverSchema = {
 };
 
 const cors = Cors({
-  origin: "https://studio.apollographql.com",
+  origin: "*",
   allowCredentials: true,
 });
 
