@@ -9,6 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@notionhq/client": "^1.0.4",
     "apollo-server-micro": "^3.6.4",
     "graphql": "^16.3.0",
     "micro": "^9.3.4",

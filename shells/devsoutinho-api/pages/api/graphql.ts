@@ -1,21 +1,37 @@
 import { PageConfig } from "next";
 import Cors from "micro-cors";
 import { ApolloServer, gql } from "apollo-server-micro";
+import { youtubeModule } from '../../modules/posts';
 
-const typeDefs = gql`
-  type Query {
-    users: [User!]!
+const defaultTypeDefs = gql`
+  input CreateSampleTextInput {
+    text: String!
   }
-  type User {
-    name: String
+  
+  # ====================================================
+
+  type Mutation {
+    createSampleText(input: CreateSampleTextInput): String!
+  }
+  type Query {
+    greet: String
   }
 `;
 
-const resolvers = {
-  Query: {
-    users(parent, args, context) {
-      return [{ name: "Nextjs" }];
+const serverSchema = {
+  typeDefs: [
+    youtubeModule.typeDefs,
+    defaultTypeDefs,
+  ],
+  resolvers: {
+    Query: {
+      ...youtubeModule.resolvers.Query,
+      greet: () => 'Welcome to @devsoutinho/api',
     },
+    Mutation: {
+      ...youtubeModule.resolvers.Mutation,
+      createSampleText: (_: unknown, args) => args.input.text,
+    }
   },
 };
 
@@ -24,7 +40,7 @@ const cors = Cors({
   allowCredentials: true,
 });
 
-const apolloServer = new ApolloServer({ typeDefs, resolvers });
+const apolloServer = new ApolloServer(serverSchema);
 
 const startServer = apolloServer.start();
 
