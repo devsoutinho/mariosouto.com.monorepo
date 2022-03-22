@@ -23,7 +23,7 @@ export const typeDefs = gql`
 const resolvers = {
   Query: {
     async posts() {
-      const postsPath = path.resolve(__dirname);
+      const postsPath = path.resolve(__dirname, '..', '..', '..', '..');
       const output = await fs.readdir(postsPath);
       console.log(postsPath);
       console.log(output);
