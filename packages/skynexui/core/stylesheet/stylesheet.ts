@@ -14,9 +14,11 @@ type AlignItems = 'stretch' | 'flex-start' | 'flex-end' | 'center';
 type Position = 'relative' | 'absolute' | 'fixed';
 type FlexDirection = 'row' | 'column' | 'row-reverse' | 'column-reverse';
 type Cursor = 'default' | 'pointer' | 'text' | 'wait' | 'move' | 'not-allowed';
+type Overflow = 'scroll' | 'hidden';
 export interface StyleSheet {
   // Setup
   cursor?: ResponsiveProperty<Cursor> | Cursor;
+  overflow?: ResponsiveProperty<Overflow> | Overflow;
   // Layout Size
   width?: ResponsiveProperty<string> | DefaultValue;
   height?: ResponsiveProperty<string> | DefaultValue;

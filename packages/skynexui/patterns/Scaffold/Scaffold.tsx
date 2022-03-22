@@ -16,7 +16,6 @@ export function Scaffold({ children, styleSheet, safeArea }: Scaffold) {
   return (
     <Box
       styleSheet={{
-        ...styleSheet,
         paddingTop: safeArea?.top && insets.top,
         paddingBottom: safeArea?.bottom && env.themeCalc('+', insets.bottom, menuHeight),
         flex: 1,
@@ -24,7 +23,8 @@ export function Scaffold({ children, styleSheet, safeArea }: Scaffold) {
         flexDirection: {
           xs: 'column',
         },
-        overflow: 'scroll'
+        overflow: 'scroll',
+        ...styleSheet,
       }}
     >
       {children}
