@@ -13,27 +13,44 @@ interface ImageProps {
   styleSheet?: StyleSheet;
 }
 export function Image({ src, styleSheet: styleSheetInitial }: ImageProps) {
-  const { objectFit, ...styleSheet} = styleSheetInitial || {};
+  const {
+    objectFit,
+    width,
+    ...styleSheet
+  } = styleSheetInitial || {};
   const env = useEnv();
-  const hasHeightImpactfullStyle = Boolean(styleSheet?.aspectRatio) || Boolean(styleSheet?.height);
   const resizeMode = objectFit || 'cover';
 
+  const isHeightZeroOnWeb = !Boolean(styleSheet.aspectRatio);
+  const isWidthFitContent = Boolean(styleSheet.aspectRatio) && Boolean(styleSheet.maxHeight);
+
+  const finalStyleSheet = {
+    flex: 1,
+    width,
+    ...(env.isWeb() && {
+      flex: 'auto',
+      display: 'block',
+      height: isHeightZeroOnWeb ? '0' : styleSheet.height,
+      objectFit: resizeMode,
+      width: isWidthFitContent
+      ? 'fit-content'
+      : width,
+    }),
+    ...styleSheet,
+  };
+
   const imageProps = {
-    styleSheet: {
-      ...styleSheet,
-      flex: 1,
-      ...(env.isWeb() && {
-        objectFit: resizeMode,
-        height: hasHeightImpactfullStyle ? styleSheet?.height : '0',
-      })
-    },
+    styleSheet: finalStyleSheet,
     ...(!env.isWeb() && {
       source: {
         uri: src,
       },
       resizeMode: (() => {
-        const result = resolveValueForBreakpoint(resizeMode, env.getCurrentBreakpoint());
-        if(result === 'fill') return 'stretch';
+        const result = typeof resizeMode === 'object'
+          ? resolveValueForBreakpoint(resizeMode, env.getCurrentBreakpoint())
+          : resizeMode;
+
+        if (result === 'fill') return 'stretch';
         return result;
       })(),
     }),
@@ -43,10 +60,12 @@ export function Image({ src, styleSheet: styleSheetInitial }: ImageProps) {
   };
 
   return (
-    <BoxBase
-      as={ImageStyled}
-      source={{ uri: '' }}
-      {...imageProps}
-    />
+    <Box>
+      <BoxBase
+        as={ImageStyled}
+        source={{ uri: '' }}
+        {...imageProps}
+      />
+    </Box>
   );
 }
