@@ -79,7 +79,7 @@ function mobileParser(
   currentBreakpoint: keyof typeof Breakpoints,
   theme: Theme,
   removePX: boolean) {
-  const result = styleKeys.reduce((acc, styleKey) => {    
+  const result: any = styleKeys.reduce((acc, styleKey) => {    
     const styleValue = styleSheet[styleKey] as ResponsiveProperty<typeof styleKey>;
     if(!styleValue) return acc;
     
@@ -100,6 +100,7 @@ function mobileParser(
       [styleKey]: value,
     }
   }, {});
+
   return result;
 }
 

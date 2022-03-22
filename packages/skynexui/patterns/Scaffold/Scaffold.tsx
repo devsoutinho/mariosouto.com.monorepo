@@ -17,7 +17,10 @@ export function Scaffold({ children, styleSheet, safeArea }: Scaffold) {
     <Box
       styleSheet={{
         paddingTop: safeArea?.top && insets.top,
-        paddingBottom: safeArea?.bottom && env.themeCalc('+', insets.bottom, menuHeight),
+        paddingBottom: {
+          xs: safeArea?.bottom && env.themeCalc('+', insets.bottom, menuHeight),
+          md: safeArea?.bottom && env.themeCalc('+', insets.bottom)
+        },
         flex: 1,
         alignItems: 'stretch',
         flexDirection: {

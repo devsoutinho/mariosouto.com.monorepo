@@ -20,18 +20,18 @@ export interface StyleSheet {
   cursor?: ResponsiveProperty<Cursor> | Cursor;
   overflow?: ResponsiveProperty<Overflow> | Overflow;
   // Layout Size
-  width?: ResponsiveProperty<string> | DefaultValue;
-  height?: ResponsiveProperty<string> | DefaultValue;
-  margin?: ResponsiveProperty<string> | DefaultValue;
-  marginBottom?: ResponsiveProperty<string> | DefaultValue;
-  marginTop?: ResponsiveProperty<string> | DefaultValue;
-  marginLeft?: ResponsiveProperty<string> | DefaultValue;
-  marginRight?: ResponsiveProperty<string> | DefaultValue;
-  padding?: ResponsiveProperty<string> | DefaultValue;
-  paddingBottom?: ResponsiveProperty<string> | DefaultValue;
-  paddingTop?: ResponsiveProperty<string> | DefaultValue;
-  paddingLeft?: ResponsiveProperty<string> | DefaultValue;
-  paddingRight?: ResponsiveProperty<string> | DefaultValue;
+  width?: ResponsiveProperty<DefaultValue> | DefaultValue;
+  height?: ResponsiveProperty<DefaultValue> | DefaultValue;
+  margin?: ResponsiveProperty<DefaultValue> | DefaultValue;
+  marginBottom?: ResponsiveProperty<DefaultValue> | DefaultValue;
+  marginTop?: ResponsiveProperty<DefaultValue> | DefaultValue;
+  marginLeft?: ResponsiveProperty<DefaultValue> | DefaultValue;
+  marginRight?: ResponsiveProperty<DefaultValue> | DefaultValue;
+  padding?: ResponsiveProperty<DefaultValue> | DefaultValue;
+  paddingBottom?: ResponsiveProperty<DefaultValue> | DefaultValue;
+  paddingTop?: ResponsiveProperty<DefaultValue> | DefaultValue;
+  paddingLeft?: ResponsiveProperty<DefaultValue> | DefaultValue;
+  paddingRight?: ResponsiveProperty<DefaultValue> | DefaultValue;
   // Layout Style
   color?: ResponsiveProperty<string> | string;
   backgroundColor?: ResponsiveProperty<string> | string;

@@ -25,7 +25,7 @@ const BoxStyled = StyledView<BoxBaseProps>`
 `;
 
 interface BoxBaseProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   styleSheet?: StyleSheet;
   // TODO: Leave like this: https://github.com/skynexui/components/blob/main/lib/core/stylesheet/stylesheet.ts#L93
   [key: string]: any;

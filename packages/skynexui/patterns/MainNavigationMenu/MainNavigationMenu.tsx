@@ -29,16 +29,16 @@ export function MainNavigationMenu() {
         },
         position: 'absolute',
         top: {
-          md: theme.space?.x4,
+          md: theme.space?.x2,
         },
-        right: theme.space?.x4,
+        right: theme.space?.x2,
         left: {
-          xs: theme.space?.x4,
+          xs: theme.space?.x2,
           md: theme.space?.initial,
         },
         bottom: {
-          xs: env.themeCalc('+', insets.bottom, theme.space?.x4),
-          md: env.themeCalc('+', insets.bottom, theme.space?.x4),
+          xs: env.themeCalc('+', insets.bottom, theme.space?.x2),
+          md: env.themeCalc('+', insets.bottom, theme.space?.x2),
         },
       }}
     >
@@ -50,7 +50,10 @@ export function MainNavigationMenu() {
           }}
         >
           <Text tag="span"
-            styleSheet={{ color: theme.colors?.neutral.x000 }}
+            styleSheet={{
+              padding: theme.space?.x2,
+              color: theme.colors?.neutral.x000
+            }}
           >
             {value.name['pt-BR']}
           </Text>
