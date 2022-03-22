@@ -1,6 +1,8 @@
 import path from 'path';
 import fs from 'fs/promises';
 import { gql } from 'apollo-server-micro';
+// Parser Markdown
+import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
 import allpostsSlugs from '../../_db/posts';
@@ -29,24 +31,28 @@ const resolvers = {
       // Check if is under development
       if (process.env.NODE_ENV === 'development') {
         const postsPath = path.resolve(__dirname, '..', '..', '..', '..', '_db', 'posts');
-        const output = await fs.readdir(postsPath);
-        await fs.writeFile(path.resolve(postsPath, 'index.ts'), `export default ${JSON.stringify(output)};`);
+        const allFileNames = await fs.readdir(postsPath);
+        await fs.writeFile(path.resolve(postsPath, 'index.ts'), `export default ${JSON.stringify(allFileNames.filter((fileName)=> fileName !== 'index.ts'))};`);
       }
 
       const allPostsPromises = allpostsSlugs.map(async (slug) => {
         const BASE_URL = 'https://raw.githubusercontent.com/devsoutinho/mariosouto.com/main/shells/devsoutinho-api/_db/posts/';
         const postContentRaw = await fetch(`${BASE_URL}${slug}`).then((res) => res.text());
-        const post = await remark().use(html).process(postContentRaw);
-        console.log(post);
+        const { data, content } = matter(postContentRaw);
+        const contentParsed = await remark().use(html).process(content);
+        const post = { data, content: contentParsed.value, };
+
+        return {
+          title: post.data.title,
+          url: post.data.url,
+          date: new Date(post.data.date).toISOString(),
+        };
       });
-      // ========================================================
-
-      console.log(allPostsPromises);
-
-      return [
-        { title: 'Video 01', url: 'https://youtube.com/1', date: new Date('2020-01-01').toISOString() },
-        { title: 'Video 02', url: 'https://youtube.com/2', date: new Date('2020-01-02').toISOString() },
-      ]
+      const promisesSettled = await Promise.allSettled(allPostsPromises);
+      
+      return promisesSettled.map((promise: any) => {
+        if (promise.value) return promise.value;
+      });
     }
   },
   Mutation: {},

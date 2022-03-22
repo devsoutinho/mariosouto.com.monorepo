@@ -1,1 +1,1 @@
-export default ["frameworks-vs-codigo-puro-em-projetos-por-que-usamos-vale-a-pena-de-verdade.md","fullstack-e-pato-visao-geral-da-area-de-programacao-front-end-vs-back-end-qual-e-mais-dificil.md","index.ts"];
+export default ["frameworks-vs-codigo-puro-em-projetos-por-que-usamos-vale-a-pena-de-verdade.md","fullstack-e-pato-visao-geral-da-area-de-programacao-front-end-vs-back-end-qual-e-mais-dificil.md"];
