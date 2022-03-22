@@ -79,6 +79,7 @@ export function HomeScreen() {
       >
         {posts.map(({ title, url }) => (
           <Box
+            key={url}
             styleSheet={{
               marginTop: theme.space?.x4,
               marginBottom: theme.space?.x4,
