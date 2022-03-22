@@ -6,9 +6,12 @@
   "scripts": {
     "dev": "next dev --port=4000",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "generate:types": "graphql-codegen --config codegen.yml",
+    "preinstall": "yarn generate:types"
   },
   "dependencies": {
+    "@graphql-codegen/cli": "^2.6.2",
     "@notionhq/client": "^1.0.4",
     "apollo-server-micro": "^3.6.4",
     "graphql": "^16.3.0",
@@ -20,5 +23,13 @@
     "react-dom": "17.0.1",
     "remark": "^14.0.2",
     "remark-html": "^15.0.1"
+  },
+  "devDependencies": {
+    "@graphql-codegen/typescript": "2.4.8",
+    "@graphql-codegen/typescript-resolvers": "2.6.1",
+    "@graphql-codegen/typescript-react-apollo": "3.2.11",
+    "@graphql-codegen/typescript-operations": "2.3.5",
+    "@graphql-codegen/introspection": "2.1.1",
+    "@graphql-codegen/cli": "2.6.2"
   }
 }

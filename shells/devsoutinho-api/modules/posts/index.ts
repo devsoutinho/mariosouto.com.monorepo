@@ -6,6 +6,7 @@ import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
 import allpostsSlugs from '../../_db/posts';
+import { Resolvers, YouTubeVideo } from '../graphql';
 // https://github.com/omariosouto/mvp-devsoutinho/blob/9217c0c43f1ca5d77664618f6ab393412c12f36c/packages/site/cms/modules/youtube/type.ts
 
 export const typeDefs = gql`
@@ -14,17 +15,13 @@ export const typeDefs = gql`
     url: String
     date: String
   }
-  # input QueryYouTubeVideoInput {
-  #   _id: String
-  #   title: String
-  # }
+
   extend type Query {
     posts: [YouTubeVideo]!
-    # youtubeVideo(input: QueryYouTubeVideoInput): YouTubeVideo
   }
 `;
 
-const resolvers = {
+const resolvers: Resolvers = {
   Query: {
     async posts() {
       // [Get All Posts]
@@ -48,10 +45,10 @@ const resolvers = {
           date: new Date(post.data.date).toISOString(),
         };
       });
-      const promisesSettled = await Promise.allSettled(allPostsPromises);
+      const promisesSettled = await Promise.allSettled<YouTubeVideo>(allPostsPromises);
       
-      return promisesSettled.map((promise: any) => {
-        if (promise.value) return promise.value;
+      return promisesSettled.map((promise) => {
+        if(promise.status === 'fulfilled') return promise.value;
       });
     }
   },
