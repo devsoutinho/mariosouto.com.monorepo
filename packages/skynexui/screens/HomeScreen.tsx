@@ -13,9 +13,12 @@ export function HomeScreen() {
     >
       <Image
         styleSheet={{
-          width: '100px',
-          height: '100px',
-          // aspectRatio: 3/2,
+          objectFit: {
+            xs: 'cover',
+            sm: 'contain',
+          },
+          width: "20%",
+          aspectRatio: 1,
           backgroundColor: theme.colors?.negative?.x050,
         }}
         src="https://github.com/omariosouto.png"

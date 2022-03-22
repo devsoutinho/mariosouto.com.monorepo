@@ -9,7 +9,7 @@ function parseToNumber(value: string) {
   return valueConverted;
 }
 
-function resolveValueForBreakpoint(value: any, activeBreakpoint: Breakpoints) {
+export function resolveValueForBreakpoint(value: any, activeBreakpoint: Breakpoints) {
   const breakpointsOrderByBreakpoint: Record<Breakpoints, number> = {
     [Breakpoints.xs]: 0,
     [Breakpoints.sm]: 1,
@@ -101,6 +101,12 @@ function mobileParser(
     }
   }, {});
 
+
+
+  result.aspectRatio = Boolean(result.aspectRatio)
+    ? parseToNumber(`${result.aspectRatio}`.replace('px', ''))
+    : result.aspectRatio;
+
   return result;
 }
 
@@ -118,6 +124,7 @@ export function parseCSS({ styleSheet, currentBreakpoint, currentPlatform, theme
     ? webParser(styleSheet, styleKeys, currentBreakpoint, theme)
     : mobileParser(styleSheet, styleKeys, currentBreakpoint, theme, removePX);
 
-
+  // TODO: Open issue in Styled Components
+  if(result.aspectRatio) result.aspectRatio = `${result.aspectRatio}`;
   return result;
 }

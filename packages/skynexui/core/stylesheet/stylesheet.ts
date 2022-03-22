@@ -15,6 +15,8 @@ type Position = 'relative' | 'absolute' | 'fixed';
 type FlexDirection = 'row' | 'column' | 'row-reverse' | 'column-reverse';
 type Cursor = 'default' | 'pointer' | 'text' | 'wait' | 'move' | 'not-allowed';
 type Overflow = 'scroll' | 'hidden';
+type ObjectFit = 'fill' | 'contain' | 'cover';
+
 export interface StyleSheet {
   // Setup
   cursor?: ResponsiveProperty<Cursor> | Cursor;
@@ -33,8 +35,10 @@ export interface StyleSheet {
   paddingLeft?: ResponsiveProperty<DefaultValue> | DefaultValue;
   paddingRight?: ResponsiveProperty<DefaultValue> | DefaultValue;
   // Layout Style
+  aspectRatio?: ResponsiveProperty<DefaultValue> | DefaultValue;
   color?: ResponsiveProperty<string> | string;
   backgroundColor?: ResponsiveProperty<string> | string;
+  objectFit?: ResponsiveProperty<ObjectFit> | ObjectFit;
   // Flex Values
   flex?: ResponsiveProperty<string> | string | number;
   flexDirection?: ResponsiveProperty<FlexDirection> | FlexDirection;
