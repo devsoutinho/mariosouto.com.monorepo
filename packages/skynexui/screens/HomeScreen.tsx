@@ -77,6 +77,9 @@ export function HomeScreen() {
           marginBottom: theme.space?.x6,
         }}
       >
+        <Text tag='h2' variant='body1' styleSheet={{ color: theme.colors?.neutral.x300 }}>
+          Sempre no 220v, atrás de um filme/rolê e codando desafios em JS. Adoro trabalhar com a web e compartilhar sobre isso na Alura, Nubank e no meu canal do YouTube DevSoutinho
+        </Text>
         {posts.map(({ title, url }) => (
           <Box
             key={url}
@@ -93,7 +96,7 @@ export function HomeScreen() {
               <Text
                 key={title}
                 tag='p'
-                variant='body1'
+                variant='body3'
                 styleSheet={{
                   color: theme.colors?.neutral.x000
                 }}
