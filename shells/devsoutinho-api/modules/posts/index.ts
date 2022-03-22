@@ -1,6 +1,8 @@
 import path from 'path';
 import fs from 'fs/promises';
 import { gql } from 'apollo-server-micro';
+import { remark } from 'remark';
+import html from 'remark-html';
 import allpostsSlugs from '../../_db/posts';
 // https://github.com/omariosouto/mvp-devsoutinho/blob/9217c0c43f1ca5d77664618f6ab393412c12f36c/packages/site/cms/modules/youtube/type.ts
 
@@ -23,6 +25,7 @@ export const typeDefs = gql`
 const resolvers = {
   Query: {
     async posts() {
+      // [Get All Posts]
       // Check if is under development
       if (process.env.NODE_ENV === 'development') {
         const postsPath = path.resolve(__dirname, '..', '..', '..', '..', '_db', 'posts');
@@ -32,11 +35,13 @@ const resolvers = {
 
       const allPostsPromises = allpostsSlugs.map(async (slug) => {
         const BASE_URL = 'https://raw.githubusercontent.com/devsoutinho/mariosouto.com/main/shells/devsoutinho-api/_db/posts/';
-        const postContent = await fetch(`${BASE_URL}${slug}`);
-        console.log(postContent);
+        const postContentRaw = await fetch(`${BASE_URL}${slug}`).then((res) => res.text());
+        const post = await remark().use(html).process(postContentRaw);
+        console.log(post);
       });
+      // ========================================================
 
-      console.log(allpostsSlugs);
+      console.log(allPostsPromises);
 
       return [
         { title: 'Video 01', url: 'https://youtube.com/1', date: new Date('2020-01-01').toISOString() },
