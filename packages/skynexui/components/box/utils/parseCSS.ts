@@ -37,40 +37,62 @@ export function resolveValueForBreakpoint(value: any, activeBreakpoint: Breakpoi
 function webParser(
   styleSheet: StyleSheet,
   styleKeys: StyleKey[],
-  currentBreakpoint: keyof typeof Breakpoints,
+  _: keyof typeof Breakpoints,
   theme: Theme,
 ) {
-  return styleKeys.reduce((acc, styleKey) => {
-    const styleKeyFormated = (styleKey as any).split(/(?=[A-Z])/).join('-').toLowerCase();
-    const styleValue = styleSheet[styleKey] as ResponsiveProperty<typeof styleKey>;
+  // console.log(styleSheet.focus);
+  // console.log(styleSheet.hover);
+  const statesSet = new Set([
+    ':hover',
+    ':focus',
+  ]);
+  function parser(styleSheet: StyleSheet) {
+    return (acc: string, styleKey: any): any => {
+      const styleKeyFormated = (styleKey as any).split(/(?=[A-Z])/).join('-').toLowerCase();
+      const styleValue = styleSheet[styleKey] as ResponsiveProperty<typeof styleKey>;
 
-    if(typeof styleValue === 'object') {
-      const styleValueBreakpoints = Object.keys(styleValue);
+      if(statesSet.has(styleKey)) {
+        const stateValue = styleSheet[styleKey.replace(':', '')];
+        if(!stateValue) return acc;
+
+        // TODO: Understand here :disabled :hover :focus...
+        return `
+          ${acc}
+          &${styleKey} {
+            ${Object.keys(stateValue).reduce(parser(stateValue), '')}
+          }
+        `;
+      }
+  
+      if(typeof styleValue === 'object') {
+        const styleValueBreakpoints = Object.keys(styleValue);
+        return `
+          ${acc}
+          ${styleValueBreakpoints.map((breakpointName) => {
+            const themeBreakpoints = theme?.breakpoints as any;
+            const breakpointValue = themeBreakpoints[breakpointName];
+  
+            const cssRule = `${styleKeyFormated}: ${styleValue[breakpointName as Breakpoints]};`;
+  
+            if(breakpointValue === 0) return cssRule;
+  
+            return `
+              @media (min-width: ${breakpointValue}px) {
+                ${cssRule}
+              }
+            `;
+          }).join('')}
+        `;
+      }
+  
       return `
         ${acc}
-        ${styleValueBreakpoints.map((breakpointName) => {
-          const themeBreakpoints = theme?.breakpoints as any;
-          const breakpointValue = themeBreakpoints[breakpointName];
-
-          const cssRule = `${styleKeyFormated}: ${styleValue[breakpointName as Breakpoints]};`;
-
-          if(breakpointValue === 0) return cssRule;
-
-          return `
-            @media (min-width: ${breakpointValue}px) {
-              ${cssRule}
-            }
-          `;
-        }).join('')}
+        ${styleKeyFormated}: ${styleValue};
       `;
     }
-
-    return `
-      ${acc}
-      ${styleKeyFormated}: ${styleValue};
-    `;
-  }, '');
-
+  }
+  return [...styleKeys, ...Array.from(statesSet)]
+    .reduce(parser(styleSheet), '');
 }
 
 function mobileParser(
@@ -117,11 +139,15 @@ interface ParseCSSInput {
   currentPlatform: EnvPlatform;
   removePX: boolean;
 }
-export function parseCSS({ styleSheet, currentBreakpoint, currentPlatform, theme, removePX }: ParseCSSInput): any {
+export function parseCSS({ styleSheet, currentBreakpoint, currentPlatform, theme, removePX, ...rest }: ParseCSSInput): any {
+  const {
+    styleSheetHover: hover,
+    styleSheetFocus: focus
+  } = rest as any;
   const styleKeys = Object.keys(styleSheet) as StyleKey[];
 
   const result = currentPlatform === 'web'
-    ? webParser(styleSheet, styleKeys, currentBreakpoint, theme)
+    ? webParser({...styleSheet, hover, focus}, styleKeys, currentBreakpoint, theme)
     : mobileParser(styleSheet, styleKeys, currentBreakpoint, theme, removePX);
 
   // TODO: Open issue in Styled Components

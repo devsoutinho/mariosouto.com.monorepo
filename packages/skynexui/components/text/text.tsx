@@ -36,6 +36,7 @@ export function Text({children, variant, styleSheet, ...props}: TextProps) {
   const currentTag = tags[props.tag || DEFAULT_TAG] || {};
 
   const formatedStyleSheet = {
+    textAlign: 'left',
     ...styleSheet,
     ...currentVariantStyles,
   }

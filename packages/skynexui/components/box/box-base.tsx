@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 import { useEnv, useTheme } from '../provider/provider';
 import { StyleSheet } from '../../core/stylesheet/stylesheet';
 import { parseCSS } from './utils/parseCSS';
+import React from 'react';
 
 const StyledScrollView = styled.ScrollView || (styled as any).div;
 const BoxWithScroll = StyledScrollView``;
@@ -15,7 +16,9 @@ const BoxStyled = StyledView<BoxBaseProps>`
     styleSheet,
     currentBreakpoint,
     currentPlatform,
+    ...rest
   }) => parseCSS({
+    ...rest,
     theme: appTheme,
     styleSheet: styleSheet || {},
     currentBreakpoint,
@@ -31,7 +34,31 @@ interface BoxBaseProps {
   [key: string]: any;
 }
 
-export function BoxBase({children, styleSheet, ...props}: BoxBaseProps) {
+export function BoxBase({children, styleSheet: styleSheetComplete, ...props}: BoxBaseProps) {
+  const boxBaseRef = React.useRef();
+
+  const {
+    hover: styleSheetHover,
+    focus: styleSheetFocus,
+    disabled: styleSheetDisabled,
+    ...receivedStyles
+  } = styleSheetComplete || {};
+  const [extraStyles, setExtraStyles] = React.useState({});
+  // props.disabled ? styleSheetDisabled : {}
+  
+  const styleSheet = {
+    ...receivedStyles,
+    ...extraStyles,
+  };
+
+  React.useEffect(() => {
+    if(!isWeb()) {
+      props.disabled
+        ? setExtraStyles(styleSheetDisabled as any)
+        : setExtraStyles({});
+    }
+  }, [props.disabled]);
+
   const theme = useTheme();
   const { getCurrentBreakpoint, getCurrentPlatform, isWeb } = useEnv();
   const currentBreakpoint = getCurrentBreakpoint();
@@ -44,19 +71,47 @@ export function BoxBase({children, styleSheet, ...props}: BoxBaseProps) {
   } = styleSheet || {};
   const isScrollBox = styleSheet?.overflow === 'scroll';
 
+    // State for hover and focus
+    function handleFocus() {
+      if(!isWeb()) {
+        const focusStyles = parseCSS({
+          styleSheet: styleSheetFocus || {},
+          theme,
+          currentBreakpoint,
+          currentPlatform,
+          removePX: true,
+        });
+        setExtraStyles(() => (focusStyles));
+      }
+    }
+    function handleBlur() {
+      if(!isWeb()) {
+        setExtraStyles({});
+      }
+    }
+    // =========================
+
   // [Props Object]
   const boxBaseProps = {
     children,
     currentBreakpoint: currentBreakpoint,
     currentPlatform: currentPlatform,
     appTheme: theme,
+    ...(!isWeb() && {
+      onPressIn: handleFocus,
+      onPressOut: handleBlur,
+    }),
     styleSheet: {
       ...(isWeb() && { cursor }),
       ...commonStyleSheet,
     },
     ...props,
     ...(isScrollBox && { as: BoxWithScroll }),
-    ...(isWeb() && { as: props.tag || props.as }),
+    ...(isWeb() && {
+      as: props.tag || props.as,
+      styleSheetHover,
+      styleSheetFocus
+    }),
   }
 
   if(isScrollBox && !isWeb()) {
@@ -69,6 +124,7 @@ export function BoxBase({children, styleSheet, ...props}: BoxBaseProps) {
     };
     return (
       <BoxStyled
+        ref={boxBaseRef}
         {...boxBaseProps}
         styleSheet={restOfStyles}
         contentContainerStyle={parseCSS({
@@ -82,7 +138,7 @@ export function BoxBase({children, styleSheet, ...props}: BoxBaseProps) {
     );
   }
 
-  return <BoxStyled {...boxBaseProps} />;
+  return <BoxStyled ref={boxBaseRef} {...boxBaseProps} />;
 }
 
 BoxBase.defaultProps = {

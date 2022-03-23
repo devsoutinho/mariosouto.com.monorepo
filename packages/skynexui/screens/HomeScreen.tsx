@@ -1,10 +1,11 @@
 import React from 'react';
-import { Box, Image, Text, Link, useTheme } from '../index';
+import { Box, Image, Text, TouchableArea, useTheme, useRouter } from '../index';
 import { Scaffold } from '../patterns/Scaffold/Scaffold';
 import AppScreenHOC from './wrappers/AppScreenHOC';
 
 export function HomeScreen() {
   const theme = useTheme();
+  const router = useRouter();
   const [posts, setPosts] = React.useState([]);
 
   React.useEffect(() => {
@@ -31,6 +32,8 @@ export function HomeScreen() {
         setPosts(response.data.posts);
       })
   }, []);
+
+  // ======================================================
 
 
   return (
@@ -79,6 +82,7 @@ export function HomeScreen() {
         <Text tag='h2' variant='body1' styleSheet={{ color: theme.colors?.neutral.x300 }}>
           Sempre no 220v, atrás de um filme/rolê e codando desafios em JS. Adoro trabalhar com a web e compartilhar sobre isso na Alura, Nubank e no meu canal do YouTube DevSoutinho
         </Text>
+
         {posts.map(({ title, url }) => (
           <Box
             key={url}
@@ -87,17 +91,41 @@ export function HomeScreen() {
               marginBottom: theme.space?.x4,
             }}
           >
-            <Link
-              href={url}
-              textProps={{
-                variant: 'body3',
-                styleSheet: {
-                  color: theme.colors?.neutral.x000
-                }
+            <TouchableArea
+              disabled
+              styleSheet={{
+                borderStyle: 'solid',
+                borderWidth: '10px',
+                disabled: {
+                  backgroundColor: theme.colors?.neutral?.x500,
+                },
+                hover: {
+                  borderColor: theme.colors?.positive.x500,
+                  backgroundColor: {
+                    xs: theme.colors?.negative.x500,
+                  },
+                },
+                focus: {
+                  borderColor: theme.colors?.positive.x500,
+                  backgroundColor: {
+                    xs: theme.colors?.positive.x500,
+                  },
+                },
+              }}
+              onPress={() => {
+                router.push(url);
               }}
             >
-              {title}
-            </Link>
+              <Text
+                key={title}
+                variant='body3'
+                styleSheet={{
+                  color: theme.colors?.neutral.x000,
+                }}
+              >
+                {title}
+              </Text>
+            </TouchableArea>
           </Box>
         ))}
       </Box>

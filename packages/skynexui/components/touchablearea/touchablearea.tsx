@@ -7,12 +7,9 @@ import { useEnv } from '../provider/provider';
 // cursor: pointer;
 
 const StyledTouchable = styled.TouchableOpacity || (styled as any).button;
-const TouchableStyled = StyledTouchable`
-  background: transparent;
-  border: none;
-`;
+const TouchableStyled = StyledTouchable``;
 interface TouchableProps {
-  tag?: string;
+  disabled?: boolean;
   onPress?: () => void;
   styleSheet?: StyleSheet;
   children?: React.ReactNode;
@@ -25,7 +22,11 @@ export function TouchableArea({ children, styleSheet, onPress, ...props }: Touch
   return (
     <BoxBase
       as={TouchableStyled}
+      activeOpacity={1}
       styleSheet={{
+        border: 'none',
+        backgroundColor: 'transparent',
+        borderColor: 'transparent',
         cursor: 'pointer',
         alignItems: 'flex-start',
         ...styleSheet,

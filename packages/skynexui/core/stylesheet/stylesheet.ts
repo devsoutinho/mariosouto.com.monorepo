@@ -54,6 +54,10 @@ export interface StyleSheet {
   left?: ResponsiveProperty<string> | string;
   right?: ResponsiveProperty<string> | string;
   bottom?: ResponsiveProperty<string> | string;
+  hover?: StyleSheet;
+  focus?: StyleSheet;
+  disabled?: StyleSheet;
+  modeDark?: StyleSheet;
   [key: string]: any;
 }
 
