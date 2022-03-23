@@ -14,12 +14,12 @@ const tags = {
   p:  { accessibilityRole: 'paragraph' },
   span: { accessibilityRole: 'paragraph' },
 };
-const DEFAULT_TAG = 'p';
+const DEFAULT_TAG = 'span';
 
 const StyledText = styled.Text || (styled as any).span;
 const TextStyled = StyledText``;
 
-interface TextProps {
+export interface TextProps {
   // Reference: https://necolas.github.io/react-native-web/docs/accessibility/
   tag?: keyof typeof tags;
   variant?: keyof typeof defaultTheme.typography.variants;

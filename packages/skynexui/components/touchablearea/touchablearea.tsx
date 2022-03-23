@@ -12,6 +12,7 @@ const TouchableStyled = StyledTouchable`
   border: none;
 `;
 interface TouchableProps {
+  tag?: string;
   onPress?: () => void;
   styleSheet?: StyleSheet;
   children?: React.ReactNode;

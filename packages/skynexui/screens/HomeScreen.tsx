@@ -1,11 +1,10 @@
 import React from 'react';
-import { Box, Image, Text, TouchableArea, useTheme, useRouter } from '../index';
+import { Box, Image, Text, Link, useTheme } from '../index';
 import { Scaffold } from '../patterns/Scaffold/Scaffold';
 import AppScreenHOC from './wrappers/AppScreenHOC';
 
 export function HomeScreen() {
   const theme = useTheme();
-  const router = useRouter();
   const [posts, setPosts] = React.useState([]);
 
   React.useEffect(() => {
@@ -88,22 +87,17 @@ export function HomeScreen() {
               marginBottom: theme.space?.x4,
             }}
           >
-            <TouchableArea
-              onPress={() => {
-                router.push(url);
+            <Link
+              href={url}
+              textProps={{
+                variant: 'body3',
+                styleSheet: {
+                  color: theme.colors?.neutral.x000
+                }
               }}
             >
-              <Text
-                key={title}
-                tag='p'
-                variant='body3'
-                styleSheet={{
-                  color: theme.colors?.neutral.x000
-                }}
-              >
-                {title}
-              </Text>
-            </TouchableArea>
+              {title}
+            </Link>
           </Box>
         ))}
       </Box>
