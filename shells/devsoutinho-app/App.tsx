@@ -1,6 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-
 import useCachedResources from './setup-demo/hooks/useCachedResources';
 import Navigation from './navigation';
 import { SkynexUIProvider } from 'skynexui';
@@ -20,7 +18,6 @@ export default function App() {
         >
           <Navigation />
         </SkynexUIProvider>
-        <StatusBar />
       </SafeAreaProvider>
     );
   }

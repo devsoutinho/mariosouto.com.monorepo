@@ -38,6 +38,7 @@ export function HomeScreen() {
 
   return (
     <Scaffold
+      statusBar={{ style: 'light' }}
       safeArea={{ top: true, bottom: true }}
       styleSheet={{
         backgroundColor: theme.colors?.neutral?.x900,
