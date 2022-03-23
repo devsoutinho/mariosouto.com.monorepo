@@ -124,10 +124,17 @@ export function HomeScreen() {
                 {title}
               </Text>
             </TouchableArea>
-            <Button
-              href={url}
-              label="Ver vídeo"
-            />
+            <Box
+              styleSheet={{
+                backgroundColor: '#FFF',
+                padding: '50px',
+              }}
+            >
+              <Button
+                href={url}
+                label="Ver vídeo"
+              />
+            </Box>
           </Box>
         ))}
       </Box>

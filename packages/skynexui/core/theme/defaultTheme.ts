@@ -2,6 +2,7 @@ import { defaultBorderRadius } from './borderRadius/borderRadius';
 import { defaultBreakpoints } from './breakpoints/breakpoints';
 import { defaultColors } from './colors/colors';
 import { defaultSpace } from './space/space';
+import { defaultShadow } from './shadow/shadow';
 import { defaultTypography } from './typography/typography';
 
 
@@ -11,6 +12,7 @@ export const defaultTheme = {
   space: defaultSpace,
   typography: defaultTypography,
   borderRadius: defaultBorderRadius,
+  shadow: defaultShadow,
   components: {
     text: {
       defaultVariant: 'body2',

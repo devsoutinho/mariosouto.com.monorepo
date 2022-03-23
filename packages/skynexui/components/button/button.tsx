@@ -1,5 +1,6 @@
 
 import { StyleSheet } from '../../core/stylesheet/stylesheet';
+import { useTheme } from '../provider/provider';
 import { Text } from '../text/text';
 import { TouchableArea } from '../touchablearea/touchablearea';
 
@@ -11,6 +12,8 @@ interface ButtonProps {
   styleSheet?: StyleSheet;
 }
 export function Button({ label, styleSheet, onPress, ...props }: ButtonProps) {
+  const theme = useTheme();
+
   return (
     <TouchableArea
       onPress={() => {
@@ -18,8 +21,9 @@ export function Button({ label, styleSheet, onPress, ...props }: ButtonProps) {
       }}
       {...props}
       styleSheet={{
+        boxShadow: theme.shadow?.sm,
         textDecoration: 'none',
-        backgroundColor: '#fff',
+        backgroundColor: '#f00',
         ...styleSheet,
       }}
     >
