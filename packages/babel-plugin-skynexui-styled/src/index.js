@@ -44,11 +44,9 @@ module.exports = function ({ types: t }) {
         const { specifiers } = path.node;
 
         if (externalLibs.isExternalImport(path.node)) {
-          // console.log('É external!');
-          path.node.source.extra.raw = "'external-libs/react-native-safe-area-context/native'".replace('/native', '/web');
-          path.node.source.extra.rawValue = 'external-libs/react-native-safe-area-context/native'.replace('/native', '/web');
-          path.node.source.value = 'external-libs/react-native-safe-area-context/native'.replace('/native', '/web');
-          // console.log(path.node.source);
+          path.node.source.extra.raw = path.node.source.extra.raw.replace('/native', '/web');
+          path.node.source.extra.rawValue = path.node.source.extra.rawValue.replace('/native', '/web');
+          path.node.source.value = path.node.source.value.replace('/native', '/web');
         }
 
         if (isSkynexNativeModule(path.node)) {
