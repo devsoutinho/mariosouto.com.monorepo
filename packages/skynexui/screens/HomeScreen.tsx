@@ -92,11 +92,11 @@ export function HomeScreen() {
             }}
           >
             <TouchableArea
-              disabled
               styleSheet={{
                 borderStyle: 'solid',
                 borderWidth: '10px',
                 disabled: {
+                  borderColor: theme.colors?.neutral.x500,
                   backgroundColor: theme.colors?.neutral?.x500,
                 },
                 hover: {

@@ -45,6 +45,7 @@ function webParser(
   const statesSet = new Set([
     ':hover',
     ':focus',
+    ':disabled',
   ]);
   function parser(styleSheet: StyleSheet) {
     return (acc: string, styleKey: any): any => {
@@ -59,6 +60,7 @@ function webParser(
         return `
           ${acc}
           &${styleKey} {
+            ${styleKey === ':disabled' ? 'cursor: not-allowed;' : ''}
             ${Object.keys(stateValue).reduce(parser(stateValue), '')}
           }
         `;
@@ -142,12 +144,13 @@ interface ParseCSSInput {
 export function parseCSS({ styleSheet, currentBreakpoint, currentPlatform, theme, removePX, ...rest }: ParseCSSInput): any {
   const {
     styleSheetHover: hover,
-    styleSheetFocus: focus
+    styleSheetFocus: focus,
+    styleSheetDisabled: disabled,
   } = rest as any;
   const styleKeys = Object.keys(styleSheet) as StyleKey[];
 
   const result = currentPlatform === 'web'
-    ? webParser({...styleSheet, hover, focus}, styleKeys, currentBreakpoint, theme)
+    ? webParser({...styleSheet, hover, focus, disabled}, styleKeys, currentBreakpoint, theme)
     : mobileParser(styleSheet, styleKeys, currentBreakpoint, theme, removePX);
 
   // TODO: Open issue in Styled Components

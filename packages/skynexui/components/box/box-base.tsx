@@ -12,19 +12,19 @@ const BoxStyled = StyledView<BoxBaseProps>`
   flex-direction: column;
 
   ${({
-    appTheme,
-    styleSheet,
-    currentBreakpoint,
-    currentPlatform,
-    ...rest
-  }) => parseCSS({
-    ...rest,
-    theme: appTheme,
-    styleSheet: styleSheet || {},
-    currentBreakpoint,
-    currentPlatform,
-    removePX: false,
-  })}
+  appTheme,
+  styleSheet,
+  currentBreakpoint,
+  currentPlatform,
+  ...rest
+}) => parseCSS({
+  ...rest,
+  theme: appTheme,
+  styleSheet: styleSheet || {},
+  currentBreakpoint,
+  currentPlatform,
+  removePX: false,
+})}
 `;
 
 interface BoxBaseProps {
@@ -34,7 +34,7 @@ interface BoxBaseProps {
   [key: string]: any;
 }
 
-export function BoxBase({children, styleSheet: styleSheetComplete, ...props}: BoxBaseProps) {
+export function BoxBase({ children, styleSheet: styleSheetComplete, ...props }: BoxBaseProps) {
   const boxBaseRef = React.useRef();
 
   const {
@@ -44,15 +44,14 @@ export function BoxBase({children, styleSheet: styleSheetComplete, ...props}: Bo
     ...receivedStyles
   } = styleSheetComplete || {};
   const [extraStyles, setExtraStyles] = React.useState({});
-  // props.disabled ? styleSheetDisabled : {}
-  
+
   const styleSheet = {
     ...receivedStyles,
     ...extraStyles,
   };
 
   React.useEffect(() => {
-    if(!isWeb()) {
+    if (!isWeb()) {
       props.disabled
         ? setExtraStyles(styleSheetDisabled as any)
         : setExtraStyles({});
@@ -63,7 +62,7 @@ export function BoxBase({children, styleSheet: styleSheetComplete, ...props}: Bo
   const { getCurrentBreakpoint, getCurrentPlatform, isWeb } = useEnv();
   const currentBreakpoint = getCurrentBreakpoint();
   const currentPlatform = getCurrentPlatform();
-  
+
   // Style Sheet
   const {
     cursor,
@@ -71,25 +70,25 @@ export function BoxBase({children, styleSheet: styleSheetComplete, ...props}: Bo
   } = styleSheet || {};
   const isScrollBox = styleSheet?.overflow === 'scroll';
 
-    // State for hover and focus
-    function handleFocus() {
-      if(!isWeb()) {
-        const focusStyles = parseCSS({
-          styleSheet: styleSheetFocus || {},
-          theme,
-          currentBreakpoint,
-          currentPlatform,
-          removePX: true,
-        });
-        setExtraStyles(() => (focusStyles));
-      }
+  // State for hover and focus
+  function handleFocus() {
+    if (!isWeb()) {
+      const focusStyles = parseCSS({
+        styleSheet: styleSheetFocus || {},
+        theme,
+        currentBreakpoint,
+        currentPlatform,
+        removePX: true,
+      });
+      setExtraStyles(() => (focusStyles));
     }
-    function handleBlur() {
-      if(!isWeb()) {
-        setExtraStyles({});
-      }
+  }
+  function handleBlur() {
+    if (!isWeb()) {
+      setExtraStyles({});
     }
-    // =========================
+  }
+  // =========================
 
   // [Props Object]
   const boxBaseProps = {
@@ -110,11 +109,12 @@ export function BoxBase({children, styleSheet: styleSheetComplete, ...props}: Bo
     ...(isWeb() && {
       as: props.tag || props.as,
       styleSheetHover,
-      styleSheetFocus
+      styleSheetFocus,
+      styleSheetDisabled
     }),
   }
 
-  if(isScrollBox && !isWeb()) {
+  if (isScrollBox && !isWeb()) {
     const {
       alignItems, padding, paddingBottom, paddingTop, paddingLeft, paddingRight,
       ...restOfStyles
