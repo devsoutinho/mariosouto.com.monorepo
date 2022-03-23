@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Image, Text, TouchableArea, useTheme, useRouter } from '../index';
+import { Box, Button, Image, Text, TouchableArea, useTheme, useRouter } from '../index';
 import { Scaffold } from '../patterns/Scaffold/Scaffold';
 import AppScreenHOC from './wrappers/AppScreenHOC';
 
@@ -126,6 +126,13 @@ export function HomeScreen() {
                 {title}
               </Text>
             </TouchableArea>
+            <Button
+              href={url}
+              label="Ver vídeo"
+              styleSheet={{
+                color: '#fff',
+              }}
+            />
           </Box>
         ))}
       </Box>

@@ -9,10 +9,13 @@ import { useEnv } from '../provider/provider';
 const StyledTouchable = styled.TouchableOpacity || (styled as any).button;
 const TouchableStyled = StyledTouchable``;
 interface TouchableProps {
+  href?: string;
+  target?: '_blank' | '_self';
   disabled?: boolean;
   onPress?: () => void;
   styleSheet?: StyleSheet;
   children?: React.ReactNode;
+  [key: string]: any;
 }
 export function TouchableArea({ children, styleSheet, onPress, ...props }: TouchableProps) {
   const { isWeb } = useEnv();
@@ -29,7 +32,9 @@ export function TouchableArea({ children, styleSheet, onPress, ...props }: Touch
         borderColor: 'transparent',
         cursor: 'pointer',
         alignItems: 'flex-start',
-        outline: '0',
+        ...(isWeb() && {
+          outline: '0',
+        }),
         ...styleSheet,
       }}
       {...isMobileEnv && {
