@@ -19,13 +19,14 @@ export function Button({ label, styleSheet, onPress, ...props }: ButtonProps) {
       {...props}
       styleSheet={{
         textDecoration: 'none',
+        backgroundColor: '#fff',
         ...styleSheet,
       }}
     >
       <Text
         tag={"span"}
         styleSheet={{
-          color: styleSheet?.color,
+          color: '#000',
         }}
       >
         {label}

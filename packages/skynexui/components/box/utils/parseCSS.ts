@@ -40,8 +40,6 @@ function webParser(
   _: keyof typeof Breakpoints,
   theme: Theme,
 ) {
-  // console.log(styleSheet.focus);
-  // console.log(styleSheet.hover);
   const statesSet = new Set([
     ':hover',
     ':focus',

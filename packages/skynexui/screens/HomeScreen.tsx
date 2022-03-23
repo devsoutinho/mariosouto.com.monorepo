@@ -127,9 +127,6 @@ export function HomeScreen() {
             <Button
               href={url}
               label="Ver vídeo"
-              styleSheet={{
-                color: '#fff',
-              }}
             />
           </Box>
         ))}
