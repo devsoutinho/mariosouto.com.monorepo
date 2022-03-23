@@ -2,7 +2,6 @@
 import { StyleSheet } from '../../core/stylesheet/stylesheet';
 import { Text } from '../text/text';
 import { TouchableArea } from '../touchablearea/touchablearea';
-import { useRouter } from '../provider/provider';
 
 interface ButtonProps {
   label: string;
@@ -11,19 +10,10 @@ interface ButtonProps {
   onPress?: () => void;
   styleSheet?: StyleSheet;
 }
-export function Button({ label, styleSheet, href, onPress, ...props }: ButtonProps) {
-  const router = useRouter();
-  const isLink = Boolean(href);
-  const tag = isLink
-    ? 'a'
-    : 'button';
-
+export function Button({ label, styleSheet, onPress, ...props }: ButtonProps) {
   return (
     <TouchableArea
-      tag={tag}
-      href={href}
       onPress={() => {
-        isLink && router.push(href as any);
         onPress && onPress();
       }}
       {...props}

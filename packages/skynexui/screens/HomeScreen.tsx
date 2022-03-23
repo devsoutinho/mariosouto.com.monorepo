@@ -92,6 +92,7 @@ export function HomeScreen() {
             }}
           >
             <TouchableArea
+              href={url}
               styleSheet={{
                 borderStyle: 'solid',
                 borderWidth: '10px',
@@ -111,9 +112,6 @@ export function HomeScreen() {
                     xs: theme.colors?.positive.x500,
                   },
                 },
-              }}
-              onPress={() => {
-                router.push(url);
               }}
             >
               <Text
