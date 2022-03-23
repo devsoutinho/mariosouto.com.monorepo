@@ -29,6 +29,7 @@ export function TouchableArea({ children, styleSheet, onPress, ...props }: Touch
         borderColor: 'transparent',
         cursor: 'pointer',
         alignItems: 'flex-start',
+        outline: '0',
         ...styleSheet,
       }}
       {...isMobileEnv && {
