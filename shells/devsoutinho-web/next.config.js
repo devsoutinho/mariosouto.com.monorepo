@@ -8,6 +8,15 @@ const withTM = require('next-transpile-modules')([
 });
 
 module.exports = withPlugins([withTM], {
+  async redirects() {
+    return [
+      {
+        source: '/install/expo',
+        destination: 'https://expo.dev/@devsoutinho_tech/devsoutinho-app?serviceType=classic&distribution=expo-go',
+        permanent: true,
+      },
+    ]
+  },
   trailingSlash: true,
   webpack: (config) => {
     config.resolve.alias = {
