@@ -1,12 +1,15 @@
-
 import { StyleSheet } from '../../core/stylesheet/stylesheet';
 import { useTheme } from '../provider/provider';
 import { Text } from '../text/text';
 import { TouchableArea } from '../touchablearea/touchablearea';
+import { buttonVariantToStyle } from './theme';
+
+// https://github.com/skynexui/components/blob/main/lib/components/button/button.tsx
 
 interface ButtonProps {
   label: string;
   href?: string;
+  variant?: keyof typeof buttonVariantToStyle;
   target?: '_blank' | '_self';
   onPress?: () => void;
   styleSheet?: StyleSheet;
