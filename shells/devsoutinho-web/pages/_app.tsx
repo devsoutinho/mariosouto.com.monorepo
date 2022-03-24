@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 function MyApp({ Component, pageProps }) {
   return (
     <>
-      <ApolloProvider>
+      <ApolloProvider pageProps={pageProps}>
         <SkynexUIProvider
           useRouterHook={useRouter}
         >

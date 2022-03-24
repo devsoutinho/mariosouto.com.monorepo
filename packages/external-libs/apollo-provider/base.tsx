@@ -1,17 +1,15 @@
-import { ApolloClient, InMemoryCache, ApolloProvider as ApolloProviderBase } from '@apollo/client';
-
-// Initialize Apollo Client
-const client = new ApolloClient({
-  uri: 'https://mariosouto-com-api.vercel.app/api/graphql',
-  cache: new InMemoryCache()
-});
+import { ApolloProvider as ApolloProviderBase } from '@apollo/client';
+import { useApollo } from '../apollo-client';
 
 interface ApolloProviderProps {
   children: React.ReactNode;
+  pageProps: any;
 }
-export function ApolloProvider({ children }: ApolloProviderProps) {
+export function ApolloProvider({ children, pageProps }: ApolloProviderProps) {
+  const apolloClient = useApollo(pageProps || {});
+
   return (
-    <ApolloProviderBase client={client}>
+    <ApolloProviderBase client={apolloClient}>
       {children}
     </ApolloProviderBase>
   )

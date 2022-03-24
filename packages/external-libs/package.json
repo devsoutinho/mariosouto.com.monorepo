@@ -8,6 +8,8 @@
     "styled-components": "5.3.3"
   },
   "dependencies": {
+    "deepmerge": "4.2.2",
+    "lodash": "4.17.21",
     "@apollo/client": "3.4.16"
   },
   "devDependencies": {

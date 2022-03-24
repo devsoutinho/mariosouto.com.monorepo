@@ -84,8 +84,6 @@ export function Button({ label, styleSheet, buttonColors, ...props }: ButtonProp
 
   const buttonStyle = (buttonStyles as any)[(buttonVariantToStyle as any)[variant as any]](colorSet);
 
-  // console.log(buttonStyle);
-
   return (
     <Box
       {...{
@@ -114,6 +112,12 @@ export function Button({ label, styleSheet, buttonColors, ...props }: ButtonProp
           variant={textVariant}
           styleSheet={{
             color: buttonStyle.color,
+            hover: {
+              hover: buttonStyle.hover.color,
+            },
+            focus: {
+              focus: buttonStyle.focus.color,
+            },
           }}
         >
           {label}

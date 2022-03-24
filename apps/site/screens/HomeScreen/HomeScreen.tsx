@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Button, Image, Text, TouchableArea, useTheme, useRouter } from 'skynexui';
 import { Scaffold } from 'skynexui/patterns/Scaffold/Scaffold';
 import { gql, useQuery } from '@apollo/client';
+import { addApolloState, initializeApollo } from 'external-libs/apollo-client';
 
 const GET_POSTS = gql`
   query {
@@ -13,7 +14,20 @@ const GET_POSTS = gql`
   }
 `;
 
-export function HomeScreen() {
+export async function getStaticProps() {
+  const apolloClient = initializeApollo()
+
+  await apolloClient.query({
+    query: GET_POSTS,
+  })
+
+  return addApolloState(apolloClient, {
+    props: {},
+  })
+}
+
+
+export function HomeScreen(props) {
   const theme = useTheme();
   const router = useRouter();
 
