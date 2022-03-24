@@ -3,7 +3,8 @@ import { NavigationContainer, NavigatorScreenParams } from '@react-navigation/na
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // Screens
-import HomeScreen from 'skynexui/screens/HomeScreen';
+import HomeScreen from '@devsoutinho/site/screens/HomeScreen/HomeScreen';
+
 import SettingsScreen from 'skynexui/screens/SettingsScreen';
 import NotFoundScreen from 'skynexui/screens/NotFoundScreen';
 import { MainNavigationMenu } from 'skynexui/patterns/MainNavigationMenu/MainNavigationMenu';

@@ -13,7 +13,7 @@
     "@graphql-codegen/cli": "^2.6.2",
     "@notionhq/client": "^1.0.4",
     "apollo-server-micro": "^3.6.4",
-    "graphql": "^16.3.0",
+    "graphql": "15.7.2",
     "gray-matter": "^4.0.3",
     "micro": "^9.3.4",
     "micro-cors": "^0.1.1",

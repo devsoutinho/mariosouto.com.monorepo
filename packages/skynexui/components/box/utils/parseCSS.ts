@@ -3,6 +3,37 @@ import { Breakpoints } from '../../../core/theme/breakpoints/breakpoints';
 import { Theme } from '../../../core/theme/defaultTheme';
 import { EnvPlatform } from '../../provider/provider';
 
+function parseStyleSheet(styleSheet: StyleSheet): StyleSheet {
+  const result = Object.entries(styleSheet || {}).reduce((acc, [key, value]) => {
+    const styleKeyFormated = (key as any).split(/(?=[A-Z])/).join('-').toLowerCase();
+
+
+    if(styleKeyFormated.includes('vertical')) {
+      const propName = styleKeyFormated.replace('-vertical', '');
+      return {
+        ...acc,
+        [`${propName}Top`]: value,
+        [`${propName}Bottom`]: value,
+      }      
+    }
+    if(styleKeyFormated.includes('horizontal')) {
+      const propName = styleKeyFormated.replace('-horizontal', '');
+      return {
+        ...acc,
+        [`${propName}Left`]: value,
+        [`${propName}Right`]: value,
+      }      
+    }
+
+    return {
+      ...acc,
+      [key]: value,
+    }
+  }, {});
+
+  return result;
+}
+
 function parseToNumber(value: string) {
   const valueConverted = Number(value);
   if(isNaN(valueConverted)) return value;
@@ -57,7 +88,8 @@ function webParser(
         // TODO: Understand here :disabled :hover :focus...
         return `
           ${acc}
-          &${styleKey} {
+          &${styleKey},
+          &[disabled] {
             ${styleKey === ':disabled' ? 'cursor: not-allowed;' : ''}
             ${Object.keys(stateValue).reduce(parser(stateValue), '')}
           }
@@ -145,11 +177,12 @@ export function parseCSS({ styleSheet, currentBreakpoint, currentPlatform, theme
     styleSheetFocus: focus,
     styleSheetDisabled: disabled,
   } = rest as any;
-  const styleKeys = Object.keys(styleSheet) as StyleKey[];
+  const styleSheetParsed = parseStyleSheet(styleSheet);
+  const styleKeys = Object.keys(styleSheetParsed) as StyleKey[];
 
   const result = currentPlatform === 'web'
-    ? webParser({...styleSheet, hover, focus, disabled}, styleKeys, currentBreakpoint, theme)
-    : mobileParser(styleSheet, styleKeys, currentBreakpoint, theme, removePX);
+    ? webParser({...styleSheetParsed, hover: parseStyleSheet(hover), focus: parseStyleSheet(focus), disabled: parseStyleSheet(disabled)}, styleKeys, currentBreakpoint, theme)
+    : mobileParser(styleSheetParsed, styleKeys, currentBreakpoint, theme, removePX);
 
   // TODO: Open issue in Styled Components
   if(result.aspectRatio) result.aspectRatio = `${result.aspectRatio}`;

@@ -3,6 +3,7 @@ const withPlugins = require('next-compose-plugins');
 const withTM = require('next-transpile-modules')([
   'styled-components',
   'skynexui',
+  '@devsoutinho/site',
   'external-libs',
 ], {
   resolveSymlinks: true,

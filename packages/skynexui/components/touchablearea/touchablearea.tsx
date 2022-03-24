@@ -28,8 +28,10 @@ export function TouchableArea({ children, styleSheet, href, onPress, ...props }:
   const isMobileEnv = !isWebEnv;
 
   function handleOnPress() {
-    onPress && onPress();
-    isLink && router.push(href as any);
+    if(!props.disabled) {
+      onPress && onPress();
+      isLink && router.push(href as any);
+    }
   }
 
   return (

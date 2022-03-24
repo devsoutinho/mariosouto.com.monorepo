@@ -1,13 +1,13 @@
-import { Box, Button, Image, Text, TouchableArea, useTheme, useRouter } from '../index';
-import { Scaffold } from '../patterns/Scaffold/Scaffold';
-import AppScreenHOC from './wrappers/AppScreenHOC';
+import React from 'react';
+import { Box, Button, Image, Text, TouchableArea, useTheme, useRouter } from 'skynexui';
+import { Scaffold } from 'skynexui/patterns/Scaffold/Scaffold';
 import { gql, useQuery } from '@apollo/client';
 
 const GET_POSTS = gql`
   query {
-    posta {
+    posts {
       title
-      data
+      date
       url
     }
   }
@@ -16,16 +16,16 @@ const GET_POSTS = gql`
 export function HomeScreen() {
   const theme = useTheme();
   const router = useRouter();
-  
+
   const { loading, error, data } = useQuery(GET_POSTS);
 
   if (loading) return (
-    <Box styleSheet={{ flex: 1, color: '#fff' }}>
+    <Box styleSheet={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.colors?.neutral?.x900, color: '#fff' }}>
       <Text styleSheet={{ color: '#fff' }}>Loading...</Text>
     </Box>
   );
   if (error) return (
-    <Box styleSheet={{ flex: 1, color: '#fff' }}>
+    <Box styleSheet={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.colors?.neutral?.x900, color: '#fff' }}>
       <Text styleSheet={{ color: '#fff' }}>{error.message}</Text>
     </Box>
   );
@@ -56,7 +56,6 @@ export function HomeScreen() {
             width: '200px',
             height: '200px',
             borderRadius: theme.borderRadius?.full,
-            backgroundColor: theme.colors?.negative?.x050,
             marginTop: theme.space?.x4,
             marginBottom: theme.space?.x4,
           }}
@@ -81,7 +80,7 @@ export function HomeScreen() {
           Sempre no 220v, atrás de um filme/rolê e codando desafios em JS. Adoro trabalhar com a web e compartilhar sobre isso na Alura, Nubank e no meu canal do YouTube DevSoutinho
         </Text>
 
-        {data.posts.map(({ title, url }: any) => (
+        {data.posts.map(({ title, url }) => (
           <Box
             key={url}
             styleSheet={{
@@ -145,4 +144,4 @@ export function HomeScreen() {
   );
 }
 
-export default AppScreenHOC(HomeScreen);
+export default HomeScreen;

@@ -27,9 +27,9 @@ export const defaultTheme = {
         secondary: 'outlined',
         tertiary: 'ghost',
       },
-      colorVariant: 'primary',
+      colorVariant: 'accent',
       rounded: 'sm' as keyof typeof defaultBorderRadius,
-      size: 'md',
+      size: 'sm',
     }
   }
 };

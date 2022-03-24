@@ -1,1 +1,1 @@
-export { default } from 'skynexui/screens/HomeScreen';
+export { default } from '@devsoutinho/site/screens/HomeScreen/HomeScreen';

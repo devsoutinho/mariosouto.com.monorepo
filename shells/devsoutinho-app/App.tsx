@@ -2,6 +2,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import useCachedResources from './setup-demo/hooks/useCachedResources';
 import Navigation from './navigation';
 import { SkynexUIProvider } from 'skynexui';
+import { ApolloProvider } from 'external-libs/apollo-provider/native';
 import { useNavigation } from '@react-navigation/native';
 
 export default function App() {
@@ -13,11 +14,13 @@ export default function App() {
     return (
       <SafeAreaProvider>
         {/* Reference: https://github.com/chagasaway/tdc-2019 */}
-        <SkynexUIProvider
-          useRouterHook={useNavigation}
-        >
-          <Navigation />
-        </SkynexUIProvider>
+        <ApolloProvider>
+          <SkynexUIProvider
+            useRouterHook={useNavigation}
+          >
+            <Navigation />
+          </SkynexUIProvider>
+        </ApolloProvider>
       </SafeAreaProvider>
     );
   }
