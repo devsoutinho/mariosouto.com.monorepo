@@ -1,6 +1,7 @@
 import { PageConfig } from "next";
 import { ApolloServer, gql } from "apollo-server-micro";
 import { youtubeModule } from '../../modules/posts';
+import { qrcodeModule } from '../../modules/qrcode';
 
 const defaultTypeDefs = gql`
   input CreateSampleTextInput {
@@ -20,15 +21,18 @@ const defaultTypeDefs = gql`
 const serverSchema = {
   typeDefs: [
     youtubeModule.typeDefs,
+    qrcodeModule.typeDefs,
     defaultTypeDefs,
   ],
   resolvers: {
     Query: {
       ...youtubeModule.resolvers.Query,
+      ...qrcodeModule.resolvers.Query,
       greet: () => 'Welcome to @devsoutinho/api',
     },
     Mutation: {
       ...youtubeModule.resolvers.Mutation,
+      ...qrcodeModule.resolvers.Mutation,
       createSampleText: (_: unknown, args) => args.input.text,
     }
   },

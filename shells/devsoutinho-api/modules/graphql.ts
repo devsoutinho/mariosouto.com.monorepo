@@ -27,10 +27,16 @@ export type MutationCreateSampleTextArgs = {
   input?: InputMaybe<CreateSampleTextInput>;
 };
 
+export type QrCode = {
+  __typename?: 'QrCode';
+  url?: Maybe<Scalars['String']>;
+};
+
 export type Query = {
   __typename?: 'Query';
   greet?: Maybe<Scalars['String']>;
   posts: Array<Maybe<YouTubeVideo>>;
+  qrCode: QrCode;
 };
 
 export type YouTubeVideo = {
@@ -112,6 +118,7 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   CreateSampleTextInput: CreateSampleTextInput;
   Mutation: ResolverTypeWrapper<{}>;
+  QrCode: ResolverTypeWrapper<QrCode>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
   YouTubeVideo: ResolverTypeWrapper<YouTubeVideo>;
@@ -122,6 +129,7 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
   CreateSampleTextInput: CreateSampleTextInput;
   Mutation: {};
+  QrCode: QrCode;
   Query: {};
   String: Scalars['String'];
   YouTubeVideo: YouTubeVideo;
@@ -131,9 +139,15 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   createSampleText?: Resolver<ResolversTypes['String'], ParentType, ContextType, Partial<MutationCreateSampleTextArgs>>;
 };
 
+export type QrCodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['QrCode'] = ResolversParentTypes['QrCode']> = {
+  url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   greet?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   posts?: Resolver<Array<Maybe<ResolversTypes['YouTubeVideo']>>, ParentType, ContextType>;
+  qrCode?: Resolver<ResolversTypes['QrCode'], ParentType, ContextType>;
 };
 
 export type YouTubeVideoResolvers<ContextType = any, ParentType extends ResolversParentTypes['YouTubeVideo'] = ResolversParentTypes['YouTubeVideo']> = {
@@ -145,6 +159,7 @@ export type YouTubeVideoResolvers<ContextType = any, ParentType extends Resolver
 
 export type Resolvers<ContextType = any> = {
   Mutation?: MutationResolvers<ContextType>;
+  QrCode?: QrCodeResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   YouTubeVideo?: YouTubeVideoResolvers<ContextType>;
 };
