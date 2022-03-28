@@ -10,7 +10,6 @@
     "generate:types": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
-    "@graphql-codegen/cli": "^2.6.2",
     "@notionhq/client": "^1.0.4",
     "apollo-server-micro": "^3.6.4",
     "graphql": "15.7.2",

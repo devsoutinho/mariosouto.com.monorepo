@@ -2,6 +2,7 @@
 title: "FullStack é pato? Visão geral da área de programação: Front End vs Back End, \"qual é mais difícil?\""
 url: https://www.youtube.com/watch?v=z8Eqdn62xZg
 date: 2022-03-14 11:30:00
+postType: "YOUTUBE_VIDEO"
 tags:
   devsoutinho
   youtube

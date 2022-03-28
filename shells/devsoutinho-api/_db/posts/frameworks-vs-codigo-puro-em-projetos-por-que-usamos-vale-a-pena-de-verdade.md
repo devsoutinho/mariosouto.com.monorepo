@@ -2,6 +2,7 @@
 title: "Frameworks vs Código \"puro\" em projetos: Por que usamos? Vale a pena de verdade?"
 url: https://www.youtube.com/watch?v=ChALzuWPs4k
 date: 2022-03-21 11:30:00
+postType: "YOUTUBE_VIDEO"
 tags:
 - devsoutinho
 - youtube

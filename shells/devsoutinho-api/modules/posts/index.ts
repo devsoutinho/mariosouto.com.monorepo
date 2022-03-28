@@ -10,10 +10,15 @@ import { Resolvers, YouTubeVideo } from '../graphql';
 // https://github.com/omariosouto/mvp-devsoutinho/blob/9217c0c43f1ca5d77664618f6ab393412c12f36c/packages/site/cms/modules/youtube/type.ts
 
 export const typeDefs = gql`
+  enum PostType {
+    YOUTUBE_VIDEO
+  }
+
   type YouTubeVideo {
     title: String
     url: String
     date: String
+    postType: PostType
   }
 
   extend type Query {
@@ -38,7 +43,7 @@ const resolvers: Resolvers = {
         const { data, content } = matter(postContentRaw);
         const contentParsed = await remark().use(html).process(content);
         const post = { data, content: contentParsed.value, };
-
+        console.log(data);
         return {
           title: post.data.title,
           url: post.data.url,
