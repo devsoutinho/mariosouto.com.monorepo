@@ -1,9 +1,9 @@
 // [SETUP: ADD YOUR CONTRIBUTION HERE]
 const defaultContribution = {
-  "title": "4 DICAS de CSS que você PRECISA saber (a última é de JS mas é visual) | Como fazer um site awwwards?",
-  "url": "https://youtu.be/p3rXmeI0KEk",
-  "date": "2021-12-13T03:00:00.000Z",
-  "excerpt": "Você, ficou curioso já pensando como são feitos aqueles sites do awwards? Pois chegou a hora de compartilhar algumas dicas que eu aprendi ao longo da carreira que pode ajudar você a chegar lá!"
+  "title": "QUANTAS LINGUAGENS DE PROGRAMAÇÃO eu preciso SABER? | Quais linguagens eu já programei?",
+  "url": "https://youtu.be/FDQbzP7PBiw",
+  "date": "2021-12-28T03:00:00.000Z",
+  "excerpt": "Nesse video vou fazer uma tour por todas as linguagens de programação que eu já trabalhei, desde antes mesmo de receber dinheiro pra trabalhar como Dev!"
 };
 
 // DevSoutinho - MVP Bot

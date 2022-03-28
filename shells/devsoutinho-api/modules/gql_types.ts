@@ -30,6 +30,11 @@ export type CreateSampleTextInput = {
   text: Scalars['String'];
 };
 
+export type DateFilter = {
+  gte?: InputMaybe<Scalars['String']>;
+  lt?: InputMaybe<Scalars['String']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createSampleText: Scalars['String'];
@@ -59,6 +64,16 @@ export enum PostType {
   YoutubeVideo = 'YOUTUBE_VIDEO'
 }
 
+export type PostsFilters = {
+  date?: InputMaybe<DateFilter>;
+};
+
+export type PostsInput = {
+  filter?: InputMaybe<PostsFilters>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+};
+
 export type QrCode = {
   __typename?: 'QrCode';
   url?: Maybe<Scalars['String']>;
@@ -69,6 +84,11 @@ export type Query = {
   greet?: Maybe<Scalars['String']>;
   posts: Array<Maybe<Post>>;
   qrCode: QrCode;
+};
+
+
+export type QueryPostsArgs = {
+  input?: InputMaybe<PostsInput>;
 };
 
 
@@ -144,9 +164,13 @@ export type ResolversTypes = {
   CreatePostInput: CreatePostInput;
   CreatePostPayload: ResolverTypeWrapper<CreatePostPayload>;
   CreateSampleTextInput: CreateSampleTextInput;
+  DateFilter: DateFilter;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   Mutation: ResolverTypeWrapper<{}>;
   Post: ResolverTypeWrapper<Post>;
   PostType: PostType;
+  PostsFilters: PostsFilters;
+  PostsInput: PostsInput;
   QrCode: ResolverTypeWrapper<QrCode>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
@@ -158,8 +182,12 @@ export type ResolversParentTypes = {
   CreatePostInput: CreatePostInput;
   CreatePostPayload: CreatePostPayload;
   CreateSampleTextInput: CreateSampleTextInput;
+  DateFilter: DateFilter;
+  Int: Scalars['Int'];
   Mutation: {};
   Post: Post;
+  PostsFilters: PostsFilters;
+  PostsInput: PostsInput;
   QrCode: QrCode;
   Query: {};
   String: Scalars['String'];
@@ -191,7 +219,7 @@ export type QrCodeResolvers<ContextType = any, ParentType extends ResolversParen
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   greet?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  posts?: Resolver<Array<Maybe<ResolversTypes['Post']>>, ParentType, ContextType>;
+  posts?: Resolver<Array<Maybe<ResolversTypes['Post']>>, ParentType, ContextType, Partial<QueryPostsArgs>>;
   qrCode?: Resolver<ResolversTypes['QrCode'], ParentType, ContextType>;
 };
 

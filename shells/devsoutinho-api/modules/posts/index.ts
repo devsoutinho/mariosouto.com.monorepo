@@ -1,6 +1,7 @@
 import path from 'path';
 import fs from 'fs/promises';
 import { gql } from 'apollo-server-micro';
+import sift from "sift";
 // Parser Markdown
 import matter from 'gray-matter';
 import { remark } from 'remark';
@@ -9,6 +10,12 @@ import allpostsSlugs from '../../_db/posts';
 import { Resolvers, Post, PostType } from '../gql_types';
 // https://github.com/omariosouto/mvp-devsoutinho/blob/9217c0c43f1ca5d77664618f6ab393412c12f36c/packages/site/cms/modules/youtube/type.ts
 // https://www.apollographql.com/blog/graphql/basics/designing-graphql-mutations/
+// https://www.apollographql.com/blog/graphql/filtering/how-to-search-and-filter-results-with-graphql/
+
+function paginate(array, page_size = 10, page_number = 1) {
+  // human-readable page numbers usually start with 1, so we reduce 1 in the first argument
+  return array.slice((page_number - 1) * page_size, page_number * page_size);
+}
 
 async function generatePostsIndex() {
   if (process.env.NODE_ENV === 'development') {
@@ -37,11 +44,27 @@ function slugify(text)
 }
 
 export const typeDefs = gql`
+  # Filter Types
+  input DateFilter {
+    gte: String
+    lt: String
+  }
+
+  # ============================================================
+
   # [Query]
   enum PostType {
     YOUTUBE_VIDEO
   }
 
+  input PostsFilters {
+    date: DateFilter
+  }
+  input PostsInput {
+    limit: Int
+    offset: Int
+    filter: PostsFilters
+  }
   type Post {
     title: String
     url: String
@@ -51,7 +74,7 @@ export const typeDefs = gql`
   }
 
   extend type Query {
-    posts: [Post]!
+    posts(input: PostsInput): [Post]!
   }
 
   # [Mutation]
@@ -72,7 +95,20 @@ export const typeDefs = gql`
 
 const resolvers: Resolvers = {
   Query: {
-    async posts() {
+    async posts(arg, { input } = {}) {
+      const { filter, offset = 0, limit = 100 } = input || {};
+      const filterFormated = Object.entries(filter || {}).reduce((acc, [key, value]) => {
+        if(typeof value === 'object' ) {
+          return {
+            ...acc,
+            [key]: {
+              $gte: new Date(value.gte).toISOString(),
+              $lt: new Date(value.lt).toISOString(),
+            }
+          }
+        }
+        return { ...acc };
+      }, {});
       // [Get All Posts]
       await generatePostsIndex();
 
@@ -91,10 +127,15 @@ const resolvers: Resolvers = {
         };
       });
       const promisesSettled = await Promise.allSettled(allPostsPromises);
-
-      return promisesSettled.map((promise) => {
+      const initialOutput = promisesSettled.map((promise) => {
         if (promise.status === 'fulfilled') return promise.value;
       });
+      const filteredOutput = initialOutput.filter(sift(filterFormated))
+      .sort((a, b) => {
+        return new Date(b.date).getTime() - new Date(a.date).getTime();
+      });
+
+      return paginate(filteredOutput, limit, offset);
     }
   },
   Mutation: {
