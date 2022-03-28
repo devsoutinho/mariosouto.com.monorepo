@@ -83,6 +83,7 @@ const resolvers: Resolvers = {
         const contentParsed = await remark().use(html).process(content);
         const post = { data, content: contentParsed.value, };
         return {
+          ...post.data,
           title: post.data.title,
           url: post.data.url,
           postType: post.data.postType,
