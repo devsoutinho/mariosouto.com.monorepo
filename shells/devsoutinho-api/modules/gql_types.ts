@@ -16,6 +16,7 @@ export type Scalars = {
 
 export type CreatePostInput = {
   date?: InputMaybe<Scalars['String']>;
+  excerpt?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
   url?: InputMaybe<Scalars['String']>;
 };
@@ -48,6 +49,7 @@ export type MutationCreateYouTubeVideoArgs = {
 export type Post = {
   __typename?: 'Post';
   date?: Maybe<Scalars['String']>;
+  excerpt?: Maybe<Scalars['String']>;
   postType?: Maybe<PostType>;
   title?: Maybe<Scalars['String']>;
   url?: Maybe<Scalars['String']>;
@@ -175,6 +177,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 
 export type PostResolvers<ContextType = any, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = {
   date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  excerpt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   postType?: Resolver<Maybe<ResolversTypes['PostType']>, ParentType, ContextType>;
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;

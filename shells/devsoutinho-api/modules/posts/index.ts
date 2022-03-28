@@ -38,6 +38,7 @@ export const typeDefs = gql`
     title: String
     url: String
     date: String
+    excerpt: String
     postType: PostType
   }
 
@@ -50,6 +51,7 @@ export const typeDefs = gql`
     title: String
     url: String
     date: String
+    excerpt: String
   }
   type CreatePostPayload {
     post: Post
@@ -93,7 +95,7 @@ const resolvers: Resolvers = {
   },
   Mutation: {
     async createYouTubeVideo(arg, { input }) {
-      const { title, url, date } = input;
+      const { title, url, date, excerpt } = input;
       const slug = slugify(title);
       const postType = PostType.YoutubeVideo;
       const parsedDate = new Date(date.replaceAll('/', '-')).toISOString();
@@ -102,6 +104,7 @@ title: ${JSON.stringify(title)}
 url: ${url}
 date: ${parsedDate}
 postType: ${postType}
+excerpt: ${JSON.stringify(excerpt)}
 ---
 
 No content
@@ -114,6 +117,7 @@ No content
           title,
           url,
           postType,
+          excerpt,
           date: parsedDate,
         }
       }
