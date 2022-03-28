@@ -4,6 +4,7 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -13,6 +14,17 @@ export type Scalars = {
   Float: number;
 };
 
+export type CreatePostInput = {
+  date?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+  url?: InputMaybe<Scalars['String']>;
+};
+
+export type CreatePostPayload = {
+  __typename?: 'CreatePostPayload';
+  post?: Maybe<Post>;
+};
+
 export type CreateSampleTextInput = {
   text: Scalars['String'];
 };
@@ -20,12 +32,30 @@ export type CreateSampleTextInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   createSampleText: Scalars['String'];
+  createYouTubeVideo?: Maybe<CreatePostPayload>;
 };
 
 
 export type MutationCreateSampleTextArgs = {
   input?: InputMaybe<CreateSampleTextInput>;
 };
+
+
+export type MutationCreateYouTubeVideoArgs = {
+  input: CreatePostInput;
+};
+
+export type Post = {
+  __typename?: 'Post';
+  date?: Maybe<Scalars['String']>;
+  postType?: Maybe<PostType>;
+  title?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+};
+
+export enum PostType {
+  YoutubeVideo = 'YOUTUBE_VIDEO'
+}
 
 export type QrCode = {
   __typename?: 'QrCode';
@@ -35,15 +65,8 @@ export type QrCode = {
 export type Query = {
   __typename?: 'Query';
   greet?: Maybe<Scalars['String']>;
-  posts: Array<Maybe<YouTubeVideo>>;
+  posts: Array<Maybe<Post>>;
   qrCode: QrCode;
-};
-
-export type YouTubeVideo = {
-  __typename?: 'YouTubeVideo';
-  date?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
 };
 
 
@@ -116,27 +139,46 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  CreatePostInput: CreatePostInput;
+  CreatePostPayload: ResolverTypeWrapper<CreatePostPayload>;
   CreateSampleTextInput: CreateSampleTextInput;
   Mutation: ResolverTypeWrapper<{}>;
+  Post: ResolverTypeWrapper<Post>;
+  PostType: PostType;
   QrCode: ResolverTypeWrapper<QrCode>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
-  YouTubeVideo: ResolverTypeWrapper<YouTubeVideo>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
+  CreatePostInput: CreatePostInput;
+  CreatePostPayload: CreatePostPayload;
   CreateSampleTextInput: CreateSampleTextInput;
   Mutation: {};
+  Post: Post;
   QrCode: QrCode;
   Query: {};
   String: Scalars['String'];
-  YouTubeVideo: YouTubeVideo;
+};
+
+export type CreatePostPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreatePostPayload'] = ResolversParentTypes['CreatePostPayload']> = {
+  post?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createSampleText?: Resolver<ResolversTypes['String'], ParentType, ContextType, Partial<MutationCreateSampleTextArgs>>;
+  createYouTubeVideo?: Resolver<Maybe<ResolversTypes['CreatePostPayload']>, ParentType, ContextType, RequireFields<MutationCreateYouTubeVideoArgs, 'input'>>;
+};
+
+export type PostResolvers<ContextType = any, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = {
+  date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  postType?: Resolver<Maybe<ResolversTypes['PostType']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type QrCodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['QrCode'] = ResolversParentTypes['QrCode']> = {
@@ -146,21 +188,15 @@ export type QrCodeResolvers<ContextType = any, ParentType extends ResolversParen
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   greet?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  posts?: Resolver<Array<Maybe<ResolversTypes['YouTubeVideo']>>, ParentType, ContextType>;
+  posts?: Resolver<Array<Maybe<ResolversTypes['Post']>>, ParentType, ContextType>;
   qrCode?: Resolver<ResolversTypes['QrCode'], ParentType, ContextType>;
 };
 
-export type YouTubeVideoResolvers<ContextType = any, ParentType extends ResolversParentTypes['YouTubeVideo'] = ResolversParentTypes['YouTubeVideo']> = {
-  date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
 export type Resolvers<ContextType = any> = {
+  CreatePostPayload?: CreatePostPayloadResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
+  Post?: PostResolvers<ContextType>;
   QrCode?: QrCodeResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
-  YouTubeVideo?: YouTubeVideoResolvers<ContextType>;
 };
 
