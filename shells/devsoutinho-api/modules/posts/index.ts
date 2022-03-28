@@ -45,9 +45,10 @@ function slugify(text)
 
 export const typeDefs = gql`
   # Filter Types
-  input DateFilter {
+  input FieldFilter {
     gte: String
     lt: String
+    eq: String
   }
 
   # ============================================================
@@ -55,10 +56,12 @@ export const typeDefs = gql`
   # [Query]
   enum PostType {
     YOUTUBE_VIDEO
+    PRODUCT_LINK
   }
 
   input PostsFilters {
-    date: DateFilter
+    date: FieldFilter
+    postType: FieldFilter
   }
   input PostsInput {
     limit: Int
@@ -84,12 +87,19 @@ export const typeDefs = gql`
     date: String
     excerpt: String
   }
+  input CreateProductInput {
+    title: String!
+    url: String!
+    date: String
+    excerpt: String
+  }
   type CreatePostPayload {
     post: Post
   }
 
   extend type Mutation {
     createYouTubeVideo(input: CreatePostInput!): CreatePostPayload
+    createProductLink(input: CreateProductInput!): CreatePostPayload
   }
 `;
 
@@ -101,11 +111,22 @@ const resolvers: Resolvers = {
         if(typeof value === 'object' ) {
           return {
             ...acc,
-            [key]: {
-              $gte: new Date(value.gte).toISOString(),
-              $lt: new Date(value.lt).toISOString(),
-            }
+            [key]: Object.keys(value).reduce((acc, k) => {
+              return {
+                ...acc,
+                [`$${k}`]: value[k]
+              }
+            }, {}),
           }
+
+          // return {
+          //   ...acc,
+          //   [key]: {
+          //     $gte: value.gte ? value.gte : null,
+          //     $lt: value.lt ? value.lt : null,
+          //     $eq: value.eq ? value.eq : null,
+          //   }
+          // }
         }
         return { ...acc };
       }, {});
@@ -130,6 +151,8 @@ const resolvers: Resolvers = {
       const initialOutput = promisesSettled.map((promise) => {
         if (promise.status === 'fulfilled') return promise.value;
       });
+
+      // { postType: { $eq: 'YOUTUBE_VIDEO' } }
       const filteredOutput = initialOutput.filter(sift(filterFormated))
       .sort((a, b) => {
         return new Date(b.date).getTime() - new Date(a.date).getTime();
@@ -139,11 +162,40 @@ const resolvers: Resolvers = {
     }
   },
   Mutation: {
+    async createProductLink(arg, { input }) {
+      const { title, url, date, excerpt } = input;
+      const slug = slugify(title);
+      const postType = PostType.ProductLink;
+      const parsedDate = new Date(date?.replaceAll('/', '-')|| new Date().toISOString()).toISOString();
+      const postContent = `---
+title: ${JSON.stringify(title)}
+url: ${url}
+date: ${parsedDate}
+postType: ${postType}
+excerpt: ${JSON.stringify(excerpt)}
+---
+
+No content
+`;
+      const postsPath = path.resolve(__dirname, '..', '..', '..', '..', '_db', 'posts');
+      await fs.writeFile(path.resolve(postsPath, `${slug}.md`), postContent);
+      await generatePostsIndex();
+
+      return {
+        post: {
+          title,
+          url,
+          postType,
+          excerpt,
+          date: parsedDate,
+        }
+      }
+    },
     async createYouTubeVideo(arg, { input }) {
       const { title, url, date, excerpt } = input;
       const slug = slugify(title);
       const postType = PostType.YoutubeVideo;
-      const parsedDate = new Date(date.replaceAll('/', '-')).toISOString();
+      const parsedDate = new Date(date?.replaceAll('/', '-')|| new Date().toISOString()).toISOString();
       const postContent = `---
 title: ${JSON.stringify(title)}
 url: ${url}

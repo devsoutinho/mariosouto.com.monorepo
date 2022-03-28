@@ -26,19 +26,33 @@ export type CreatePostPayload = {
   post?: Maybe<Post>;
 };
 
+export type CreateProductInput = {
+  date?: InputMaybe<Scalars['String']>;
+  excerpt?: InputMaybe<Scalars['String']>;
+  title: Scalars['String'];
+  url: Scalars['String'];
+};
+
 export type CreateSampleTextInput = {
   text: Scalars['String'];
 };
 
-export type DateFilter = {
+export type FieldFilter = {
+  eq?: InputMaybe<Scalars['String']>;
   gte?: InputMaybe<Scalars['String']>;
   lt?: InputMaybe<Scalars['String']>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createProductLink?: Maybe<CreatePostPayload>;
   createSampleText: Scalars['String'];
   createYouTubeVideo?: Maybe<CreatePostPayload>;
+};
+
+
+export type MutationCreateProductLinkArgs = {
+  input: CreateProductInput;
 };
 
 
@@ -61,11 +75,13 @@ export type Post = {
 };
 
 export enum PostType {
+  ProductLink = 'PRODUCT_LINK',
   YoutubeVideo = 'YOUTUBE_VIDEO'
 }
 
 export type PostsFilters = {
-  date?: InputMaybe<DateFilter>;
+  date?: InputMaybe<FieldFilter>;
+  postType?: InputMaybe<FieldFilter>;
 };
 
 export type PostsInput = {
@@ -172,8 +188,9 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   CreatePostInput: CreatePostInput;
   CreatePostPayload: ResolverTypeWrapper<CreatePostPayload>;
+  CreateProductInput: CreateProductInput;
   CreateSampleTextInput: CreateSampleTextInput;
-  DateFilter: DateFilter;
+  FieldFilter: FieldFilter;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Mutation: ResolverTypeWrapper<{}>;
   Post: ResolverTypeWrapper<Post>;
@@ -191,8 +208,9 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
   CreatePostInput: CreatePostInput;
   CreatePostPayload: CreatePostPayload;
+  CreateProductInput: CreateProductInput;
   CreateSampleTextInput: CreateSampleTextInput;
-  DateFilter: DateFilter;
+  FieldFilter: FieldFilter;
   Int: Scalars['Int'];
   Mutation: {};
   Post: Post;
@@ -210,6 +228,7 @@ export type CreatePostPayloadResolvers<ContextType = any, ParentType extends Res
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  createProductLink?: Resolver<Maybe<ResolversTypes['CreatePostPayload']>, ParentType, ContextType, RequireFields<MutationCreateProductLinkArgs, 'input'>>;
   createSampleText?: Resolver<ResolversTypes['String'], ParentType, ContextType, Partial<MutationCreateSampleTextArgs>>;
   createYouTubeVideo?: Resolver<Maybe<ResolversTypes['CreatePostPayload']>, ParentType, ContextType, RequireFields<MutationCreateYouTubeVideoArgs, 'input'>>;
 };
