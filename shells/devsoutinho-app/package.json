@@ -9,7 +9,8 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "postinstall": "expo-yarn-workspaces postinstall",
-    "deploy:expo": "expo publish"
+    "deploy:expo": "expo publish",
+    "build:stores": "eas build --platform all"
   },
   "dependencies": {
     "@apollo/client": "3.4.16",
