@@ -1,5 +1,5 @@
 import { gql } from 'apollo-server-micro';
-import { Resolvers } from '../graphql';
+import { Resolvers } from '../gql_types';
 
 
 export const typeDefs = gql`
