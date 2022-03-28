@@ -10,6 +10,14 @@ import { Resolvers, Post, PostType } from '../gql_types';
 // https://github.com/omariosouto/mvp-devsoutinho/blob/9217c0c43f1ca5d77664618f6ab393412c12f36c/packages/site/cms/modules/youtube/type.ts
 // https://www.apollographql.com/blog/graphql/basics/designing-graphql-mutations/
 
+async function generatePostsIndex() {
+  if (process.env.NODE_ENV === 'development') {
+    const postsPath = path.resolve(__dirname, '..', '..', '..', '..', '_db', 'posts');
+    const allFileNames = await fs.readdir(postsPath);
+    await fs.writeFile(path.resolve(postsPath, 'index.ts'), `export default ${JSON.stringify(allFileNames.filter((fileName) => fileName !== 'index.ts'))};`);
+  }
+}
+
 
 function slugify(text) 
 {
@@ -66,12 +74,7 @@ const resolvers: Resolvers = {
   Query: {
     async posts() {
       // [Get All Posts]
-      // Check if is under development
-      if (process.env.NODE_ENV === 'development') {
-        const postsPath = path.resolve(__dirname, '..', '..', '..', '..', '_db', 'posts');
-        const allFileNames = await fs.readdir(postsPath);
-        await fs.writeFile(path.resolve(postsPath, 'index.ts'), `export default ${JSON.stringify(allFileNames.filter((fileName) => fileName !== 'index.ts'))};`);
-      }
+      await generatePostsIndex();
 
       const allPostsPromises = allpostsSlugs.map(async (slug): Promise<Post> => {
         const BASE_URL = 'https://raw.githubusercontent.com/devsoutinho/mariosouto.com/main/shells/devsoutinho-api/_db/posts/';
@@ -111,6 +114,7 @@ No content
 `;
       const postsPath = path.resolve(__dirname, '..', '..', '..', '..', '_db', 'posts');
       await fs.writeFile(path.resolve(postsPath, `${slug}.md`), postContent);
+      await generatePostsIndex();
 
       return {
         post: {
