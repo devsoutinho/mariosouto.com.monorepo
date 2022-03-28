@@ -96,7 +96,7 @@ export const typeDefs = gql`
 const resolvers: Resolvers = {
   Query: {
     async posts(arg, { input } = {}) {
-      const { filter, offset = 0, limit = 100 } = input || {};
+      const { filter, offset, limit } = input || {};
       const filterFormated = Object.entries(filter || {}).reduce((acc, [key, value]) => {
         if(typeof value === 'object' ) {
           return {
