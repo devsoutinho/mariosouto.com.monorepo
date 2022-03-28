@@ -1,22 +1,27 @@
 import { gql } from 'apollo-server-micro';
 import { Resolvers } from '../gql_types';
+import qrCode from 'qrcode';
 
 
 export const typeDefs = gql`
-type QrCode {
-  url: String
-}
+  input QrCodeInput {
+    text: String
+  }
 
-extend type Query {
-  qrCode: QrCode!
-}
+  type QrCode {
+    url: String
+  }
+  extend type Query {
+    qrCode(input: QrCodeInput): QrCode!
+  }
 `;
 
 const resolvers: Resolvers = {
   Query: {
-    async qrCode() {
+    async qrCode(_, { input } = {}) {
+      const { text } = input;
       return {
-        url: 'qrcodeurl',
+        url: qrCode.toDataURL(text),
       };
     }
   },

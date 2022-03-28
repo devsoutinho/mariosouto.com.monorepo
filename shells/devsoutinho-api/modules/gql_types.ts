@@ -79,6 +79,10 @@ export type QrCode = {
   url?: Maybe<Scalars['String']>;
 };
 
+export type QrCodeInput = {
+  text?: InputMaybe<Scalars['String']>;
+};
+
 export type Query = {
   __typename?: 'Query';
   greet?: Maybe<Scalars['String']>;
@@ -89,6 +93,11 @@ export type Query = {
 
 export type QueryPostsArgs = {
   input?: InputMaybe<PostsInput>;
+};
+
+
+export type QueryQrCodeArgs = {
+  input?: InputMaybe<QrCodeInput>;
 };
 
 
@@ -172,6 +181,7 @@ export type ResolversTypes = {
   PostsFilters: PostsFilters;
   PostsInput: PostsInput;
   QrCode: ResolverTypeWrapper<QrCode>;
+  QrCodeInput: QrCodeInput;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
 };
@@ -189,6 +199,7 @@ export type ResolversParentTypes = {
   PostsFilters: PostsFilters;
   PostsInput: PostsInput;
   QrCode: QrCode;
+  QrCodeInput: QrCodeInput;
   Query: {};
   String: Scalars['String'];
 };
@@ -220,7 +231,7 @@ export type QrCodeResolvers<ContextType = any, ParentType extends ResolversParen
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   greet?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   posts?: Resolver<Array<Maybe<ResolversTypes['Post']>>, ParentType, ContextType, Partial<QueryPostsArgs>>;
-  qrCode?: Resolver<ResolversTypes['QrCode'], ParentType, ContextType>;
+  qrCode?: Resolver<ResolversTypes['QrCode'], ParentType, ContextType, Partial<QueryQrCodeArgs>>;
 };
 
 export type Resolvers<ContextType = any> = {

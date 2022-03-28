@@ -171,7 +171,7 @@ No content
   },
 }
 
-export const youtubeModule = {
+export const postsModule = {
   typeDefs,
   resolvers,
 };

@@ -1,6 +1,9 @@
 import { PageConfig } from "next";
+import {
+  ApolloServerPluginLandingPageGraphQLPlayground
+} from 'apollo-server-core';
 import { ApolloServer, gql } from "apollo-server-micro";
-import { youtubeModule } from '../../modules/posts';
+import { postsModule } from '../../modules/posts';
 import { qrcodeModule } from '../../modules/qrcode';
 
 const defaultTypeDefs = gql`
@@ -20,22 +23,26 @@ const defaultTypeDefs = gql`
 
 const serverSchema = {
   typeDefs: [
-    youtubeModule.typeDefs,
+    postsModule.typeDefs,
     qrcodeModule.typeDefs,
     defaultTypeDefs,
   ],
   resolvers: {
     Query: {
-      ...youtubeModule.resolvers.Query,
+      ...postsModule.resolvers.Query,
       ...qrcodeModule.resolvers.Query,
       greet: () => 'Welcome to @devsoutinho/api',
     },
     Mutation: {
-      ...youtubeModule.resolvers.Mutation,
+      ...postsModule.resolvers.Mutation,
       ...qrcodeModule.resolvers.Mutation,
       createSampleText: (_: unknown, args) => args.input.text,
     }
   },
+  plugins: [
+    process.env.NODE_ENV === 'production' && ApolloServerPluginLandingPageGraphQLPlayground(),
+  ].filter(Boolean),
+  introspection: true,
 };
 
 const apolloServer = new ApolloServer(serverSchema);
