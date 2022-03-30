@@ -66,6 +66,10 @@ export function addApolloState(client, pageProps) {
   return pageProps
 }
 
+export async function withApolloStateServerCache(fn: Promise<any>, props: any) {
+  return addApolloState(await fn, props);
+}
+
 export function useApollo(pageProps) {
   const state = pageProps[APOLLO_STATE_PROP_NAME]
   const store = useMemo(() => initializeApollo(state), [state])

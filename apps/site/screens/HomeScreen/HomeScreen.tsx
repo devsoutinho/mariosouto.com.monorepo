@@ -1,59 +1,25 @@
 import React from 'react';
-import { Box, Button, Image, Text, TouchableArea, useTheme, useRouter } from 'skynexui';
+import { Box, Image, Text, TouchableArea, useTheme } from 'skynexui';
 import { Scaffold } from 'skynexui/patterns/Scaffold/Scaffold';
-import { gql, useQuery } from '@apollo/client';
-import { addApolloState, initializeApollo } from 'external-libs/apollo-client';
-
-// get youtube id
-const getYoutubeId = (url) => {
-  const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
-  const match = url.match(regExp);
-  return (match && match[7].length === 11) ? match[7] : false;
-};
-
-const GET_POSTS = gql`
-  query($input: PostsInput) {
-    posts(input: $input) {
-      title
-      date
-      url
-    }
-  }
-`;
-
-const variables = {
-  "input": {
-    "limit": 100,
-    "filter": {
-      "postType": {
-        "eq": "YOUTUBE_VIDEO"
-      }
-    }
-  }
-};
+import { withApolloStateServerCache } from 'external-libs/apollo-client';
+import { getYoutubeId } from '../../infra/string/getYouTubeID';
+import { useGetAllYouTubeVideos } from '../../repository/youtubeRepository'; 
 
 export async function getStaticProps() {
-  const apolloClient = initializeApollo()
-
-  await apolloClient.query({
-    query: GET_POSTS,
-    variables,
-  })
-
-  return addApolloState(apolloClient, {
-    props: {},
-    revalidate: 60,
-  })
+  return withApolloStateServerCache(
+    useGetAllYouTubeVideos().server(),
+    {
+      props: {},
+      revalidate: 60,
+    }
+  );
 }
 
 
 export function HomeScreen(props) {
   const theme = useTheme();
-  const router = useRouter();
 
-  const { loading, error, data } = useQuery(GET_POSTS, {
-    variables,
-  });
+  const { loading, error, data } = useGetAllYouTubeVideos().client();
 
   if (loading) return (
     <Box styleSheet={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.colors?.neutral?.x900, color: '#fff' }}>
