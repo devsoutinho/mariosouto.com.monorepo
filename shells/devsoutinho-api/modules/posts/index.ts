@@ -109,24 +109,18 @@ const resolvers: Resolvers = {
       const { filter, offset, limit } = input || {};
       const filterFormated = Object.entries(filter || {}).reduce((acc, [key, value]) => {
         if(typeof value === 'object' ) {
+          const resolveValue = (value: string): any => {
+            return value;
+          }
           return {
             ...acc,
             [key]: Object.keys(value).reduce((acc, k) => {
               return {
                 ...acc,
-                [`$${k}`]: value[k]
+                [`$${k}`]: resolveValue(value[k])
               }
             }, {}),
           }
-
-          // return {
-          //   ...acc,
-          //   [key]: {
-          //     $gte: value.gte ? value.gte : null,
-          //     $lt: value.lt ? value.lt : null,
-          //     $eq: value.eq ? value.eq : null,
-          //   }
-          // }
         }
         return { ...acc };
       }, {});
@@ -153,6 +147,7 @@ const resolvers: Resolvers = {
       });
 
       // { postType: { $eq: 'YOUTUBE_VIDEO' } }
+      console.log(filterFormated);
       const filteredOutput = initialOutput.filter(sift(filterFormated))
       .sort((a, b) => {
         return new Date(b.date).getTime() - new Date(a.date).getTime();

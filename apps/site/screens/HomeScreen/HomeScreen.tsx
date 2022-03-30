@@ -4,12 +4,6 @@ import { Scaffold } from 'skynexui/patterns/Scaffold/Scaffold';
 import { gql, useQuery } from '@apollo/client';
 import { addApolloState, initializeApollo } from 'external-libs/apollo-client';
 
-// function getYouTubeID(url) {
-//   const regex = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
-//   const match = url.match(regex);
-//   return match && match[7].length === 11 ? match[7] : false;
-// }
-
 // get youtube id
 const getYoutubeId = (url) => {
   const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;

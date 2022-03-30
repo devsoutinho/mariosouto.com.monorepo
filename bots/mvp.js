@@ -1,10 +1,16 @@
+const contributionsBla = [
+  {
+    "postType": "YOUTUBE_VIDEO",
+    "title": "Led que sincroniza com a TV e o VideoGame? Ambilight com Raspberry PI e Arduino!",
+    "url": "https://youtu.be/I-DcBIUsCZw",
+    "date": "2021-07-30T03:00:00.000Z",
+    "excerpt": "Imagina se a sua TV reagisse gerando luzes no fundo com qualquer imagem que tivesse na tela com uma experiência 10x mais imersiva? Isso existe e o nome é ambilight! Eu aprendi recentemente a fazer foi uma parada muuito legal e minhas sessões de jogatina e netflix nunca mais foram as mesmas. Como o processo de construção foi bem massa, resolvi compartilhar nesse vídeo aqui com vocês!"
+  },
+]
+
+
 // [SETUP: ADD YOUR CONTRIBUTION HERE]
-const defaultContribution = {
-  "title": "QUANTAS LINGUAGENS DE PROGRAMAÇÃO eu preciso SABER? | Quais linguagens eu já programei?",
-  "url": "https://youtu.be/FDQbzP7PBiw",
-  "date": "2021-12-28T03:00:00.000Z",
-  "excerpt": "Nesse video vou fazer uma tour por todas as linguagens de programação que eu já trabalhei, desde antes mesmo de receber dinheiro pra trabalhar como Dev!"
-};
+const defaultContribution = contributionsBla[0];
 
 // DevSoutinho - MVP Bot
 async function mvpDevSoutinhoBot(mvpContributorActivity = defaultContribution) {

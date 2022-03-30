@@ -10,6 +10,8 @@
     "eject": "expo eject",
     "postinstall": "expo-yarn-workspaces postinstall",
     "deploy:expo": "expo publish",
+    "deploy:android": "eas submit --platform android",
+    "deploy:ios": "eas submit --platform ios",
     "build:stores": "eas build --platform all"
   },
   "dependencies": {
