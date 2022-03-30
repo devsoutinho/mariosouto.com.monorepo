@@ -3,7 +3,7 @@ import { useApollo } from '../apollo-client';
 
 interface ApolloProviderProps {
   children: React.ReactNode;
-  pageProps: any;
+  pageProps?: any;
 }
 export function ApolloProvider({ children, pageProps }: ApolloProviderProps) {
   const apolloClient = useApollo(pageProps || {});

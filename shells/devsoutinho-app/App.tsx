@@ -5,6 +5,8 @@ import { SkynexUIProvider } from 'skynexui';
 import { ApolloProvider } from 'external-libs/apollo-provider/native';
 import { useNavigation } from '@react-navigation/native';
 
+// https://blog.expo.dev/testing-expo-apps-with-detox-and-react-native-testing-library-7fbdbb82ac87
+
 export default function App() {
   const isLoadingComplete = useCachedResources();
 
