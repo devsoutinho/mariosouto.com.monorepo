@@ -146,8 +146,6 @@ const resolvers: Resolvers = {
         if (promise.status === 'fulfilled') return promise.value;
       });
 
-      // { postType: { $eq: 'YOUTUBE_VIDEO' } }
-      console.log(filterFormated);
       const filteredOutput = initialOutput.filter(sift(filterFormated))
       .sort((a, b) => {
         return new Date(b.date).getTime() - new Date(a.date).getTime();
