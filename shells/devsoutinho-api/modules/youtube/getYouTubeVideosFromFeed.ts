@@ -30,9 +30,4 @@ const youtubeRepository = {
   }
 }
 
-export default async function handler(req, res) {
-  const output = await youtubeRepository.getLast15Uploads();
-  res.json({
-    data: output
-  });
-}
+export const getYouTubeVideosFromFeed = youtubeRepository.getLast15Uploads;

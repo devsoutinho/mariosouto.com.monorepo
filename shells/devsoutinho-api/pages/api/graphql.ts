@@ -5,12 +5,19 @@ import {
 import { ApolloServer, gql } from "apollo-server-micro";
 import { postsModule } from '../../modules/posts';
 import { qrcodeModule } from '../../modules/qrcode';
+import { youtubeModule } from '../../modules/youtube';
 
 const defaultTypeDefs = gql`
+  # Commons
+  input FieldFilter {
+    gte: String
+    lt: String
+    eq: String
+  }
+  # ====================================================
   input CreateSampleTextInput {
     text: String!
   }
-  
   # ====================================================
 
   type Mutation {
@@ -25,17 +32,20 @@ const serverSchema = {
   typeDefs: [
     postsModule.typeDefs,
     qrcodeModule.typeDefs,
+    youtubeModule.typeDefs,
     defaultTypeDefs,
   ],
   resolvers: {
     Query: {
       ...postsModule.resolvers.Query,
       ...qrcodeModule.resolvers.Query,
+      ...youtubeModule.resolvers.Query,
       greet: () => 'Welcome to @devsoutinho/api',
     },
     Mutation: {
       ...postsModule.resolvers.Mutation,
       ...qrcodeModule.resolvers.Mutation,
+      ...youtubeModule.resolvers.Mutation,
       createSampleText: (_: unknown, args) => args.input.text,
     }
   },
