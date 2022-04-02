@@ -97,6 +97,12 @@ const resolvers: Resolvers = {
         }
       });
 
+      // Send createdVideos to:
+      /*
+      - GitHub Stars: https://github.com/omariosouto/gh-stars-sync/blob/main/repositories/githubStars/index.js
+      - Microsoft MVP: https://gist.github.com/ErickWendel/492283ed1807cb8a5484dc1f0b9a9b94
+      */
+
 
       return {
         youtubeVideos: createdVideos,
