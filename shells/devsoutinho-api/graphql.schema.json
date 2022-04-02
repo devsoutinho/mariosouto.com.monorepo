@@ -196,7 +196,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "CreateYouTubeVideoPayload",
+        "name": "CreateYouTubeVideosPayload",
         "description": null,
         "fields": [
           {
@@ -372,11 +372,11 @@
           },
           {
             "name": "syncYouTubeVideos",
-            "description": null,
+            "description": "This mutation must called only in CI environment.\n- 1. It hits YouTube feed URL.\n- 2. Get the latest vídeos.\n- 3. Try to sync them with the local cache of videos.",
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "CreateYouTubeVideoPayload",
+              "name": "CreateYouTubeVideosPayload",
               "ofType": null
             },
             "isDeprecated": false,
@@ -688,6 +688,39 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "youtubeVideos",
+            "description": null,
+            "args": [
+              {
+                "name": "input",
+                "description": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "YouTubeVideoInput",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "YouTubeVideo",
+                  "ofType": null
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -766,42 +799,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "YouTubeVideosFilters",
-        "description": null,
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "date",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "FieldFilter",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "postType",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "FieldFilter",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "YouTubeVideosInput",
+        "name": "YouTubeVideoInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -835,6 +833,41 @@
             "type": {
               "kind": "SCALAR",
               "name": "Int",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "YouTubeVideosFilters",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "date",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "FieldFilter",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "postType",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "FieldFilter",
               "ofType": null
             },
             "defaultValue": null,

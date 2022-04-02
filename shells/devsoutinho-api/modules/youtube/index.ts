@@ -1,6 +1,6 @@
 import lodash from 'lodash';
 import { gql } from 'apollo-server-micro';
-import { PostType, Resolvers, YouTubeVideo, YouTubeVideosInput } from '../gql_types';
+import { PostType, Resolvers, YouTubeVideo } from '../gql_types';
 import { postsRepository } from '../posts/postsRepository';
 import { getYouTubeVideosFromFeed } from './getYouTubeVideosFromFeed';
 
@@ -10,7 +10,7 @@ export const typeDefs = gql`
     date: FieldFilter
     postType: FieldFilter
   }
-  input YouTubeVideosInput {
+  input YouTubeVideoInput {
     limit: Int
     offset: Int
     filter: YouTubeVideosFilters
@@ -25,7 +25,14 @@ export const typeDefs = gql`
     excerpt: String
   }
 
-  type CreateYouTubeVideoPayload {
+  # Query
+  extend type Query {
+    # youtubeVideo(input: YouTubeVideoInput): YouTubeVideo
+    youtubeVideos(input: YouTubeVideoInput): [YouTubeVideo]!
+  }
+  
+  # Mutation
+  type CreateYouTubeVideosPayload {
     youtubeVideos: [YouTubeVideo]
   }
   extend type Mutation {
@@ -35,16 +42,21 @@ export const typeDefs = gql`
     - 2. Get the latest vídeos.
     - 3. Try to sync them with the local cache of videos.
     """
-    syncYouTubeVideos: CreateYouTubeVideoPayload
+    syncYouTubeVideos: CreateYouTubeVideosPayload
   }
 `;
 
 const resolvers: Resolvers = {
-  Query: {},
+  Query: {
+    async youtubeVideos(_, { input } = {}) {
+      const youtubeVideos = await postsRepository().getAllPostsByPostType(PostType.YoutubeVideo, { input });
+      return youtubeVideos;
+    }
+  },
   Mutation: {
     async syncYouTubeVideos(): Promise<any> {
-      // Get all needed data
-      const youtubeVideosCached = await postsRepository().getAllPostsByPostType(PostType.YoutubeVideo);
+      // Get all needed data;
+      const youtubeVideosCached = await postsRepository().getAllPostsByPostType(PostType.YoutubeVideo, { input: {} });
       const youtubeVideosFromFeed = await getYouTubeVideosFromFeed();
       const youtubeVideosFromFeedFormated: YouTubeVideo[] = youtubeVideosFromFeed.map((youtubeVideoFromFeed) => {
         return {

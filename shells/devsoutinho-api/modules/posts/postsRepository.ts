@@ -108,12 +108,14 @@ export function postsRepository() {
 
       return paginate(filteredOutput, limit, offset);
     },
-    async getAllPostsByPostType(postType: PostType): Promise<any> {
+    async getAllPostsByPostType(postType: PostType, { input }): Promise<any> {
       const inputQuery = {
+        ...input,
         filter: {
           "postType": {
             "eq": postType
-          }
+          },
+          ...input?.filter,
         }
       };
       return this.getAllPosts({ input: inputQuery });
