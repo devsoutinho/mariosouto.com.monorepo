@@ -15,7 +15,6 @@ import { postTemplate } from './utils/postTemplate';
 export function postsRepository() {
   return {
     async createPost({ input }): Promise<any> {
-      console.log('createPost|input', input);
       const { title, url, date, excerpt } = input;
       const slug = slugify(title);
       const postType = PostType.YoutubeVideo;
