@@ -56,7 +56,9 @@ const resolvers: Resolvers = {
   Mutation: {
     async syncYouTubeVideos(): Promise<any> {
       // Get all needed data;
-      const youtubeVideosCached = await postsRepository().getAllPostsByPostType(PostType.YoutubeVideo, { input: {} });
+      const youtubeVideosCached = await postsRepository().getAllPostsByPostType(PostType.YoutubeVideo, { input: {
+        limit: 100,
+      } });
       const youtubeVideosFromFeed = await getYouTubeVideosFromFeed();
       const youtubeVideosFromFeedFormated: YouTubeVideo[] = youtubeVideosFromFeed.map((youtubeVideoFromFeed) => {
         return {
@@ -74,8 +76,12 @@ const resolvers: Resolvers = {
         arr2.forEach(item => map2.set(item.url, item));
         console.log(map1.keys());
         console.log(map2.keys());
-        console.log();
-        return lodash.intersection(map1.keys(), map2.keys()).map((url) => {
+        const diff = lodash.difference(
+          [...map1.keys() as any],
+          [...map2.keys() as any]
+        );
+
+        return diff.map((url) => {
           if(map1.get(url)) {
             return map1.get(url);
           }
