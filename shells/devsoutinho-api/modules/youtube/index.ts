@@ -67,7 +67,23 @@ const resolvers: Resolvers = {
         }
       });
       // Get difference between 2 arrays
-      const youtubeVideosToCreate = lodash.differenceBy(youtubeVideosFromFeedFormated, youtubeVideosCached, 'url');
+      function differenceByUrl(arr1, arr2) {
+        const map1 = new Map();
+        arr1.forEach(item => map1.set(item.url, item));
+        const map2 = new Map();
+        arr2.forEach(item => map2.set(item.url, item));
+        console.log(map1.keys());
+        console.log(map2.keys());
+        console.log();
+        return lodash.intersection(map1.keys(), map2.keys()).map((url) => {
+          if(map1.get(url)) {
+            return map1.get(url);
+          }
+          return map2.get(url);
+        });
+      }
+      const youtubeVideosToCreate = differenceByUrl(youtubeVideosFromFeedFormated, youtubeVideosCached);
+      console.log('createdVideos', youtubeVideosToCreate);
       // Create the videos
       const createdVideos = await postsRepository().createPostsByPostType(PostType.YoutubeVideo, {
         input: {
@@ -75,7 +91,6 @@ const resolvers: Resolvers = {
         }
       });
 
-      console.log('createdVideos', createdVideos);
 
       return {
         youtubeVideos: createdVideos,
