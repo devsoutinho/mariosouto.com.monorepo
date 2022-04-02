@@ -16,6 +16,8 @@ jobs:
         node-version: '16'
     - name: Call Script
       run: |
+        git config --global user.email "13791385+omariosouto@users.noreply.github.com"
+        git config --global user.name "Mario Souto - Bot"
         node -v
         ls -la
         yarn install
