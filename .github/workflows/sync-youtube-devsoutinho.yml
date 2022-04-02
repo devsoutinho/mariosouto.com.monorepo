@@ -21,5 +21,7 @@ jobs:
         yarn install
         yarn api start:ci
         sleep 5
-        curl --request POST --header 'content-type: application/json' --url 'http://localhost:4000/api/graphql' --data '{"query":"query { __typename }"}'
+        curl --request POST --header 'content-type: application/json' --url 'http://localhost:4000/api/graphql' --data '{"query":"mutation { syncYouTubeVideos { youtubeVideos { title } } }"}'
+        git add .
+        git commit -m "[sync] devSoutinho Youtube Vídeos"
         echo "Im running!"
