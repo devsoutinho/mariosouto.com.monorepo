@@ -1,3 +1,4 @@
+import lodash from 'lodash';
 import { gql } from 'apollo-server-micro';
 import { PostType, Resolvers, YouTubeVideo, YouTubeVideosInput } from '../gql_types';
 import { postsRepository } from '../posts/postsRepository';
@@ -41,14 +42,29 @@ export const typeDefs = gql`
 const resolvers: Resolvers = {
   Query: {},
   Mutation: {
-    async syncYouTubeVideos() {
+    async syncYouTubeVideos(): Promise<any> {
+      // Get all needed data
       const youtubeVideosCached = await postsRepository().getAllPostsByPostType(PostType.YoutubeVideo);
       const youtubeVideosFromFeed = await getYouTubeVideosFromFeed();
-
-      // const createdVideos = await postsRepository().createPosts(youtubeVideosFromFeed);
+      const youtubeVideosFromFeedFormated: YouTubeVideo[] = youtubeVideosFromFeed.map((youtubeVideoFromFeed) => {
+        return {
+          title: youtubeVideoFromFeed.title,
+          url: youtubeVideoFromFeed.url,
+          date: youtubeVideoFromFeed.date,
+          excerpt: youtubeVideoFromFeed.description,
+        }
+      });
+      // Get difference between 2 arrays
+      const youtubeVideosToCreate = lodash.differenceBy(youtubeVideosFromFeedFormated, youtubeVideosCached, 'title');
+      // Create the videos
+      const createdVideos = await postsRepository().createPostsByPostType(PostType.YoutubeVideo, {
+        input: {
+          posts: youtubeVideosToCreate,
+        }
+      });
 
       return {
-        youtubeVideos: [],
+        youtubeVideos: createdVideos,
       };
     }
   },

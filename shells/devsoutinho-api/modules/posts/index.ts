@@ -1,33 +1,9 @@
 import path from 'path';
 import fs from 'fs/promises';
 import { gql } from 'apollo-server-micro';
-import sift from "sift";
-// Parser Markdown
-import matter from 'gray-matter';
-import { remark } from 'remark';
-import html from 'remark-html';
-import allpostsSlugs from '../../_db/posts';
 import { Resolvers, Post, PostType } from '../gql_types';
 import { postsRepository } from './postsRepository';
-
-
-
-function slugify(text) 
-{
-    var from = "ãàáäâẽèéëêìíïîõòóöôùúüûñç·/_,:;";
-    var to   = "aaaaaeeeeeiiiiooooouuuunc------";
-    Array.from(from).forEach(function( character, i ) {
-        text = text.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
-    });
-    return text
-        .toString()                     // Cast to string
-        .toLowerCase()                  // Convert the string to lowercase letters
-        .trim()                         // Remove whitespace from both sides of a string
-        .replace(/\s+/g, '-')           // Replace spaces with -
-        .replace(/&/g, '-y-')           // Replace & with 'and'
-        .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-        .replace(/\-\-+/g, '-');        // Replace multiple - with single -
-}
+import { slugify } from './utils/slugify';
 
 export const typeDefs = gql`
   # [Query]
@@ -82,68 +58,20 @@ export const typeDefs = gql`
 
 const resolvers: Resolvers = {
   Query: {
-    async posts(arg, { input } = {}) {
+    async posts(_, { input } = {}) {
       return await postsRepository().getAllPosts({ input });
     }
   },
   Mutation: {
-    async createProductLink(arg, { input }) {
-      const { title, url, date, excerpt } = input;
-      const slug = slugify(title);
-      const postType = PostType.ProductLink;
-      const parsedDate = new Date(date?.replaceAll('/', '-')|| new Date().toISOString()).toISOString();
-      const postContent = `---
-title: ${JSON.stringify(title)}
-url: ${url}
-date: ${parsedDate}
-postType: ${postType}
-excerpt: ${JSON.stringify(excerpt)}
----
-
-No content
-`;
-      const postsPath = path.resolve(__dirname, '..', '..', '..', '..', '_db', 'posts');
-      await fs.writeFile(path.resolve(postsPath, `${slug}.md`), postContent);
-      // await generatePostsIndex();
-
+    async createProductLink(_, { input }) {
       return {
-        post: {
-          title,
-          url,
-          postType,
-          excerpt,
-          date: parsedDate,
-        }
+        post: await postsRepository().createPost({ input: { ...input, postType: PostType.ProductLink } }),
       }
     },
-    async createYouTubeVideo(arg, { input }) {
-      const { title, url, date, excerpt } = input;
-      const slug = slugify(title);
-      const postType = PostType.YoutubeVideo;
-      const parsedDate = new Date(date?.replaceAll('/', '-')|| new Date().toISOString()).toISOString();
-      const postContent = `---
-title: ${JSON.stringify(title)}
-url: ${url}
-date: ${parsedDate}
-postType: ${postType}
-excerpt: ${JSON.stringify(excerpt)}
----
-
-No content
-`;
-      const postsPath = path.resolve(__dirname, '..', '..', '..', '..', '_db', 'posts');
-      await fs.writeFile(path.resolve(postsPath, `${slug}.md`), postContent);
-      // await generatePostsIndex();
-
+    async createYouTubeVideo(_, { input }) {
       return {
-        post: {
-          title,
-          url,
-          postType,
-          excerpt,
-          date: parsedDate,
-        }
-      }
+        post: await postsRepository().createPost({ input: { ...input, postType: PostType.YoutubeVideo } }),
+      };
     }
   },
 }
