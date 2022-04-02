@@ -17,4 +17,8 @@ jobs:
     - name: Call Script
       run: |
         node -v
+        ls -la
+        yarn install
+        yarn api start:ci
+        curl --request POST --header 'content-type: application/json' --url 'http://localhost:3000/api/graphql' --data '{"query":"query { __typename }"}'
         echo "Im running!"
