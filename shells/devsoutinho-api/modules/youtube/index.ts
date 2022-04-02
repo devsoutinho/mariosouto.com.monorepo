@@ -67,13 +67,15 @@ const resolvers: Resolvers = {
         }
       });
       // Get difference between 2 arrays
-      const youtubeVideosToCreate = lodash.differenceBy(youtubeVideosFromFeedFormated, youtubeVideosCached, 'title');
+      const youtubeVideosToCreate = lodash.differenceBy(youtubeVideosFromFeedFormated, youtubeVideosCached, 'url');
       // Create the videos
       const createdVideos = await postsRepository().createPostsByPostType(PostType.YoutubeVideo, {
         input: {
           posts: youtubeVideosToCreate,
         }
       });
+
+      console.log('createdVideos', createdVideos);
 
       return {
         youtubeVideos: createdVideos,

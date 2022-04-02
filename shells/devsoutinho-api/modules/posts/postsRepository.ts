@@ -41,7 +41,6 @@ export function postsRepository() {
       }
     },
     async createPostsByPostType(postType: PostType, { input }) {
-      console.log('createPostsByPostType|input', input);
       const results = Promise.allSettled(input.posts.map(async (post) => {
         return this.createPost({
           input: {
