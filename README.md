@@ -3,19 +3,19 @@
 The idea of this project is to have.
 
 ```sh
-yarn run:app
+yarn dev:app
 ```
 
 ```sh
-yarn run:web
+yarn dev:web
 ```
 
 ```sh
-yarn run:components
+yarn dev:components
 ```
 
 ```sh
-yarn run:api
+yarn dev:api
 ```
 
 # Stack
