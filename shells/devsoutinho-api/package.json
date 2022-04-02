@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "next dev --port=4000",
-    "start:ci": "yarn build && pm2 start yarn --name 'nextjs' --interpreter bash -- start",
+    "start:ci": "NODE_PORT=3000 yarn build && pm2 start yarn --name 'nextjs' --interpreter bash -- start",
     "build": "next build",
     "start": "next start",
     "generate:types": "graphql-codegen --config codegen.yml"
