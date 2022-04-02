@@ -24,4 +24,5 @@ jobs:
         curl --request POST --header 'content-type: application/json' --url 'http://localhost:4000/api/graphql' --data '{"query":"mutation { syncYouTubeVideos { youtubeVideos { title } } }"}'
         git add .
         git commit -m "[sync] devSoutinho Youtube Vídeos"
+        git push origin HEAD
         echo "Im running!"
