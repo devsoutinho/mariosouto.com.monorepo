@@ -6,7 +6,7 @@ export function postTemplate({ title, url, date, excerpt, postType, content }: a
   date: ${date}
   postType: ${postType}
   excerpt: ${JSON.stringify(excerpt)}
-  ---
+---
   
   ${hasContent ? content : 'No content'}
   `;
