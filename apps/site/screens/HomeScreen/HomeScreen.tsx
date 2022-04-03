@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Image, Text, TouchableArea, useTheme } from 'skynexui';
 import { Scaffold } from 'skynexui/patterns/Scaffold/Scaffold';
 import { withApolloStateServerCache } from 'external-libs/apollo-client';
-import { getYoutubeId } from '../../infra/string/getYouTubeID';
+import { getYoutubeId } from '../../infra/string/getYoutubeId';
 import { useGetAllYouTubeVideos } from '../../repository/youtubeRepository'; 
 
 export async function getStaticProps() {
