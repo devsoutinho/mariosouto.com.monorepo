@@ -111,7 +111,7 @@ export function HomeScreen(props) {
 
           return (
             <Box
-              key={url}
+              key={url + title}
               styleSheet={{
                 maxWidth: '400px',
                 marginTop: theme.space?.x4,

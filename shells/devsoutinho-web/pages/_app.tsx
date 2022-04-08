@@ -12,11 +12,22 @@ function MyApp({ Component, pageProps }) {
         <SkynexUIProvider
           useRouterHook={useRouter}
         >
-            <Head>
-              <meta name="viewport" content="width=device-width, initial-scale=1" />
-            </Head>
-            <Component {...pageProps} />
-            {/* <MainNavigationMenu /> */}
+          <Head>
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            {/* <!-- Global site tag (gtag.js) - Google Analytics --> */}
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-6WPRBC2XSW"></script>
+            <script dangerouslySetInnerHTML={{
+              __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', 'G-6WPRBC2XSW');
+              `}}
+            />
+          </Head>
+          <Component {...pageProps} />
+          {/* <MainNavigationMenu /> */}
         </SkynexUIProvider>
       </ApolloProvider>
     </>
