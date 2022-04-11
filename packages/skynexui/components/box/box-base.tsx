@@ -34,8 +34,8 @@ interface BoxBaseProps {
   [key: string]: any;
 }
 
-export function BoxBase({ children, styleSheet: styleSheetComplete, ...props }: BoxBaseProps) {
-  const boxBaseRef = React.useRef();
+export const BoxBase = React.forwardRef(({ children, styleSheet: styleSheetComplete, ...props }: BoxBaseProps, ref) => {
+  const boxBaseRef = ref;
 
   const {
     hover: styleSheetHover,
@@ -139,7 +139,7 @@ export function BoxBase({ children, styleSheet: styleSheetComplete, ...props }: 
   }
 
   return <BoxStyled ref={boxBaseRef} {...boxBaseProps} />;
-}
+});
 
 BoxBase.defaultProps = {
   styleSheet: {},

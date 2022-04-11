@@ -4,6 +4,7 @@ const withTM = require('next-transpile-modules')([
   'styled-components',
   'skynexui',
   '@devsoutinho/site',
+  '@devsoutinho/app-teleprompter',
   'external-libs',
 ], {
   resolveSymlinks: true,

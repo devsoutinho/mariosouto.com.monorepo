@@ -37,8 +37,8 @@ export function Text({children, variant, styleSheet, ...props}: TextProps) {
 
   const formatedStyleSheet = {
     textAlign: 'left',
-    ...styleSheet,
     ...currentVariantStyles,
+    ...styleSheet,
   }
 
   return (
