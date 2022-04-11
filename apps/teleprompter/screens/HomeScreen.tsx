@@ -41,8 +41,9 @@ export default function HomeScreen() {
           ...rest
         };
       }
+
       return {
-        play: currentPlayState,
+        play: false,
         scrollPosition: MAX_SCROLL_HEIGHT,
         ...rest
       }; 
