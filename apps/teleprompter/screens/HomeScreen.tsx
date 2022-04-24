@@ -2,65 +2,72 @@ import React from 'react';
 import { Touchable } from 'react-native';
 import { Box, Text, TouchableArea } from 'skynexui';
 
-export default function HomeScreen() {
-  const containerRef = React.useRef<HTMLDivElement>(null);
+const db = {
+  title: 'O que é ReactJS?',
+  content: 'ReactJS é uma biblioteca JavaScript de código aberto para criar interfaces de usuário. Ele é utilizado para construir interfaces de usuário através de componentes.',
+}
+
+function useTeleprompter({
+  containerRef,
+}) {
+  const PLAY_TIME_IN_SECONDS = 1 * 100;
+  const [title, setTitle] = React.useState(db.title);
+  const [content, setContent] = React.useState(db.content);
   const [appState, setAppState] = React.useState({
     play: false,
+    reset: false,
     scrollPosition: 0,
-  });
-  const PLAY_TIME_IN_SECONDS = 1 * 100;
-  const data = {
-    title: 'O que é ReactJS?',
-    content: 'ReactJS é uma biblioteca JavaScript de código aberto para criar interfaces de usuário. Ele é utilizado para construir interfaces de usuário através de componentes.',
-  };
-  const config = {
     background: { color: 'white', backgroundColor: 'black' },
-    scrollSpeed: 13, // 0-100
+    scrollSpeed: 20, // 0-100
     fontSize: 10,
     marginHorizontal: 10, // 0-10
     mirror: false,
     loop: false,
-  }
+  });
 
   function whilePlay() {
-    const MAX_SCROLL_HEIGHT = containerRef.current.scrollHeight;
+    const CONTAINER_PADDING_BOTTOM = getComputedStyle(containerRef.current).paddingBottom.replace('px', '');
+    const MAX_SCROLL_HEIGHT = containerRef.current.scrollHeight - Number(CONTAINER_PADDING_BOTTOM);
+    console.log();
     setAppState((currentState) => {
       const {
         scrollPosition: currrentScrollPosition,
         play: currentPlayState,
         ...rest
       } = currentState;
-      
-      
-      if(currentPlayState) setTimeout(whilePlay, PLAY_TIME_IN_SECONDS);
 
-      if(currrentScrollPosition < MAX_SCROLL_HEIGHT) {
+      if (currentPlayState) setTimeout(whilePlay, PLAY_TIME_IN_SECONDS);
+
+      if (currrentScrollPosition < MAX_SCROLL_HEIGHT) {
         return {
           play: currentPlayState,
-          scrollPosition: currrentScrollPosition + config.scrollSpeed,
-          ...rest
+          scrollPosition: currrentScrollPosition + appState.scrollSpeed,
+          ...rest,
+          reset: false,
         };
       }
 
       return {
         play: false,
         scrollPosition: MAX_SCROLL_HEIGHT,
-        ...rest
-      }; 
+        ...rest,
+        reset: false,
+      };
     });
   }
 
   React.useEffect(() => {
-    if(appState.play) {
+    if (appState.play) {
       const interval = setTimeout(whilePlay, PLAY_TIME_IN_SECONDS);
       return () => clearTimeout(interval);
     }
   }, [appState.play]);
-  
+
 
   React.useEffect(() => {
-    containerRef.current.scrollTop = appState.scrollPosition;
+    if(appState.play || appState.reset) containerRef.current.scrollTop = appState.scrollPosition;
   }, [appState.scrollPosition]);
+
 
 
   function togglePlayState() {
@@ -70,43 +77,68 @@ export default function HomeScreen() {
         ...rest
       } = currentState;
       return {
+        ...rest,
         play: !currentPlayState,
-        ...rest
+        reset: false,
       };
     });
   }
+
+
 
   function resetState() {
     setAppState((currentState) => {
       return {
         ...currentState,
         play: false,
+        reset: true,
         scrollPosition: 0,
       };
     });
   }
-  
+
+
+  return {
+    appState,
+    title,
+    setTitle,
+    content,
+    setContent,
+    togglePlayState,
+    resetState,
+  };
+}
+
+export default function HomeScreen() {
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const teleprompter = useTeleprompter({
+    containerRef,
+  });
+
+
   return (
     <Box
       ref={containerRef}
       styleSheet={{
-        scrollBehavior: 'smooth',
+        scrollBehavior: teleprompter.appState.play ? 'smooth' : 'initial',
         flex: 1,
         textAlign: 'justify',
-        backgroundColor: config.background.backgroundColor,
+        backgroundColor: teleprompter.appState.background.backgroundColor,
         position: 'relative',
         height: '100vh',
         overflow: 'scroll',
+        paddingBottom: '60vh',
       }}
-    >
+      >
       <Text styleSheet={{
-        color: config.background.color,
-        fontSize: `${config.fontSize}vw`,
-        padding: `${config.marginHorizontal}vw`,
+        paddingTop: '45vh',
+        color: teleprompter.appState.background.color,
+        paddingHorizontal: `${teleprompter.appState.marginHorizontal}vw`,
+        fontSize: `${teleprompter.appState.fontSize}vw`,
       }}>
-        {data.title}
-        <Box tag="span" styleSheet={{ marginBottom: `${config.fontSize}vw` }} />
-        {data.content}
+        {teleprompter.title}
+        <Box tag="span" styleSheet={{ marginBottom: `${teleprompter.appState.fontSize}vw` }} />
+        {teleprompter.content}
       </Text>
 
       <Box
@@ -115,8 +147,8 @@ export default function HomeScreen() {
           height: '1px',
           backgroundColor: 'red',
           position: 'fixed',
-          top: '45%'
-        }} 
+          top: '45vh'
+        }}
       />
       <Box
         styleSheet={{
@@ -124,18 +156,18 @@ export default function HomeScreen() {
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between',
-          borderTop: `1px solid ${config.background.color}`,
-          backgroundColor: config.background.backgroundColor,
+          borderTop: `1px solid ${teleprompter.appState.background.color}`,
+          backgroundColor: teleprompter.appState.background.backgroundColor,
           position: 'fixed',
           bottom: '0',
         }}
       >
         <TouchableArea
-          onPress={() => togglePlayState()}
+          onPress={() => teleprompter.togglePlayState()}
         >
           <Text
             styleSheet={{
-              color: config.background.color,
+              color: teleprompter.appState.background.color,
             }}
           >
             Toggle Play
@@ -143,11 +175,11 @@ export default function HomeScreen() {
         </TouchableArea>
 
         <TouchableArea
-          onPress={() => resetState()}
+          onPress={() => teleprompter.resetState()}
         >
           <Text
             styleSheet={{
-              color: config.background.color,
+              color: teleprompter.appState.background.color,
             }}
           >
             Reset
