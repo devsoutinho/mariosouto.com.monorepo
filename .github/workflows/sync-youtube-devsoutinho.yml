@@ -3,6 +3,9 @@ on:
   schedule:
     - cron: "0 * * * *"
 
+env: 
+  GH_STARS_TOKEN: ${{ secrets.GH_STARS_TOKEN }}
+
 jobs:
   external_info:
     runs-on: ubuntu-latest
@@ -10,8 +13,6 @@ jobs:
 
     steps:
     - name: Checkout
-      env: 
-        GH_STARS_TOKEN: ${{ secrets.GH_STARS_TOKEN }}
       uses: actions/checkout@v2
     - uses: actions/setup-node@v2
       with:
