@@ -6,6 +6,7 @@ import { ApolloServer, gql } from "apollo-server-micro";
 import { postsModule } from '../../modules/posts';
 import { qrcodeModule } from '../../modules/qrcode';
 import { youtubeModule } from '../../modules/youtube';
+import { githubStarsModule } from "../../modules/githubStars";
 
 const defaultTypeDefs = gql`
   # Commons
@@ -33,6 +34,7 @@ const serverSchema = {
     postsModule.typeDefs,
     qrcodeModule.typeDefs,
     youtubeModule.typeDefs,
+    githubStarsModule.typeDefs,
     defaultTypeDefs,
   ],
   resolvers: {
@@ -40,12 +42,14 @@ const serverSchema = {
       ...postsModule.resolvers.Query,
       ...qrcodeModule.resolvers.Query,
       ...youtubeModule.resolvers.Query,
+      ...githubStarsModule.resolvers.Query,
       greet: () => 'Welcome to @devsoutinho/api',
     },
     Mutation: {
       ...postsModule.resolvers.Mutation,
       ...qrcodeModule.resolvers.Mutation,
       ...youtubeModule.resolvers.Mutation,
+      ...githubStarsModule.resolvers.Mutation,
       createSampleText: (_: unknown, args) => args.input.text,
     }
   },

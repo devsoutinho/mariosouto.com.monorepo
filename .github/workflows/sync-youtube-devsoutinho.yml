@@ -10,6 +10,8 @@ jobs:
 
     steps:
     - name: Checkout
+      env: 
+        GH_STARS_TOKEN: ${{ secrets.GH_STARS_TOKEN }}
       uses: actions/checkout@v2
     - uses: actions/setup-node@v2
       with:
@@ -27,4 +29,7 @@ jobs:
         git add .
         git commit -m "[sync] devSoutinho Youtube Vídeos"
         git push origin HEAD
-        echo "Im running!"
+        echo "END: Youtube"
+        echo "START: GH_Sync"
+        curl --request POST --header 'content-type: application/json' --url 'http://localhost:4000/api/graphql' --data '{"query":"mutation SyncGitHubContributions { syncGitHubContributions { newContributions { title } } }"}'
+        echo "END: GH_Sync"
