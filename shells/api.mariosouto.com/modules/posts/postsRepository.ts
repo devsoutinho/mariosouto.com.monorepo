@@ -82,7 +82,8 @@ export function postsRepository() {
       await generatePostsIndex();
 
       const allPostsPromises = allpostsSlugs.map(async (slug): Promise<Post> => {
-        const BASE_URL = 'https://raw.githubusercontent.com/devsoutinho/mariosouto.com/main/shells/api.mariosouto.com/_db/posts/';
+        const BRANCH = "main";
+        const BASE_URL = `https://raw.githubusercontent.com/devsoutinho/mariosouto.com/${BRANCH}/shells/api.mariosouto.com/_db/posts/`;
         const postContentRaw = await fetch(`${BASE_URL}${slug}`).then((res) => res.text());
         const { data, content } = matter(postContentRaw);
         const contentParsed = await remark().use(html).process(content);
@@ -98,7 +99,8 @@ export function postsRepository() {
       const promisesSettled = await Promise.allSettled(allPostsPromises);
       const initialOutput = promisesSettled.map((promise) => {
         if (promise.status === 'fulfilled') return promise.value;
-      });
+      })
+      .filter(Boolean);
 
       const filteredOutput = initialOutput.filter(sift(filterFormated))
         .sort((a, b) => {
