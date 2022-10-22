@@ -6,7 +6,8 @@
     "packages": [
       "shells/*",
       "products/*",
-      "libs/*"
+      "libs/*",
+      "labs/*"
     ]
   },
   "scripts": {
@@ -18,8 +19,10 @@
     "dev:components": "yarn components dev",
     "web": "yarn workspace mariosouto.com",
     "dev:web": "yarn web dev",
-    "app": "yarn workspace devsoutinho-app",
-    "dev:app": "yarn app start",
+    "app": "echo 'implement me!'",
+    "dev:app": "echo 'implement me!'",
+    "labs": "echo 'implement me!'",
+    "dev:labs": "echo 'implement me!'",
     "api": "yarn workspace api.mariosouto.com",
     "dev:api": "yarn api dev",
     "deploy:app": "yarn app deploy:expo"
