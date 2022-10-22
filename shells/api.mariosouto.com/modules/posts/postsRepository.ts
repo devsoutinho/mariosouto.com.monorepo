@@ -82,7 +82,7 @@ export function postsRepository() {
       await generatePostsIndex();
 
       const allPostsPromises = allpostsSlugs.map(async (slug): Promise<Post> => {
-        const BASE_URL = 'https://raw.githubusercontent.com/devsoutinho/mariosouto.com/main/shells/devsoutinho-api/_db/posts/';
+        const BASE_URL = 'https://raw.githubusercontent.com/devsoutinho/mariosouto.com/main/shells/api.mariosouto.com/_db/posts/';
         const postContentRaw = await fetch(`${BASE_URL}${slug}`).then((res) => res.text());
         const { data, content } = matter(postContentRaw);
         const contentParsed = await remark().use(html).process(content);
