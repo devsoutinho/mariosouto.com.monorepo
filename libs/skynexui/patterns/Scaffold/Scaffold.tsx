@@ -1,5 +1,3 @@
-import { StatusBar } from 'external-libs/status-bar/native';
-import { StatusBarProps } from 'external-libs/status-bar/types';
 import { StyleSheet } from '../../core/stylesheet/stylesheet';
 import { Box, useEnv } from '../../index';
 
@@ -7,9 +5,8 @@ interface Scaffold {
   safeArea?: { top: boolean; bottom: boolean; };
   styleSheet?: StyleSheet;
   children?: React.ReactNode;
-  statusBar?: StatusBarProps;
 }
-export function Scaffold({ children, styleSheet, safeArea, statusBar }: Scaffold) {
+export function Scaffold({ children, styleSheet, safeArea }: Scaffold) {
   return (
     <Box
       styleSheet={{
@@ -22,10 +19,6 @@ export function Scaffold({ children, styleSheet, safeArea, statusBar }: Scaffold
         ...styleSheet,
       }}
     >
-      <StatusBar
-        style={statusBar?.style || 'auto'}
-        {...statusBar}
-      />
       {children}
     </Box>
   )

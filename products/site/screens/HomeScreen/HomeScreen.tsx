@@ -34,10 +34,6 @@ export function HomeScreen(props) {
 
   return (
     <Scaffold
-      statusBar={{
-        title: 'Home - Mario Souto',
-        style: 'light'
-      }}
       safeArea={{ top: true, bottom: true }}
       styleSheet={{
         backgroundColor: theme.colors?.neutral?.x900,
