@@ -46,7 +46,7 @@ export function Text({children, variant, styleSheet, ...props}: TextProps) {
       as={TextStyled} 
       tag={props.tag}
       styleSheet={formatedStyleSheet}
-      {...(env.isWeb() || env.isIOS()) && currentTag}
+      currentTag
       {...props}
     >
       {children}

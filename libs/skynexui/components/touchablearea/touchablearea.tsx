@@ -19,13 +19,10 @@ interface TouchableProps {
 }
 export function TouchableArea({ children, styleSheet, href, onPress, ...props }: TouchableProps) {
   const router = useRouter();
-  const { isWeb } = useEnv();
   const isLink = Boolean(href);
   const tag = isLink
     ? 'a'
     : 'button';
-  const isWebEnv = isWeb();
-  const isMobileEnv = !isWebEnv;
 
   function handleOnPress() {
     if(!props.disabled) {
@@ -45,17 +42,10 @@ export function TouchableArea({ children, styleSheet, href, onPress, ...props }:
         borderColor: 'transparent',
         cursor: 'pointer',
         alignItems: 'flex-start',
-        ...(isWeb() && {
-          outline: '0',
-        }),
+        outline: '0',
         ...styleSheet,
       }}
-      {...isMobileEnv && {
-        onPress: handleOnPress,
-      }}
-      {...isWebEnv && {
-        onClick: handleOnPress,
-      }}
+      onClick={handleOnPress}
       {...props}
     >
       {children}

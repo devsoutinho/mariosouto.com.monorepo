@@ -1,5 +1,4 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
-import { AppRegistry } from 'react-native';
 import config from '../app.json';
 import { ServerStyleSheet } from 'styled-components'
 
@@ -12,7 +11,6 @@ export default class MyDocument extends Document {
     const originalRenderPage = ctx.renderPage;
 
     try {
-      AppRegistry.registerComponent(config.name, () => Main);
       ctx.renderPage = () =>
         originalRenderPage({
           enhanceApp: (App) => (props) =>

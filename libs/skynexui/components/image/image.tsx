@@ -22,39 +22,18 @@ export function Image({ src, styleSheet: styleSheetInitial }: ImageProps) {
   const resizeMode = objectFit || 'cover';
 
   const isHeightZeroOnWeb = !Boolean(styleSheet.aspectRatio);
-  const isWidthFitContent = Boolean(styleSheet.aspectRatio) && Boolean(styleSheet.maxHeight);
 
   const finalStyleSheet = {
     width,
-    ...(env.isWeb() && {
-      display: 'block',
-      height: isHeightZeroOnWeb ? '0' : styleSheet.height,
-      objectFit: resizeMode,
-      width: isWidthFitContent
-      ? 'fit-content'
-      : width,
-    }),
+    display: 'block',
+    height: isHeightZeroOnWeb ? '0' : styleSheet.height,
+    objectFit: resizeMode,
     ...styleSheet,
   };
 
   const imageProps = {
     styleSheet: finalStyleSheet,
-    ...(!env.isWeb() && {
-      source: {
-        uri: src,
-      },
-      resizeMode: (() => {
-        const result = typeof resizeMode === 'object'
-          ? resolveValueForBreakpoint(resizeMode, env.getCurrentBreakpoint())
-          : resizeMode;
-
-        if (result === 'fill') return 'stretch';
-        return result;
-      })(),
-    }),
-    ...(env.isWeb() && {
-      src: src,
-    })
+    src: src,
   };
 
   return (

@@ -10,19 +10,9 @@ interface Scaffold {
   statusBar?: StatusBarProps;
 }
 export function Scaffold({ children, styleSheet, safeArea, statusBar }: Scaffold) {
-  const env = useEnv();
-  const insets = env.useSafeAreaInsets();
-  // TODO: Menu height must be calculated and provided to the Scaffold
-  const menuHeight = '80px';
-
   return (
     <Box
       styleSheet={{
-        paddingTop: safeArea?.top && insets.top,
-        paddingBottom: {
-          xs: safeArea?.bottom && env.themeCalc('+', insets.bottom, menuHeight),
-          md: safeArea?.bottom && env.themeCalc('+', insets.bottom)
-        },
         flex: 1,
         alignItems: 'stretch',
         flexDirection: {
