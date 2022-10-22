@@ -1,6 +1,6 @@
 # DevSoutinho Space:
 
-The idea of this project is to have.
+> Better description will arrieve soon
 
 ```sh
 yarn dev:web
