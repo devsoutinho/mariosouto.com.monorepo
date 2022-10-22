@@ -5,8 +5,9 @@
   "workspaces": {
     "packages": [
       "shells/*",
-      "apps/*",
-      "packages/*"
+      "products/*",
+      "libs/*",
+      "labs/*"
     ]
   },
   "scripts": {
@@ -16,11 +17,13 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "components": "yarn workspace skynexui",
     "dev:components": "yarn components dev",
-    "web": "yarn workspace devsoutinho-web",
+    "web": "yarn workspace mariosouto.com",
     "dev:web": "yarn web dev",
-    "app": "yarn workspace devsoutinho-app",
-    "dev:app": "yarn app start",
-    "api": "yarn workspace devsoutinho-api",
+    "app": "echo 'implement me!'",
+    "dev:app": "echo 'implement me!'",
+    "labs": "echo 'implement me!'",
+    "dev:labs": "echo 'implement me!'",
+    "api": "yarn workspace api.mariosouto.com",
     "dev:api": "yarn api dev",
     "deploy:app": "yarn app deploy:expo"
   },
