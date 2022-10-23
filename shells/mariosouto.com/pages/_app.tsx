@@ -4,10 +4,12 @@ import Head from 'next/head'
 import { SkynexUIProvider } from 'skynexui';
 import { ApolloProvider } from 'external-libs/apollo-provider/native';
 import { useRouter } from 'next/router';
+import { CSSReset } from "@src/theme/CSSReset";
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
+      <CSSReset />
       <ApolloProvider pageProps={pageProps}>
         <SkynexUIProvider
           useRouterHook={useRouter}
