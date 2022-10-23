@@ -15,7 +15,6 @@ export function Scaffold({ children, styleSheet, safeArea }: Scaffold) {
         flexDirection: {
           xs: 'column',
         },
-        overflow: 'scroll',
         ...styleSheet,
       }}
     >

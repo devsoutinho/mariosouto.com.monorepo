@@ -126,7 +126,6 @@ export default function HomeScreen() {
         backgroundColor: teleprompter.appState.background.backgroundColor,
         position: 'relative',
         height: '100vh',
-        overflow: 'scroll',
         paddingBottom: '60vh',
       }}
       >
