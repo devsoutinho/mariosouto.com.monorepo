@@ -26,6 +26,7 @@
     "typescript": "^4.5.3"
   },
   "dependencies": {
+    "@skynexui/responsive_stylesheet": "1.11.0",
     "@storybook/addon-react-native-web": "^0.0.18",
     "@testing-library/react": "^12.1.4"
   },

@@ -28,7 +28,7 @@ export default function Menu() {
     <Box
       tag="nav"
       styleSheet={{
-        position: "fixed",
+        position: "absolute",
         top: "16px",
         left: "0",
         right: "0",

@@ -1,78 +1,32 @@
-import styled from 'styled-components/native';
-import { useEnv, useTheme } from '../provider/provider';
-import { StyleSheet } from '../../core/stylesheet/stylesheet';
-import { parseCSS } from './utils/parseCSS';
-import React from 'react';
+import React from "react";
+import styled from "styled-components";
+import { parseStyleSheet, StyleSheet } from "@skynexui/responsive_stylesheet";
 
-const StyledScrollView = styled.ScrollView || (styled as any).div;
-const BoxWithScroll = StyledScrollView``;
-const StyledView = styled.View || (styled as any).div;
-const BoxStyled = StyledView<BoxBaseProps>`
+const StyledBaseComponent = styled.div<any>`
   display: flex;
   flex-direction: column;
-
-  ${({
-  appTheme,
-  styleSheet,
-  currentBreakpoint,
-  currentPlatform,
-  ...rest
-}) => parseCSS({
-  ...rest,
-  theme: appTheme,
-  styleSheet: styleSheet || {},
-  currentBreakpoint,
-  currentPlatform,
-  removePX: false,
-})}
+  align-content: flex-start;
+  flex-shrink: 0;
+  ${({ styleSheet, $uniqueId }) => parseStyleSheet(styleSheet, $uniqueId)}
 `;
 
-interface BoxBaseProps {
-  children?: React.ReactNode;
+interface BaseComponentProps {
   styleSheet?: StyleSheet;
-  // TODO: Leave like this: https://github.com/skynexui/components/blob/main/lib/core/stylesheet/stylesheet.ts#L93
   [key: string]: any;
 }
+const BaseComponent = React.forwardRef<any, BaseComponentProps>(
+  (props, ref) => {
+    const id = React.useId().replaceAll(":", "");
 
-export const BoxBase = React.forwardRef(({ children, styleSheet: styleSheetComplete, ...props }: BoxBaseProps, ref) => {
-  const boxBaseRef = ref;
-
-  const {
-    hover: styleSheetHover,
-    focus: styleSheetFocus,
-    disabled: styleSheetDisabled,
-    ...receivedStyles
-  } = styleSheetComplete || {};
-  const [extraStyles, setExtraStyles] = React.useState({});
-
-  const styleSheet = {
-    ...receivedStyles,
-    ...extraStyles,
-  };
-
-  const theme = useTheme();
-
-  // Style Sheet
-  const {
-    cursor,
-    ...commonStyleSheet
-  } = styleSheet || {};
-  const isScrollBox = styleSheet?.overflow === 'scroll';
-
-  // [Props Object]
-  const boxBaseProps = {
-    children,
-    appTheme: theme,
-    styleSheet: {
-      ...commonStyleSheet,
-    },
-    ...props,
-    ...(isScrollBox && { as: BoxWithScroll }),
+    return (
+      <StyledBaseComponent ref={ref} $uniqueId={id} className={id} {...props} />
+    );
   }
-
-  return <BoxStyled ref={boxBaseRef} {...boxBaseProps} />;
-});
-
-BoxBase.defaultProps = {
+);
+BaseComponent.defaultProps = {
   styleSheet: {},
-}
+};
+
+BaseComponent.displayName = "StyledBaseComponent";
+
+export default BaseComponent;
