@@ -15,7 +15,8 @@ interface BoxProps {
   // eslint-disable-next-line no-unused-vars
   onFocus?: (event: any) => void;
 }
-const Box = React.forwardRef(
+
+export const Box = React.forwardRef(
   ({ styleSheet, children, tag, ...props }: BoxProps, ref) => {
     const Tag = tag || "div";
     return (
@@ -28,4 +29,3 @@ const Box = React.forwardRef(
 
 Box.displayName = "Box";
 
-export default Box;

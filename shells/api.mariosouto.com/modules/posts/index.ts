@@ -24,6 +24,7 @@ export const typeDefs = gql`
   type Post {
     title: String
     url: String
+    image: String
     date: String
     excerpt: String
     postType: PostType
