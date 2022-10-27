@@ -11,6 +11,12 @@ import { paginate } from './utils/paginate';
 import { slugify } from './utils/slugify';
 import { postTemplate } from './utils/postTemplate';
 
+// get youtube video id
+const getYoutubeVideoId = (url: string) => {
+  const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/;
+  const match = url.match(regex);
+  return match ? match[1] : null;
+};
 
 export function postsRepository() {
   return {
@@ -93,6 +99,7 @@ export function postsRepository() {
           title: post.data.title,
           url: post.data.url,
           postType: post.data.postType,
+          image: post?.data?.image || `https://i.ytimg.com/vi/${getYoutubeVideoId(post?.data?.url)}/maxresdefault.jpg`,
           date: new Date(post.data.date).toISOString(),
         };
       });

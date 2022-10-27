@@ -24,6 +24,7 @@ export const typeDefs = gql`
   type Post {
     title: String
     url: String
+    image: String
     date: String
     excerpt: String
     postType: PostType
@@ -59,6 +60,7 @@ export const typeDefs = gql`
 const resolvers: Resolvers = {
   Query: {
     async posts(_, { input } = {}) {
+      console.log("Resolvers: Query: posts: input: ", input);
       return await postsRepository().getAllPosts({ input });
     }
   },

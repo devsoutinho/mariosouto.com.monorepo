@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet } from '../../core/stylesheet/stylesheet';
-import { BoxBase } from './box-base';
+import BoxBase from './box-base';
 
 interface BoxProps {
   ref?: any;

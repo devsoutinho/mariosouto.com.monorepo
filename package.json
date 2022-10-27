@@ -27,13 +27,10 @@
     "dev:api": "yarn api dev",
     "deploy:app": "yarn app deploy:expo"
   },
-  "dependencies": {
-    "styled-components": "5.3.3",
-    "react-native": "0.64.3"
-  },
   "devDependencies": {
     "prettier": "^2.5.1",
-    "turbo": "latest"
+    "turbo": "latest",
+    "@types/react": "18.0.24"
   },
   "engines": {
     "npm": ">=7.0.0",

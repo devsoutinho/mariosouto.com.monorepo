@@ -14,6 +14,11 @@ export type Scalars = {
   Float: number;
 };
 
+export type Contribution = {
+  __typename?: 'Contribution';
+  title?: Maybe<Scalars['String']>;
+};
+
 export type CreatePostInput = {
   date?: InputMaybe<Scalars['String']>;
   excerpt?: InputMaybe<Scalars['String']>;
@@ -53,6 +58,7 @@ export type Mutation = {
   createProductLink?: Maybe<CreatePostPayload>;
   createSampleText: Scalars['String'];
   createYouTubeVideo?: Maybe<CreatePostPayload>;
+  syncGitHubContributions?: Maybe<SyncGitHubContributionsPayload>;
   /**
    * This mutation must called only in CI environment.
    * - 1. It hits YouTube feed URL.
@@ -81,6 +87,7 @@ export type Post = {
   __typename?: 'Post';
   date?: Maybe<Scalars['String']>;
   excerpt?: Maybe<Scalars['String']>;
+  image?: Maybe<Scalars['String']>;
   postType?: Maybe<PostType>;
   title?: Maybe<Scalars['String']>;
   url?: Maybe<Scalars['String']>;
@@ -132,6 +139,11 @@ export type QueryQrCodeArgs = {
 
 export type QueryYoutubeVideosArgs = {
   input?: InputMaybe<YouTubeVideoInput>;
+};
+
+export type SyncGitHubContributionsPayload = {
+  __typename?: 'SyncGitHubContributionsPayload';
+  newContributions?: Maybe<Array<Maybe<Contribution>>>;
 };
 
 export type YouTubeVideo = {
@@ -223,6 +235,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Contribution: ResolverTypeWrapper<Contribution>;
   CreatePostInput: CreatePostInput;
   CreatePostPayload: ResolverTypeWrapper<CreatePostPayload>;
   CreateProductInput: CreateProductInput;
@@ -239,6 +252,7 @@ export type ResolversTypes = {
   QrCodeInput: QrCodeInput;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  SyncGitHubContributionsPayload: ResolverTypeWrapper<SyncGitHubContributionsPayload>;
   YouTubeVideo: ResolverTypeWrapper<YouTubeVideo>;
   YouTubeVideoInput: YouTubeVideoInput;
   YouTubeVideosFilters: YouTubeVideosFilters;
@@ -247,6 +261,7 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
+  Contribution: Contribution;
   CreatePostInput: CreatePostInput;
   CreatePostPayload: CreatePostPayload;
   CreateProductInput: CreateProductInput;
@@ -262,9 +277,15 @@ export type ResolversParentTypes = {
   QrCodeInput: QrCodeInput;
   Query: {};
   String: Scalars['String'];
+  SyncGitHubContributionsPayload: SyncGitHubContributionsPayload;
   YouTubeVideo: YouTubeVideo;
   YouTubeVideoInput: YouTubeVideoInput;
   YouTubeVideosFilters: YouTubeVideosFilters;
+};
+
+export type ContributionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Contribution'] = ResolversParentTypes['Contribution']> = {
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type CreatePostPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreatePostPayload'] = ResolversParentTypes['CreatePostPayload']> = {
@@ -281,12 +302,14 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   createProductLink?: Resolver<Maybe<ResolversTypes['CreatePostPayload']>, ParentType, ContextType, RequireFields<MutationCreateProductLinkArgs, 'input'>>;
   createSampleText?: Resolver<ResolversTypes['String'], ParentType, ContextType, Partial<MutationCreateSampleTextArgs>>;
   createYouTubeVideo?: Resolver<Maybe<ResolversTypes['CreatePostPayload']>, ParentType, ContextType, RequireFields<MutationCreateYouTubeVideoArgs, 'input'>>;
+  syncGitHubContributions?: Resolver<Maybe<ResolversTypes['SyncGitHubContributionsPayload']>, ParentType, ContextType>;
   syncYouTubeVideos?: Resolver<Maybe<ResolversTypes['CreateYouTubeVideosPayload']>, ParentType, ContextType>;
 };
 
 export type PostResolvers<ContextType = any, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = {
   date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   excerpt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  image?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   postType?: Resolver<Maybe<ResolversTypes['PostType']>, ParentType, ContextType>;
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -305,6 +328,11 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   youtubeVideos?: Resolver<Array<Maybe<ResolversTypes['YouTubeVideo']>>, ParentType, ContextType, Partial<QueryYoutubeVideosArgs>>;
 };
 
+export type SyncGitHubContributionsPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['SyncGitHubContributionsPayload'] = ResolversParentTypes['SyncGitHubContributionsPayload']> = {
+  newContributions?: Resolver<Maybe<Array<Maybe<ResolversTypes['Contribution']>>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type YouTubeVideoResolvers<ContextType = any, ParentType extends ResolversParentTypes['YouTubeVideo'] = ResolversParentTypes['YouTubeVideo']> = {
   date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   excerpt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -314,12 +342,14 @@ export type YouTubeVideoResolvers<ContextType = any, ParentType extends Resolver
 };
 
 export type Resolvers<ContextType = any> = {
+  Contribution?: ContributionResolvers<ContextType>;
   CreatePostPayload?: CreatePostPayloadResolvers<ContextType>;
   CreateYouTubeVideosPayload?: CreateYouTubeVideosPayloadResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Post?: PostResolvers<ContextType>;
   QrCode?: QrCodeResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  SyncGitHubContributionsPayload?: SyncGitHubContributionsPayloadResolvers<ContextType>;
   YouTubeVideo?: YouTubeVideoResolvers<ContextType>;
 };
 

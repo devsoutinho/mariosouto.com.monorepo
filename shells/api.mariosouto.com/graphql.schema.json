@@ -19,6 +19,29 @@
         "possibleTypes": null
       },
       {
+        "kind": "OBJECT",
+        "name": "Contribution",
+        "description": null,
+        "fields": [
+          {
+            "name": "title",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "INPUT_OBJECT",
         "name": "CreatePostInput",
         "description": null,
@@ -371,6 +394,18 @@
             "deprecationReason": null
           },
           {
+            "name": "syncGitHubContributions",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "SyncGitHubContributionsPayload",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "syncYouTubeVideos",
             "description": "This mutation must called only in CI environment.\n- 1. It hits YouTube feed URL.\n- 2. Get the latest vídeos.\n- 3. Try to sync them with the local cache of videos.",
             "args": [],
@@ -407,6 +442,18 @@
           },
           {
             "name": "excerpt",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "image",
             "description": null,
             "args": [],
             "type": {
@@ -735,6 +782,33 @@
         "fields": null,
         "inputFields": null,
         "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "SyncGitHubContributionsPayload",
+        "description": null,
+        "fields": [
+          {
+            "name": "newContributions",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Contribution",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
         "enumValues": null,
         "possibleTypes": null
       },

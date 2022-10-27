@@ -1,19 +1,26 @@
-const redirects = require("./redirects.json");
 const withPlugins = require('next-compose-plugins');
 const withTM = require('next-transpile-modules')([
-  'styled-components',
-  'skynexui',
-  '@devsoutinho/site',
-  '@devsoutinho/app-teleprompter',
   'external-libs',
 ], {
   resolveSymlinks: true,
 });
 
-
-module.exports = withPlugins([withTM], {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    appDir: true,
+  },
   async redirects() {
-    return redirects;
+    return require("./redirects.json");
+  },
+  reactStrictMode: true,
+  compiler: {
+    styledComponents: true,
   },
   trailingSlash: true,
-});
+}
+
+module.exports = withPlugins(
+  [withTM],
+  nextConfig
+);

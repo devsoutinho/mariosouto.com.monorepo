@@ -21,6 +21,7 @@ export const typeDefs = gql`
   type YouTubeVideo {
     title: String
     url: String
+    image: String
     date: String
     excerpt: String
   }

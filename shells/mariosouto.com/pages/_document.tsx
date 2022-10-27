@@ -1,14 +1,10 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document'
-import config from '../app.json';
+import Document, { DocumentContext } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
 
-// Force Next-generated DOM elements to fill their parent's height
-const normalizeNextElements = ``;
-
 export default class MyDocument extends Document {
-  static async getInitialProps(ctx) {
-    const sheet = new ServerStyleSheet();
-    const originalRenderPage = ctx.renderPage;
+  static async getInitialProps(ctx: DocumentContext) {
+    const sheet = new ServerStyleSheet()
+    const originalRenderPage = ctx.renderPage
 
     try {
       ctx.renderPage = () =>
@@ -20,29 +16,10 @@ export default class MyDocument extends Document {
       const initialProps = await Document.getInitialProps(ctx)
       return {
         ...initialProps,
-        styles: (
-          <>
-            {initialProps.styles}
-            <style dangerouslySetInnerHTML={{ __html: normalizeNextElements }} />
-            {sheet.getStyleElement()}
-          </>
-        ),
+        styles: [initialProps.styles, sheet.getStyleElement()],
       }
     } finally {
       sheet.seal()
     }
-
-  }
-
-  render() {
-    return (
-      <Html>
-        <Head />
-        <body>
-          <Main />
-          <NextScript />
-        </body>
-      </Html>
-    )
   }
 }
