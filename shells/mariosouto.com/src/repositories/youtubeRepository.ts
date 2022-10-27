@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import { addApolloState, initializeApollo } from 'external-libs/apollo-client';
+import { initializeApollo } from 'external-libs/apollo-client';
 
 export const GET_POSTS = gql`
 query($input: PostsInput) {
@@ -7,7 +7,6 @@ query($input: PostsInput) {
     title
     date
     url
-    image
   }
 }
 `;
@@ -37,6 +36,7 @@ export const useGetAllYouTubeVideos = () => {
         query: GET_POSTS,
         variables,
       });
+
       return apolloClient;
     }
   }
