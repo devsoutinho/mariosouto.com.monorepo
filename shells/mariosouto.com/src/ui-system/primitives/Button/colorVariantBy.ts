@@ -1,4 +1,5 @@
-import { Theme } from "@src/theme/theme";
+import { Theme } from "@src/ui-system/theme/theme";
+
 
 export type ColorVariant = 'primary' | 'accent' | 'positive' | 'negative' | 'warning' | 'neutral' | 'light' | 'dark';
 export type Variant = 'ghost' | 'contained' | 'outlined';
