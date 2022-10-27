@@ -19,6 +19,7 @@
     "dev:components": "yarn components dev",
     "web": "yarn workspace mariosouto.com",
     "dev:web": "yarn web dev",
+    "build:web": "yarn web build",
     "app": "echo 'implement me!'",
     "dev:app": "echo 'implement me!'",
     "labs": "echo 'implement me!'",
@@ -29,8 +30,7 @@
   },
   "devDependencies": {
     "prettier": "^2.5.1",
-    "turbo": "latest",
-    "@types/react": "18.0.24"
+    "turbo": "latest"
   },
   "engines": {
     "npm": ">=7.0.0",
