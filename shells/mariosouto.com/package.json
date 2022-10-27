@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@skynexui/responsive_stylesheet": "1.11.0",
     "next-compose-plugins": "2.2.1",
     "next-transpile-modules": "9.1.0",
     "external-libs": "*",
