@@ -29,7 +29,8 @@
   },
   "devDependencies": {
     "prettier": "^2.5.1",
-    "turbo": "latest"
+    "turbo": "latest",
+    "@types/react": "18.0.24"
   },
   "engines": {
     "npm": ">=7.0.0",

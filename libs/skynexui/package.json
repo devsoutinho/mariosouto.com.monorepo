@@ -15,7 +15,6 @@
     "@storybook/addon-links": "^6.4.19",
     "@storybook/react": "^6.4.19",
     "@storybook/testing-library": "^0.0.9",
-    "@types/react": "18.0.24",
     "@types/react-dom": "18.0.8",
     "@types/styled-components": "5.1.24",
     "@types/styled-components-react-native": "5.1.3",

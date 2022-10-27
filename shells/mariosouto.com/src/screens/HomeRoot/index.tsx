@@ -2,7 +2,12 @@ import { Box } from "@src/ui-system/primitives";
 
 export default function HomeScreen() {
   return (
-    <Box>
+    <Box
+      styleSheet={{
+        backgroundColor: "black",
+        color: "white",
+      }}
+    >
       Home Screen :D 
     </Box>
   );
