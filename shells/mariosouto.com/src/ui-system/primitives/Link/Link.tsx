@@ -54,7 +54,7 @@ export const Link = React.forwardRef(({ href, children, styleSheet, colorVariant
     href,
   };
 
-  if (href.startsWith('http')) return <Text {...linkProps}>{children}</Text>
+  if (href.startsWith('http')) return <Text {...linkProps} {...{ target: "_blank" }}>{children}</Text>
 
   return (
     <NextLink href={href} passHref>

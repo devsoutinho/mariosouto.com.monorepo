@@ -68,9 +68,9 @@ Feed.Header = () => {
         </Box>
       </Box>
       <Box>
-        <Text variant="heading3">Mario Souto</Text>
-        <Text variant="body3" styleSheet={{ color: theme.colors.neutral.x300 }}>@omariosouto - DevSoutinho - Brasil</Text>
-        <Text variant="body3" styleSheet={{ color: theme.colors.neutral.x300 }}>Lead Software Engineer, Nubank</Text>
+        <Text tag="h3" variant="heading3" styleSheet={{ marginVertical: 0 }}>Mario Souto</Text>
+        <Text variant="body3" styleSheet={{ color: theme.colors.neutral.x300, marginVertical: 0 }}>@omariosouto - DevSoutinho - Brasil</Text>
+        <Text variant="body3" styleSheet={{ color: theme.colors.neutral.x300, marginVertical: 0 }}>Lead Software Engineer, Nubank</Text>
       </Box>
       <Box
         styleSheet={{
@@ -80,10 +80,10 @@ Feed.Header = () => {
           justifyContent: 'space-between',
         }}
       >
-        <Link colorVariant="dark" href="https://youtube.com"><Icon name="youtube" /></Link>
-        <Link colorVariant="dark" href="https://youtube.com"><Icon name="twitter" /></Link>
-        <Link colorVariant="dark" href="https://youtube.com"><Icon name="instagram" /></Link>
-        <Link colorVariant="dark" href="https://youtube.com"><Icon name="youtube" /></Link>
+        <Link colorVariant="dark" href="https://youtube.com/DevSoutinho"><Icon name="youtube" /></Link>
+        <Link colorVariant="dark" href="https://twitter.com/omariosouto"><Icon name="twitter" /></Link>
+        <Link colorVariant="dark" href="https://instagram.com/devsoutinho"><Icon name="instagram" /></Link>
+        <Link colorVariant="dark" href="https://github.com/omariosouto"><Icon name="github" /></Link>
       </Box>
     </Box>
   )
@@ -157,7 +157,7 @@ function FeedPosts({ posts }) {
         </Box>
         <Text
           variant="body4"
-          styleSheet={{ fontWeight: 'bold', marginBottom: '56px', marginLeft: '4px' }}
+          styleSheet={{ fontWeight: 'bold', marginBottom: '30px', marginLeft: '4px' }}
         >
           {releaseDate}
         </Text>

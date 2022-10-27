@@ -40,6 +40,7 @@ export default function Menu() {
       </Button.Base>
       <Button.Base
         styleSheet={{
+          display: "none",
           color: theme.colors.neutral.x000,
           borderRadius: theme.borderRadius.full,
           backgroundColor: theme.colors.neutral.x500,
