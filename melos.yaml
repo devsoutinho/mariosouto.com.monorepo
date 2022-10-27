@@ -1,0 +1,21 @@
+name: DevSoutinho
+repository: https://github.com/devsoutinho/flutter-labs
+
+# Where are the packages being required in this project?
+packages:
+  - libs/**
+  - shells/**
+
+command:
+  bootstrap:
+    usePubspecOverrides: true
+  version:
+      updateGitTagRefs: true
+
+# What are the handfull scripts that you need in this monorepo?
+scripts:
+  hello: echo 'Hello World'
+
+  ## CI Scripts
+  lint:
+    exec: dart analyze .
