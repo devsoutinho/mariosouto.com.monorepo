@@ -99,7 +99,7 @@ export function postsRepository() {
           title: post.data.title,
           url: post.data.url,
           postType: post.data.postType,
-          image: post?.data?.image || `https://i.ytimg.com/vi/${getYoutubeVideoId(post.data.url)}/maxresdefault.jpg`,
+          image: post?.data?.image || `https://i.ytimg.com/vi/${getYoutubeVideoId(post?.data?.url)}/maxresdefault.jpg`,
           date: new Date(post.data.date).toISOString(),
         };
       });

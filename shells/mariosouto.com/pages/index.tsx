@@ -4,9 +4,6 @@ import { withApolloStateServerCache } from 'external-libs/apollo-client';
 export { default } from "@src/screens/HomeRoot";
 
 export async function getStaticProps() {
-
-  console.log("Static");
-
   return withApolloStateServerCache(
     useGetAllYouTubeVideos().server(),
     {

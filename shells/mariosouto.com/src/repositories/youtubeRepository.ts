@@ -5,8 +5,9 @@ export const GET_POSTS = gql`
 query($input: PostsInput) {
   posts(input: $input) {
     title
-    date
     url
+    date
+    image
   }
 }
 `;
@@ -30,14 +31,16 @@ export const useGetAllYouTubeVideos = () => {
       });
     },
     async server() {
+
       const apolloClient = initializeApollo();
-      
+
       await apolloClient.query({
         query: GET_POSTS,
         variables,
       });
 
       return apolloClient;
+
     }
   }
 };
