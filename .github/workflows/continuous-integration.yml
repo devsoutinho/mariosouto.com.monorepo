@@ -1,0 +1,39 @@
+name: CI - Web
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_APP_MARIOSOUTO_COM }}
+  GITHUB_PR_NUMBER: ${{ github.event.pull_request.number }}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: devsoutinho/flutter-composite-action@v4.0.1
+    - name: Build & Deploy
+      run: |
+          melos bootstrap
+          melos test
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: devsoutinho/flutter-composite-action@v4.0.1
+    - name: Build & Deploy
+      run: |
+          melos bootstrap
+          melos lint
+  deploy_web_preview:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: devsoutinho/flutter-composite-action@v4.0.1
+    - name: Build & Deploy
+      run: |
+          melos bootstrap
+          melos build_shell_webportal
+          melos preview_web
