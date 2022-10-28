@@ -36,9 +36,5 @@
     "prettier": "^2.5.1",
     "turbo": "latest"
   },
-  "engines": {
-    "npm": ">=7.0.0",
-    "node": ">=14.0.0"
-  },
   "packageManager": "yarn@1.22.17"
 }
