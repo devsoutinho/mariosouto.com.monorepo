@@ -28,3 +28,10 @@ scripts:
   deploy_web: "cd ./shells/app.mariosouto.com && npx vercel ./build/web --confirm --token=$VERCEL_TOKEN"
   deploy_web_prod: "cd ./shells/app.mariosouto.com && npx vercel ./build/web --confirm --token=$VERCEL_TOKEN --prod"
   preview_web: "cd ./scripts && node ./pullRequestPreview.js --experimental-fetch"
+  ## Support
+  test:selective_unit_test:
+    run: melos exec --dir-exists="test" --fail-fast -- flutter test --no-pub --coverage
+    description: Run Flutter tests for a specific package in this project.
+    select-package:
+      flutter: true
+      dir-exists: test
