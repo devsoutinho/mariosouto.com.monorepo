@@ -2,12 +2,22 @@
 
 > Better description will arrieve soon
 
-```sh
-yarn dev:web
-```
+
+## Main Projects
+
+| Name    | URL                                              |
+| ---     | ---                                              | 
+| app     | [app.mariosouto.com](https://app.mariosouto.com) | 
+| website | [mariosouto.com](https://mariosouto.com)         | 
+| api     | [api.mariosouto.com](https://api.mariosouto.com) |
+
 
 ```sh
 yarn dev:app
+```
+
+```sh
+yarn dev:web
 ```
 
 ```sh
