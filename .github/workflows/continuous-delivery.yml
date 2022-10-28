@@ -1,0 +1,41 @@
+name: CD - Flutter Web
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: devsoutinho/flutter-composite-action@v4.0.1
+    - name: Build & Deploy
+      run: |
+          melos bootstrap
+          melos test
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: devsoutinho/flutter-composite-action@v4.0.1
+    - name: Build & Deploy
+      run: |
+          melos bootstrap
+          melos lint
+  deploy_web:
+    needs: 
+      - test
+      - lint
+    runs-on: ubuntu-latest
+    steps:
+    - uses: devsoutinho/flutter-composite-action@v4.0.1
+    - name: Build & Deploy
+      run: |
+        melos bootstrap
+        melos build_shell_webportal
+        melos deploy_web_prod

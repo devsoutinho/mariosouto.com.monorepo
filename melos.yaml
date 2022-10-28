@@ -19,3 +19,12 @@ scripts:
   ## CI Scripts
   lint:
     exec: dart analyze .
+    description: Lint the Dart/Flutter codebase
+  test:
+    run: melos run test:selective_unit_test --no-select
+    description: Run all Flutter tests in this project.
+  ## Web Scripts
+  build_shell_webportal: "cd ./shells/app.mariosouto.com && flutter build web --web-renderer html"
+  deploy_web: "cd ./shells/app.mariosouto.com && npx vercel ./build/web --confirm --token=$VERCEL_TOKEN"
+  deploy_web_prod: "cd ./shells/app.mariosouto.com && npx vercel ./build/web --confirm --token=$VERCEL_TOKEN --prod"
+  preview_web: "cd ./scripts && node ./pullRequestPreview.js --experimental-fetch"
