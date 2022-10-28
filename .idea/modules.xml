@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/shells/app.mariosouto.com/melos_app_mariosouto_com.iml" filepath="$PROJECT_DIR$/shells/app.mariosouto.com/melos_app_mariosouto_com.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libs/armor/melos_armor.iml" filepath="$PROJECT_DIR$/libs/armor/melos_armor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/melos_devsoutinho.iml" filepath="$PROJECT_DIR$/melos_devsoutinho.iml" />
+    </modules>
+  </component>
+</project>

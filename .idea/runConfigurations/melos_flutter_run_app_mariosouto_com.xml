@@ -1,0 +1,6 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Flutter Run -&gt; 'app_mariosouto_com'" type="FlutterRunConfigurationType" factoryName="Flutter">
+    <option name="filePath" value="$PROJECT_DIR$/shells/app.mariosouto.com/lib/main.dart" />
+    <method v="2" />
+  </configuration>
+</component>

@@ -1,0 +1,4 @@
+# melos_managed_dependency_overrides: armor
+dependency_overrides:
+  armor:
+    path: ../../libs/armor
