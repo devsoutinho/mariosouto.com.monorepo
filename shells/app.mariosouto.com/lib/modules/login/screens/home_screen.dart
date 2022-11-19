@@ -11,18 +11,15 @@ class LoginHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Login"),
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.network(
-              "https://via.placeholder.com/56x48.jpg",
-              width: 56,
-              height: 48,
-            ),
+            // Image.network(
+            //   "https://via.placeholder.com/56x48.jpg",
+            //   width: 56,
+            //   height: 48,
+            // ),
             const Text('Sign in to your account'),
             RichText(
               text: TextSpan(
