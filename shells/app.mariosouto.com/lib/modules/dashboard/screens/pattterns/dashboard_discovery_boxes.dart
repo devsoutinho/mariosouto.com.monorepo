@@ -130,6 +130,7 @@ class _Card extends StatelessWidget {
             color: AppBaseTheme.themeBackgroundGrey001,
             child: InkWell(
               onTap: () {
+                // ignore: avoid_print
                 print("Oi");
               },
               child: Container(
