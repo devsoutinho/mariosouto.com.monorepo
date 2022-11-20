@@ -1,5 +1,7 @@
+import 'package:app_mariosouto_com/modules/dashboard/screens/pattterns/dashboard_header.dart';
 import 'package:app_mariosouto_com/modules/dashboard/screens/pattterns/dashboard_overview.dart';
 import 'package:app_mariosouto_com/default_stuff.dart';
+import 'package:app_mariosouto_com/modules/dashboard/screens/pattterns/dashboard_welcome.dart';
 import 'package:armor/armor.dart';
 import 'package:flutter/material.dart';
 
@@ -13,27 +15,29 @@ class DashboardHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Dashboard'),
+      ),
       backgroundColor: AppBaseTheme.themeBackgroundColor,
-      body: GridItem(
-        as: Column,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // const Header(),
-          // Text("Good morning, $username"),
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: AppBaseTheme.scale_x8),
-            width: context.responsive.value({Breakpoints.xs: 1000}),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                DashboardOverview(),
-              ],
+      body: SingleChildScrollView(
+        child: GridItem(
+          as: Column,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(
+              width: context.responsive.value({Breakpoints.xs: 900}),
+              child: const GridItem(
+                as: Column,
+                children: [
+                  Text("Navigation (Conteúdo, Lojinha, Configurações)"),
+                  DashboardHeader(),
+                  DashboardWelcome(),
+                  DashboardOverview(),
+                ],
+              ),
             ),
-          ),
-          // const Text("Latest Releases"),
-          // const Text("Duke Street Studio"),
-        ],
+          ],
+        ),
       ),
     );
   }

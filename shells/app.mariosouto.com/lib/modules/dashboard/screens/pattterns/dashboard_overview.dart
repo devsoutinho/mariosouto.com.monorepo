@@ -1,6 +1,7 @@
 import 'package:app_mariosouto_com/default_stuff.dart';
 import 'package:armor/armor.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class DashboardOverview extends StatelessWidget {
   const DashboardOverview({
@@ -10,7 +11,7 @@ class DashboardOverview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.redAccent.shade200,
+      margin: const EdgeInsets.only(top: AppBaseTheme.scale_x8),
       padding: EdgeInsets.symmetric(
         horizontal: context.responsive.value({
           Breakpoints.xs: AppBaseTheme.scale_x4,
@@ -19,42 +20,44 @@ class DashboardOverview extends StatelessWidget {
         }),
       ),
       child: GridItem(
-        as: Column,
         children: [
-          const Text("Overview DevSoutinho"),
-          GridItem(
-            as: context.responsive.value({
-              Breakpoints.xs: Row,
-              Breakpoints.sm: Row,
-              Breakpoints.md: Row,
-              Breakpoints.lg: Row,
-            }),
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Expanded(
-                child: _Card(
+          const Text(
+            "Conteúdos do DevSoutinho",
+            style: TextStyle(
+              color: AppBaseTheme.themeGrey002,
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+              height: 1.5,
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: AppBaseTheme.scale_x2),
+            child: StaggeredGrid.count(
+              crossAxisCount: context.responsive.value({
+                Breakpoints.xs: 1,
+                Breakpoints.sm: 2,
+                Breakpoints.md: 3,
+              }),
+              crossAxisSpacing: 20,
+              mainAxisSpacing: 20,
+              children: const [
+                _Card(
                   title: "Videos",
                   descriptionValue: AppBaseData.totalVideos,
                   icon: Icons.movie,
                 ),
-              ),
-              SizedBox(width: 20),
-              Expanded(
-                child: _Card(
+                _Card(
                   title: "Shorts",
                   descriptionValue: AppBaseData.totalShorts,
                   icon: Icons.play_arrow,
                 ),
-              ),
-              SizedBox(width: 20),
-              Expanded(
-                child: _Card(
+                _Card(
                   title: "Cursos",
                   descriptionValue: AppBaseData.totalCursos,
                   icon: Icons.school,
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
@@ -123,10 +126,18 @@ class _Card extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+          Material(
             color: AppBaseTheme.themeBackgroundGrey001,
-            child: const Text("Ver todos"),
+            child: InkWell(
+              onTap: () {
+                print("Oi");
+              },
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                child: const Text("Ver todos"),
+              ),
+            ),
           ),
         ],
       ),
