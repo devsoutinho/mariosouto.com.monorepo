@@ -14,6 +14,8 @@ class AppBaseTheme {
   static const themeBackgroundColor = Color(0xFFf3f4f6);
   static const themeGrey001 = Color(0xFF9ca3af);
   static const themeGrey002 = Color(0xFF111827);
+  static const themeGrey003 = Color(0xFF4b5563);
+  static const themeBlueIndigo001 = Color(0xFF4f46e5);
   static const scale_x2 = 8.0;
   static const scale_x4 = 16.0;
   static const scale_x5 = 20.0;
