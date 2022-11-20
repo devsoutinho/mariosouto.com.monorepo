@@ -3,8 +3,8 @@ import 'package:armor/armor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-class DashboardOverview extends StatelessWidget {
-  const DashboardOverview({
+class DashboardDiscoveryBoxes extends StatelessWidget {
+  const DashboardDiscoveryBoxes({
     Key? key,
   }) : super(key: key);
 

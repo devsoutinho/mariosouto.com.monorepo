@@ -1,6 +1,7 @@
 import 'package:app_mariosouto_com/modules/dashboard/screens/pattterns/dashboard_header.dart';
-import 'package:app_mariosouto_com/modules/dashboard/screens/pattterns/dashboard_overview.dart';
+import 'package:app_mariosouto_com/modules/dashboard/screens/pattterns/dashboard_discovery_boxes.dart';
 import 'package:app_mariosouto_com/default_stuff.dart';
+import 'package:app_mariosouto_com/modules/dashboard/screens/pattterns/dashboard_latest_releases.dart';
 import 'package:app_mariosouto_com/modules/dashboard/screens/pattterns/dashboard_welcome.dart';
 import 'package:armor/armor.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,8 @@ class DashboardHomeScreen extends StatelessWidget {
                   Text("Navigation (Conteúdo, Lojinha, Configurações)"),
                   DashboardHeader(),
                   DashboardWelcome(),
-                  DashboardOverview(),
+                  DashboardDiscoveryBoxes(),
+                  DashboardLatestReleases(),
                 ],
               ),
             ),
