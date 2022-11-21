@@ -61,7 +61,7 @@ class LoginHeader extends StatelessWidget {
                   color: AppBaseTheme.themeGrey003,
                   fontSize: 14,
                 ),
-                text: "Ou antes,",
+                text: "Ou antes, ",
               ),
               TextSpan(
                 style: const TextStyle(
@@ -227,8 +227,8 @@ class AppLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 56,
-      height: 56,
+      width: 100,
+      height: 100,
       decoration: const BoxDecoration(
         shape: BoxShape.circle,
         image: DecorationImage(
