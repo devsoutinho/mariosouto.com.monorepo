@@ -61,7 +61,7 @@ class LoginHeader extends StatelessWidget {
                   color: AppBaseTheme.themeGrey003,
                   fontSize: 14,
                 ),
-                text: "Ou ",
+                text: "Ou antes,",
               ),
               TextSpan(
                 style: const TextStyle(
