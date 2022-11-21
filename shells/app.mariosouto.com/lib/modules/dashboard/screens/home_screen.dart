@@ -17,6 +17,7 @@ class DashboardHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppBaseTheme.themeBlueOrangeVivid001,
         title: const Text('Dashboard'),
       ),
       backgroundColor: AppBaseTheme.themeBackgroundColor,
