@@ -13,12 +13,20 @@ class LoginHomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppBaseTheme.themeBackgroundGrey001,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            LoginHeader(),
-            LoginOptions(),
-          ],
+        child: SingleChildScrollView(
+          child: Center(
+            child: Container(
+              padding:
+                  const EdgeInsets.symmetric(vertical: AppBaseTheme.scale_x8),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  LoginHeader(),
+                  LoginOptions(),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );
@@ -136,7 +144,6 @@ class LoginOptions extends StatelessWidget {
               ),
             ),
           ),
-
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
@@ -148,9 +155,7 @@ class LoginOptions extends StatelessWidget {
             onPressed: () => go("/dashboard", context),
             child: const Text("Continue com seu E-mail"),
           ),
-
           const SizedBox(height: 22),
-
           MouseRegion(
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
@@ -158,61 +163,6 @@ class LoginOptions extends StatelessWidget {
               child: const Text("← Voltar para o site"),
             ),
           ),
-
-          // Text(
-          //   "confira o que temos na plataforma",
-          //   style: TextStyle(
-          //     fontSize: 14,
-          //     color: AppBaseTheme.themeBlueOrangeVivid001,
-          //     fontWeight: FontWeight.w500,
-          //   ),
-          //   recognizer: TapGestureRecognizer()
-          //     ..onTap = () => launchUrl(Uri.parse("https://mariosouto.com/")),
-          // )
-
-          // Row(
-          //   children: [
-          //     Expanded(
-          //       child: Container(
-          //         margin: const EdgeInsets.only(right: 8),
-          //         child: const Divider(
-          //           color: AppBaseTheme.themeGrey001,
-          //           thickness: 1,
-          //         ),
-          //       ),
-          //     ),
-          //     const Text(
-          //       "Ou, também pode logar com",
-          //       style: TextStyle(
-          //         color: AppBaseTheme.themeGrey001,
-          //         fontSize: 14,
-          //       ),
-          //     ),
-          //     Expanded(
-          //       child: Container(
-          //         margin: const EdgeInsets.only(left: 8),
-          //         child: const Divider(
-          //           color: AppBaseTheme.themeGrey001,
-          //           thickness: 1,
-          //         ),
-          //       ),
-          //     ),
-          //   ],
-          // ),
-
-          // const SizedBox(height: 11),
-
-          // ElevatedButton(
-          //   style: ElevatedButton.styleFrom(
-          //     shape: RoundedRectangleBorder(
-          //       borderRadius: BorderRadius.circular(6),
-          //     ),
-          //     backgroundColor: AppBaseTheme.themeGrey004,
-          //     minimumSize: const Size.fromHeight(48),
-          //   ),
-          //   onPressed: () => go("/dashboard", context),
-          //   child: const Text("Continue com seu GitHub"),
-          // ),
         ],
       ),
     );
