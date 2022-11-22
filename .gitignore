@@ -39,3 +39,5 @@ dist-storybook
 credentials.json
 nohup.out
 flow.md
+
+.env

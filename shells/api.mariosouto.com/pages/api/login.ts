@@ -1,11 +1,8 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import { withRoute } from "@src/infra/withRoute/withRoute";
-import { userLoginController } from "@src/modules/login/controller";
+import { userLoginEmailOnlyStartController } from "@src/modules/login/controller";
 
 
 export default withRoute({
-  GET: userLoginController,
-  POST: function handler(_: NextApiRequest, res: NextApiResponse) {
-    res.status(200).json({ name: 'Post' });
-  },
+  GET: userLoginEmailOnlyStartController,
+  POST: userLoginEmailOnlyStartController,
 });

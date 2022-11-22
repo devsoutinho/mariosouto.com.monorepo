@@ -1,5 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
+export type Request = NextApiRequest;
+export type Response = NextApiResponse;
+
 interface HttpMethods {
   GET?: (req: NextApiRequest, res: NextApiResponse) => void;
   POST?: (req: NextApiRequest, res: NextApiResponse) => void;
