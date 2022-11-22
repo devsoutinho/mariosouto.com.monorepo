@@ -1,4 +1,5 @@
 import 'package:app_mariosouto_com/default_stuff.dart';
+import 'package:app_mariosouto_com/modules/login/screens/patterns/login_form.dart';
 import 'package:armor/armor.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -126,35 +127,7 @@ class LoginOptions extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Container(
-            margin: const EdgeInsets.only(bottom: AppBaseTheme.scale_x6),
-            child: const TextField(
-              decoration: InputDecoration(
-                floatingLabelStyle: TextStyle(
-                  color: AppBaseTheme.themeBlueOrangeVivid001,
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    width: 2,
-                    color: AppBaseTheme.themeBlueOrangeVivid001,
-                  ),
-                ),
-                border: OutlineInputBorder(),
-                labelText: 'Email',
-              ),
-            ),
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(6),
-              ),
-              backgroundColor: AppBaseTheme.themeBlueOrangeVivid001,
-              minimumSize: const Size.fromHeight(48),
-            ),
-            onPressed: () => go("/dashboard", context),
-            child: const Text("Continue com seu E-mail"),
-          ),
+          const LoginForm(),
           const SizedBox(height: 22),
           MouseRegion(
             cursor: SystemMouseCursors.click,
