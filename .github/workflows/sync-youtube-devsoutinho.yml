@@ -1,7 +1,6 @@
 name: "[Sync] YouTube Videos with dependencies" 
 
 on:
-  push:
   schedule:
     - cron: "0 * * * *"
 

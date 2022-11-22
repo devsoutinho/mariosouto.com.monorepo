@@ -11,6 +11,7 @@
     "generate:types": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
+    "@supabase/supabase-js": "2.1.0",
     "@notionhq/client": "^1.0.4",
     "apollo-server-micro": "^3.6.4",
     "fast-xml-parser": "^4.0.7",
