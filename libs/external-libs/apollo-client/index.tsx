@@ -12,7 +12,7 @@ function createApolloClient() {
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
     link: new HttpLink({
-      uri: 'https://mariosouto-com-api.vercel.app/api/graphql', // Server URL (must be absolute)
+      uri: 'https://api.mariosouto.com/api/graphql', // Server URL (must be absolute)
       credentials: 'same-origin', // Additional fetch() options like `credentials` or `headers`
     }),
     cache: new InMemoryCache({
