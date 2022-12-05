@@ -3,6 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "workspaces": {
+    "nohoist": [
+      "@tailwindcss/",
+      "@tailwindcss/**"
+    ],
     "packages": [
       "shells/*",
       "libs/*"
@@ -18,10 +22,11 @@
     "web": "yarn workspace mariosouto.com",
     "dev:web": "yarn web dev",
     "build:web": "yarn web build",
+    "labs": "yarn workspace labs.mariosouto.com",
+    "dev:labs": "yarn labs dev",
+    "build:labs": "yarn labs build",
     "app": "echo 'implement me!'",
     "dev:app": "echo 'implement me!'",
-    "labs": "echo 'implement me!'",
-    "dev:labs": "echo 'implement me!'",
     "api": "yarn workspace api.mariosouto.com",
     "dev:api": "yarn api dev",
     "deploy:app": "yarn app deploy:expo"
