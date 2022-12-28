@@ -3,5 +3,10 @@
     "source": "/newsletter",
     "destination": "https://www.getrevue.co/profile/omariosouto",
     "permanent": true
+  },
+  {
+    "source": "/discord",
+    "destination": "https://discord.gg/mwkXuGcX",
+    "permanent": true
   }
 ]
