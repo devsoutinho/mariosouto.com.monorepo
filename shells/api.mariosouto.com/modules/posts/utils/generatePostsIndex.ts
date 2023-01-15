@@ -5,6 +5,7 @@ export async function generatePostsIndex() {
   if (process.env.NODE_ENV === 'development') {
     const postsPath = path.resolve(__dirname, '..', '..', '..', '..', '_db', 'posts');
     const allFileNames = await fs.readdir(postsPath);
+    console.log("allFileNames", allFileNames.length);
     await fs.writeFile(path.resolve(postsPath, 'index.ts'), `export default ${JSON.stringify(allFileNames.filter((fileName) => fileName !== 'index.ts'))};`);
   }
 }

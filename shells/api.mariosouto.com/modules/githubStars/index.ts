@@ -21,29 +21,37 @@ const resolvers = {
   Query: {},
   Mutation: {
     async syncGitHubContributions(): Promise<any> {
-      const githubContributions = await getAllGitHubContributions();
-      const youtubeVideos = await postsRepository().getAllPostsByPostType(PostType.YoutubeVideo, {
-        "input": {
-          "limit": 100
+      try {
+        const githubContributions = await getAllGitHubContributions();
+        const youtubeVideos = await postsRepository().getAllPostsByPostType(PostType.YoutubeVideo, {
+          "input": {
+            "limit": 1000
+          }
+        });
+        const newYouTubeContributions = differenceBy(youtubeVideos, githubContributions, 'url').map((video) => {
+          return {
+            title: video.title,
+            url: video.url,
+            description: video.excerpt,
+            type: "VIDEO_PODCAST",
+            date: video.date
+          }
+        });
+        
+        console.log("[SYNC:githubContributions]", githubContributions.length);
+        console.log("[SYNC:youtubeVideos]", youtubeVideos.length);
+        console.log("[SYNC:newYouTubeContributions]", newYouTubeContributions.length);
+        if(newYouTubeContributions.length) {
+          await publishContributionsToGitHub(newYouTubeContributions);
         }
-      });
-      const newYouTubeContributions = differenceBy(youtubeVideos, githubContributions, 'url').map((video) => {
+  
         return {
-          title: video.title,
-          url: video.url,
-          description: video.excerpt,
-          type: "VIDEO_PODCAST",
-          date: video.date
-        }
-      });
-
-      if(newYouTubeContributions.length) {
-        await publishContributionsToGitHub(newYouTubeContributions);
+          newContributions: newYouTubeContributions,
+        };
+      } catch (err) {
+        console.error(err);
+        throw err;
       }
-
-      return {
-        newContributions: newYouTubeContributions,
-      };
     }
   },
 };

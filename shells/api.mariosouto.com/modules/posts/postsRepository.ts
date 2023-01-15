@@ -67,6 +67,8 @@ export function postsRepository() {
     async getAllPosts({ input }): Promise<any> {
       const { filter, offset, limit } = input || {};
 
+      console.log("limit", limit);
+
       const filterFormated = Object.entries(filter || {}).reduce((acc, [key, value]) => {
         if (typeof value === 'object') {
           const resolveValue = (value: string): any => {
@@ -87,6 +89,8 @@ export function postsRepository() {
 
       await generatePostsIndex();
 
+      console.log("allpostsSlugs", allpostsSlugs.length);
+
       const allPostsPromises = allpostsSlugs.map(async (slug): Promise<Post> => {
         const BRANCH = "main";
         const BASE_URL = `https://raw.githubusercontent.com/devsoutinho/mariosouto.com/${BRANCH}/shells/api.mariosouto.com/_db/posts/`;
@@ -104,24 +108,34 @@ export function postsRepository() {
         };
       });
       const promisesSettled = await Promise.allSettled(allPostsPromises);
+      console.log("promisesSettled", promisesSettled.length);
       const initialOutput = promisesSettled.map((promise) => {
+        if(promise.status !== 'fulfilled') {
+        }
         if (promise.status === 'fulfilled') return promise.value;
       })
       .filter(Boolean);
+
+      console.log("initialOutput", initialOutput.length);
+
+      console.log(filterFormated);
 
       const filteredOutput = initialOutput.filter(sift(filterFormated))
         .sort((a, b) => {
           return new Date(b.date).getTime() - new Date(a.date).getTime();
         });
 
+      console.log("filteredOutput", filteredOutput.length);
+
       return paginate(filteredOutput, limit, offset);
     },
     async getAllPostsByPostType(postType: PostType, { input }): Promise<any> {
       const inputQuery = {
         ...input,
+        "limit": 1000,
         filter: {
           "postType": {
-            "eq": postType
+            "eq": postType,
           },
           ...input?.filter,
         }
