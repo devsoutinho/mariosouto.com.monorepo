@@ -110,8 +110,8 @@ function FeedPosts({ posts }) {
     </Box>
   )
 
-  function FeedCard({ title, url, image }) {
-    const releaseDate = new Date()
+  function FeedCard({ title, url, image, date }) {
+    const releaseDate = new Date(date)
       .toLocaleDateString('pt-BR', { year: 'numeric', month: 'short', day: 'numeric' })
       .replace('.', '')
       .replace(/de /g, '');

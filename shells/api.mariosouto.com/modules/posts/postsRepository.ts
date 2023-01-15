@@ -65,7 +65,7 @@ export function postsRepository() {
       return results;
     },
     async getAllPosts({ input }): Promise<any> {
-      const { filter, offset, limit } = input;
+      const { filter, offset, limit } = input || {};
 
       const filterFormated = Object.entries(filter || {}).reduce((acc, [key, value]) => {
         if (typeof value === 'object') {
