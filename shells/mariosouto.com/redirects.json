@@ -1,7 +1,7 @@
 [
   {
     "source": "/newsletter",
-    "destination": "https://www.getrevue.co/profile/omariosouto",
+    "destination": "https://labs.mariosouto.com/newsletter",
     "permanent": true
   },
   {
