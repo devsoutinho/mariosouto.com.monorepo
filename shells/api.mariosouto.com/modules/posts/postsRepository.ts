@@ -14,7 +14,7 @@ import { postTemplate } from './utils/postTemplate';
 // get youtube video id
 const getYoutubeVideoId = (url: string) => {
   const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/;
-  const match = url.match(regex);
+  const match = url?.match(regex);
   return match ? match[1] : null;
 };
 
@@ -24,7 +24,7 @@ export function postsRepository() {
       const { title, url, date, excerpt } = input;
       const slug = slugify(title);
       const postType = PostType.YoutubeVideo;
-      const parsedDate = new Date(date?.replaceAll('/', '-') || new Date().toISOString()).toISOString();
+      const parsedDate = new Date(date?.replaceAll('/', '-') || new Date().toISOString())?.toISOString();
       const postsPath = path.resolve(__dirname, '..', '..', '..', '..', '_db', 'posts');
       const postContent = postTemplate({
         title,
@@ -93,11 +93,12 @@ export function postsRepository() {
 
       const allPostsPromises = allpostsSlugs.map(async (slug): Promise<Post> => {
         const BRANCH = "main";
-        const BASE_URL = `https://raw.githubusercontent.com/devsoutinho/mariosouto.com/${BRANCH}/shells/api.mariosouto.com/_db/posts/`;
+        const BASE_URL = `https://raw.githubusercontent.com/devsoutinho/mariosouto.com.monorepo/${BRANCH}/shells/api.mariosouto.com/_db/posts/`;
         const postContentRaw = await fetch(`${BASE_URL}${slug}`).then((res) => res.text());
         const { data, content } = matter(postContentRaw);
         const contentParsed = await remark().use(html).process(content);
         const post = { data, content: contentParsed.value, };
+        console.log("title", post.data.title);
         return {
           ...post.data,
           title: post.data.title,
@@ -112,6 +113,7 @@ export function postsRepository() {
       const initialOutput = promisesSettled.map((promise) => {
         if(promise.status !== 'fulfilled') {
         }
+        console.log("promise", promise);
         if (promise.status === 'fulfilled') return promise.value;
       })
       .filter(Boolean);
